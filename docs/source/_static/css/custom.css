@@ -1,0 +1,86 @@
+/* Hide class section headers, so they're in the TOC but not rendered */
+.classsection h3,
+.functionsection h3,
+.exceptionssection h3 {
+    display: none;
+}
+
+/* fix table width */
+.md-typeset__table {
+    width: 100%;
+}
+
+/* fix font size for code */
+.md-typeset code, .md-typeset pre {
+    font-size: 100%;
+}
+
+/* Code-style format for signatures */
+.sig {
+    font-family: "Roboto Mono", "Courier New", Courier, monospace;
+}
+
+/* Newlines (\a) and spaces (\20) before each parameter */
+.sig-param::before {
+    content: "\a\20\20\20\20";
+    white-space: pre;
+}
+
+/* Newline after the last parameter (so the closing bracket is on a new line) */
+dt em.sig-param:last-of-type::after {
+    content: "\a";
+    white-space: pre;
+}
+
+dl.py.class {
+    margin-bottom: 3.55rem;
+}
+
+/* reduce the over-generous spacing in signatures */
+.py.sig {
+    line-height: 1.4;
+}
+
+.py.property > .sig,
+.py.method > .sig,
+.py.attribute > .sig {
+    background-color: #f8f8f8;
+    /*border-left: 2px solid #546e7a;*/
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+}
+
+.py.property > .sig,
+.py.method > .sig:target,
+.py.attribute > .sig:target,
+.py.class > .sig:target,
+.py.function > .sig:target,
+.py.exception > .sig:target {
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #fbe54e;
+}
+
+.py.function > .sig,
+.py.class > .sig,
+.py.exception > .sig {
+    background-color: #f8f8f8;
+    border-left: 2px solid #546e7a;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.sig-name {
+    font-weight: bold;
+}
+
+.py.function > .sig-name,
+.py.class > dt > .sig-name ,
+.py.exception > dt > .sig-name {
+    font-size: 115%;
+}
+
+table.docutils tr {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
