@@ -120,6 +120,7 @@ class CombinedVisitor(Visitor[Q], typing.Generic[P, Q]):
 
     Examples:
         Collect the name and indentation of every sub-node in a tree:
+
         >>> name_visitor = FunctionVisitor(lambda node: node.__class__.__name__)
         >>> line_visitor = FunctionVisitor(lambda node: node.lineno)
         >>> name_line_visitor = CombinedVisitor(name_visitor, line_visitor)
