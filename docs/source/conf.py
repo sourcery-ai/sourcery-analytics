@@ -33,6 +33,7 @@ extensions = [
     "sphinx.ext.napoleon",  # Handle google-style docstrings
     "sphinx.ext.autodoc",  # Read docstrings and modules
     "sphinx.ext.intersphinx",  # Cross-references to other documentation
+    "sphinx.ext.doctest",  # inline doctest snippets
 ]
 
 # Add any paths that contain templates here, relative to this directory.

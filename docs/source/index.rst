@@ -9,13 +9,6 @@ Welcome to ``sourcery-analytics``'s documentation!
 ``sourcery-analytics`` is a library and command-line interface (CLI) for analyzing the code quality of Python
 packages, modules, or source code.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   user_guide
-   api/sourcery_analytics
-
 
 Installation and Quickstart
 ===========================
@@ -44,7 +37,17 @@ Build this documentation
 .. code-block::
 
    sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
-   sphinx build -b html docs/source docs/build
+   sphinx-build -b html docs/source docs/build
+
+
+Contents
+========
+
+.. toctree::
+   :maxdepth: 3
+
+   user_guide
+   api/sourcery_analytics
 
 
 Indices and tables
