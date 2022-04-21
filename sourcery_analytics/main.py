@@ -86,13 +86,13 @@ def analyze(
             table = rich.table.Table()
             for metric in method_metric:
                 table.add_column(metric.value, justify="right")
-            for metrics in result:
+            for metric in result:
                 table.add_row(
                     *(
                         f"{value:.2f}"
                         if isinstance(value, (float, int))
                         else str(value)
-                        for value in metrics
+                        for _sub_metric_name, value in metric
                     )
                 )
             console.print(table)
