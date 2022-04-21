@@ -83,7 +83,7 @@ def analyze(
         ):
             table.add_row(
                 *(
-                    f"{value:.2f}" if isinstance(value, (float, int)) else str(value)
+                    f"{value}" if isinstance(value, (float, int)) else str(value)
                     for _sub_metric_name, value in metric
                 )
             )
