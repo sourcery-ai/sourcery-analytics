@@ -28,6 +28,10 @@ class MethodMetricChoice(enum.Enum):
     qualname = "qualname"
     itself = "itself"
 
+    @property
+    def method_method_name(self):
+        return f"method_{self.value}"
+
     def as_callable(self) -> MethodMetric:
         return {
             MethodMetricChoice.cognitive_complexity: method_cognitive_complexity,

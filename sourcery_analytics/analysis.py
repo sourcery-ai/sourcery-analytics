@@ -65,7 +65,7 @@ class Analyzer(typing.Generic[N, T, U]):
         aggregation: MetricAggregation[N, T, U] = collect,  # type: ignore
     ) -> "Analyzer[N, T, U]":
         """Construct an analyzer from the metrics."""
-        metric = collector(*metrics) if len(metrics) > 1 else metrics[0]
+        metric = collector(*metrics)
         return cls(metric, aggregation)  # type: ignore
 
     @classmethod

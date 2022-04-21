@@ -50,35 +50,15 @@ Or, to use some subset of the available metrics, repeat the option:
 
    sourcery-analytics analyze path/to/file.py --method-metric cyclomatic_complexity --method-metric cognitive_complexity
 
-Collector
----------
+Sorting
+-------
 
-By default, metrics for each method are collected in a dictionary. You can change this behaviour
-by specifying the ``--collector`` option:
-
-.. code-block::
-
-   sourcery-analytics analyze path/to/file.py --collector tuple --no-use-rich
-
-This might be useful if you need to write the output to a file, for instance.
-
-Aggregation
------------
-
-By default, metrics are calculated for every method individually. You can instead aggregate the metrics
-by specifying the ``--aggregation`` option:
+By default, the result is sorted by the first metric specified (``qualname``).
+You can sort using any of the specified metrics using the ``--sort`` option:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py --aggregation average
-
-The peak value will show the maximum value of the metric for every method.
-Note that for string "metrics", such as the qualified name of the method, this will just be the highest value
-in alphabetical order.
-
-.. code-block::
-
-   sourcery-analytics analyze path/to/file.py --aggregation peak
+   sourcery-analytics analyze path/to/file.py --sort cognitive_complexity
 
 
 Using the library
