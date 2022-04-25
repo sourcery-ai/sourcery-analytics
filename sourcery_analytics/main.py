@@ -41,6 +41,7 @@ def analyze(
     sort: typing.Optional[MethodMetricChoice] = typer.Option(None),
     output: OutputChoice = typer.Option("rich"),
 ):
+    """Produce a table of method metrics for all methods found in ``path``."""
     if sort is None:
         sort = method_metric[0]
     elif sort not in method_metric:
