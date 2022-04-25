@@ -5,11 +5,10 @@ longer methods can be broken up into smaller ones to simplify the code.
 
 Note that for obvious reasons, the method length is only defined for methods.
 """
-import typing
-
-import astroid
+import astroid.nodes
 
 from sourcery_analytics.validators import validate_node_type
+from sourcery_analytics.visitors import TreeVisitor, FunctionVisitor
 
 
 @validate_node_type(astroid.nodes.FunctionDef)
@@ -24,4 +23,24 @@ def method_length(method: astroid.nodes.FunctionDef) -> int:
         >>> method_length(method)
         2
     """
-    return len(method.body)
+    visitor = TreeVisitor(FunctionVisitor(statement_count), collector=sum)
+    return visitor.visit(method)
+
+
+def statement_count(node: astroid.nodes.NodeNG):
+    """Count 1 for a statement and 0 otherwise.
+
+    Function and class definitions are skipped.
+    """
+    if isinstance(
+        node,
+        (
+            astroid.nodes.FunctionDef,
+            astroid.nodes.ClassDef,
+            astroid.nodes.AsyncFunctionDef,
+        ),
+    ):
+        return 0
+    if not isinstance(node, astroid.nodes.Statement):
+        return 0
+    return 1

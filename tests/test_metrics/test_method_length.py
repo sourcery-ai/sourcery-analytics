@@ -26,7 +26,7 @@ def test_neg_import(nodes):
 
 def test_ok_method_1(nodes):
     result = method_length(nodes[1])
-    assert result == 2
+    assert result == 3
 
 
 def test_ok_method_2(nodes):
