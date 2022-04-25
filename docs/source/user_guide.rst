@@ -149,7 +149,7 @@ As well as numerical metrics, several utility metrics (such as to get the method
    >>> method_name(method)
    'slow_sum'
    >>> method_length(method)
-   3
+   4
    >>> method_cognitive_complexity(method)
    1
 
@@ -161,7 +161,7 @@ into a single metric.
    >>> from sourcery_analytics.metrics.collectors import name_metrics
    >>> named_metrics = name_metrics(method_name, method_length, method_cognitive_complexity)
    >>> named_metrics(method)
-   {'method_name': 'slow_sum', 'method_length': 3, 'method_cognitive_complexity': 1}
+   {'method_name': 'slow_sum', 'method_length': 4, 'method_cognitive_complexity': 1}
 
 
 Aggregations
@@ -195,7 +195,7 @@ You can also aggregate using the average, total, or peak ("maximum") values, and
    >>> from sourcery_analytics.aggregations import average
    >>> averaged = average(named_metrics)
    >>> sorted(averaged(methods))  # sorted allows doctests to pass
-   [('method_cognitive_complexity', 0.5), ('method_length', 1.0), ('method_name', None)]
+   [('method_cognitive_complexity', 0.5), ('method_length', 1.5), ('method_name', None)]
 
 Analyzers
 ---------
@@ -209,7 +209,7 @@ for large-scale analysis of methods.
    >>> analyzer = Analyzer.from_metrics(method_name, method_length, method_cognitive_complexity)
    >>> records = analyzer.analyze(methods)
    >>> records
-   [{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 1, 'method_cognitive_complexity': 1}]
+   [{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]
 
 For further analysis, results like this can be readily incorporated into, for example, a pandas dataframe:
 
