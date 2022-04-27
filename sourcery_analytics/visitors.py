@@ -15,13 +15,16 @@ Q = typing.TypeVar("Q")
 class Visitor(abc.ABC, typing.Generic[P]):
     """Abstract visitor class.
 
-    Visitors implement two methods: ``visit`` and ``_enter``.
-    ``visit`` should return a "fact" about a node, for instance its name or its depth.
+    Visitors implement two methods: ``_touch`` and ``_enter``.
+    ``_touch`` should return a "fact" about a node, for instance its name or its depth.
     It should *not* directly recurse into the node's children, except where this
     represents part of the "fact" being calculated (see :py:class:`.TreeVisitor`).
     "Facts" which require context, such as depth, can be derived from custom (mutable)
     attributes manipulated in the ``_enter`` method, which, as a context manager,
     should yield after pre-node calculations and before post-node calculations.
+
+    With both these methods implemented, the visitor provides the public ``.visit``
+    method to at once enter and calculate over a node.
 
     Examples:
         >>> class DepthVisitor(Visitor[int]):
@@ -45,7 +48,7 @@ class Visitor(abc.ABC, typing.Generic[P]):
         """Updates visitor context then yields."""
         yield
 
-    def visit(self, node: N):
+    def visit(self, node: N) -> P:
         """Enters the node and returns a fact about it."""
         with self._enter(node):
             return self._touch(node)

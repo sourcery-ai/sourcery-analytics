@@ -40,7 +40,7 @@ def is_elif(node: astroid.nodes.NodeNG) -> bool:
     if its parent is an if, it is the first statement of the parent's else condition,
     and the column offset is the same.
 
-    Notes:
+    Note:
          Because of the final condition, this will not work if the node is
          constructed manually.
 

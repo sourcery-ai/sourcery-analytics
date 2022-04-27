@@ -1,7 +1,4 @@
-"""Functions to convert metric functions into functions able to operate over multiple nodes.
-
-Defining these aggregations as functions o
-"""
+"""Functions to combine the results from multiple nodes into a single result."""
 import functools
 import itertools
 import operator
