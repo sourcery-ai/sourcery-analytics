@@ -195,7 +195,7 @@ class TestCognitiveComplexityVisitor:
         ],
     )
     def test_visit_if(self, nesting, nodes, visitor):
-        assert visitor.visit(nodes[0]) == nesting
+        assert visitor.visit(nodes[0]) == nesting + 1
         assert visitor.visit(nodes[1]) == nesting + 1
 
     @pytest.mark.parametrize(
@@ -213,7 +213,7 @@ class TestCognitiveComplexityVisitor:
         ],
     )
     def test_visit_loops(self, nesting, node, visitor):
-        assert visitor.visit(node) == nesting
+        assert visitor.visit(node) == nesting + 1
 
     @pytest.mark.parametrize(
         "source",

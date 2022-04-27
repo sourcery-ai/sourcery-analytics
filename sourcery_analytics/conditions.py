@@ -1,7 +1,7 @@
 """True or False statements about nodes."""
 import typing
 
-import astroid
+import astroid.nodes
 
 Condition = typing.Callable[[astroid.nodes.NodeNG], bool]
 
@@ -54,3 +54,8 @@ def is_elif(node: astroid.nodes.NodeNG) -> bool:
         and node.parent.orelse[0] is node
         and node.col_offset == node.parent.col_offset
     )
+
+
+is_method = is_type(astroid.nodes.FunctionDef)
+is_const = is_type(astroid.nodes.Const)
+is_name = is_type(astroid.nodes.Name)

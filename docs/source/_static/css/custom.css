@@ -1,3 +1,9 @@
+/* Fix spacing above and below main titles */
+.md-typeset h1 {
+    margin: 2rem 0 0.5rem 0;
+}
+
+
 /* Hide class section headers, so they're in the TOC but not rendered */
 .classsection h3,
 .functionsection h3,

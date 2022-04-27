@@ -7,10 +7,12 @@ Note that for obvious reasons, the method length is only defined for methods.
 """
 import astroid.nodes
 
+from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
 from sourcery_analytics.visitors import TreeVisitor, FunctionVisitor
 
 
+@nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_length(method: astroid.nodes.FunctionDef) -> int:
     """Calculates the method length as the number of statements in the method.
@@ -19,15 +21,14 @@ def method_length(method: astroid.nodes.FunctionDef) -> int:
         method: a node for a function definition
 
     Examples:
-        >>> method = astroid.extract_node("def add(x, y): z = x + y; return z")
-        >>> method_length(method)
+        >>> method_length("def add(x, y): z = x + y; return z")
         2
     """
-    visitor = TreeVisitor(FunctionVisitor(statement_count), collector=sum)
+    visitor = TreeVisitor[int, int](FunctionVisitor(statement_count), collector=sum)
     return visitor.visit(method)
 
 
-def statement_count(node: astroid.nodes.NodeNG):
+def statement_count(node: astroid.nodes.NodeNG) -> int:
     """Count 1 for a statement and 0 otherwise.
 
     Function and class definitions are skipped.

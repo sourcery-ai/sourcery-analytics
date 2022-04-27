@@ -37,12 +37,18 @@ class Visitor(abc.ABC, typing.Generic[P]):
     """
 
     @abc.abstractmethod
-    def visit(self, node: astroid.nodes.NodeNG) -> P:
+    def _touch(self, node: N) -> P:
         """Returns a "fact" about a node."""
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
+    def _enter(self, node: N):
+        """Updates visitor context then yields."""
         yield
+
+    def visit(self, node: N):
+        """Enters the node and returns a fact about it."""
+        with self._enter(node):
+            return self._touch(node)
 
 
 class IdentityVisitor(Visitor[astroid.nodes.NodeNG]):
@@ -51,8 +57,7 @@ class IdentityVisitor(Visitor[astroid.nodes.NodeNG]):
     Useful as a default sub-visitor for other visitors.
     """
 
-    def visit(self, node: N) -> N:
-        """Returns the node itself."""
+    def _touch(self, node: N, enter=True) -> N:
         return node
 
 
@@ -67,8 +72,7 @@ class FunctionVisitor(Visitor[P], typing.Generic[P]):
     def __init__(self, function: typing.Callable[[astroid.nodes.NodeNG], P]):
         self.function = function
 
-    def visit(self, node: astroid.nodes.NodeNG) -> P:
-        """Returns the result of the function calculated on the node."""
+    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> P:
         return self.function(node)
 
 
@@ -108,12 +112,11 @@ class ConditionalVisitor(Visitor[typing.Optional[P]], typing.Generic[P]):
         with self.sub_visitor._enter(node):
             yield
 
-    def visit(self, node: astroid.nodes.NodeNG) -> typing.Optional[P]:
-        """Return the result of the sub-visitor if ``condition`` passes, otherwise None."""
-        return self.sub_visitor.visit(node) if self.condition(node) else None
+    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> typing.Optional[P]:
+        return self.sub_visitor._touch(node) if self.condition(node) else None
 
 
-class CombinedVisitor(Visitor[Q], typing.Generic[P, Q]):
+class CompoundVisitor(Visitor[Q], typing.Generic[P, Q]):
     """Combines a collection of other visitors into a single visitor, handling context and collection of the results.
 
     This is most useful when you need a single sub-visitor for some other visitor.
@@ -123,7 +126,7 @@ class CombinedVisitor(Visitor[Q], typing.Generic[P, Q]):
 
         >>> name_visitor = FunctionVisitor(lambda node: node.__class__.__name__)
         >>> line_visitor = FunctionVisitor(lambda node: node.lineno)
-        >>> name_line_visitor = CombinedVisitor(name_visitor, line_visitor)
+        >>> name_line_visitor = CompoundVisitor(name_visitor, line_visitor)
         >>> every_node_visitor = TreeVisitor(name_line_visitor, collector=list)
         >>> source = '''
         ...     def one():
@@ -150,12 +153,11 @@ class CombinedVisitor(Visitor[Q], typing.Generic[P, Q]):
                 stack.enter_context(visitor._enter(node))
             yield
 
-    def visit(self, node: astroid.nodes.NodeNG) -> Q:
-        """Collects the results of the sub-visitors into a single result."""
-        return self.collector(visitor.visit(node) for visitor in self.visitors)
+    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> Q:
+        return self.collector((visitor._touch(node) for visitor in self.visitors))
 
 
-class TreeVisitor(Visitor[Q], typing.Generic[P, Q]):
+class TreeVisitor(Visitor, typing.Generic[P, Q]):
     """Visitor with a sub-visitor which collects the result of that sub-visitor applied to every sub-node of a node.
 
     By default, returns an iterable of every sub-node of a node.
@@ -185,11 +187,10 @@ class TreeVisitor(Visitor[Q], typing.Generic[P, Q]):
             yield
 
     def _visit(self, node: astroid.nodes.NodeNG):
-        yield self.sub_visitor.visit(node)
+        yield self.sub_visitor._touch(node)
         for child in node.get_children():
             with self._enter(child):
                 yield from self._visit(child)
 
-    def visit(self, node: astroid.nodes.NodeNG) -> Q:
-        """Collects the result of applying the sub-visitor to every sub-node in a single result."""
+    def _touch(self, node: astroid.nodes.NodeNG) -> Q:
         return self.collector(self._visit(node))

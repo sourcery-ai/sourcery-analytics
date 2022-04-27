@@ -1,3 +1,4 @@
+"""A decorator to check a node's type before performing a (potentially incorrect) calculation."""
 import functools
 import typing
 
@@ -7,7 +8,7 @@ T = typing.TypeVar("T")
 
 
 class InvalidNodeTypeError(ValueError):
-    ...
+    """Raised when a node's type is validated and found to be incorrect."""
 
 
 def validate_node_type(*types: typing.Type[astroid.nodes.NodeNG]):

@@ -1,6 +1,8 @@
-import pytest
+import functools
+import itertools
+import operator
 
-from sourcery_analytics.aggregations import _mean
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -11,4 +13,8 @@ from sourcery_analytics.aggregations import _mean
     ],
 )
 def test_mean(xs, expected):
-    assert _mean(xs) == expected
+    total_iter, count_iter = itertools.tee(xs)
+    # sum doesn't use __add__, so use operator here instead
+    total_ = functools.reduce(operator.add, total_iter)
+    count = len(list(count_iter))
+    assert total_ / count == expected

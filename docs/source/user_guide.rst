@@ -16,13 +16,42 @@ Analyze methods in a single Python file:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py
+   $ sourcery-analytics analyze sourcery_analytics/analysis.py
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+   ┃                                    qualname ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+   │      sourcery_analytics.analysis.break_down │      8 │                     5 │                    3 │             17 │
+   │ sourcery_analytics.analysis.analyze_methods │      4 │                     1 │                    1 │             12 │
+   │         sourcery_analytics.analysis.analyze │      4 │                     1 │                    0 │              7 │
+   └─────────────────────────────────────────────┴────────┴───────────────────────┴──────────────────────┴────────────────┘
+
 
 Analyze all methods in all Python files in a directory:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/directory/
+   $ sourcery-analytics analyze sourcery_analytics/metrics
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+   ┃                                                                            qualname ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+   │                     sourcery_analytics.metrics.working_memory.method_working_memory │      2 │                     0 │                    0 │              6 │
+   │                                 sourcery_analytics.metrics.working_memory.get_names │      1 │                     0 │                    0 │              4 │
+   │                                  sourcery_analytics.metrics.working_memory.get_name │      7 │                     3 │                    3 │              7 │
+   │               sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor._touch │     11 │                     4 │                    4 │             13 │
+   │               sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor._enter │      9 │                     3 │                    3 │             16 │
+   │             sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.__name__ │      1 │                     0 │                    0 │              1 │
+   │             sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.__init__ │      4 │                     1 │                    1 │              6 │
+   │                                     sourcery_analytics.metrics.utils.node_type_name │      1 │                     0 │                    0 │              3 │
+   │                                    sourcery_analytics.metrics.utils.method_qualname │      1 │                     0 │                    0 │              2 │
+
+   [Result truncated]
+
 
 Rich Display
 ------------
@@ -32,7 +61,12 @@ To suppress this behaviour, use the ``--output`` option to select plain Python o
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py --output plain
+   $ sourcery-analytics analyze sourcery_analytics/utils.py --output plain
+
+.. code-block::
+
+   [{'method_qualname': 'sourcery_analytics.utils.nodedispatch.wrapped', 'method_length': 9, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 9}, {'method_qualname': 'sourcery_analytics.utils.nodedispatch', 'method_length': 11, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 10}, {'method_qualname': 'sourcery_analytics.utils.clean_source', 'method_length': 1, 'method_cyclomatic_complexity': 0, 'method_cognitive_complexity': 0, 'method_working_memory': 4}]
+
 
 Metrics
 -------
@@ -42,23 +76,63 @@ To limit to a single metric, use the ``--method-metric`` option:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py --method-metric cyclomatic_complexity
+   $ sourcery-analytics analyze sourcery_analytics/conditions.py --method-metric cyclomatic_complexity
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ Method                                         ┃ cyclomatic_complexity ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+   │ sourcery_analytics.conditions.is_elif          │                     4 │
+   │ sourcery_analytics.conditions.always           │                     0 │
+   │ sourcery_analytics.conditions.is_type          │                     0 │
+   │ sourcery_analytics.conditions.is_type._is_type │                     0 │
+   └────────────────────────────────────────────────┴───────────────────────┘
 
 Or, to use some subset of the available metrics, repeat the option:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py --method-metric cyclomatic_complexity --method-metric cognitive_complexity
+   $ sourcery-analytics analyze sourcery_analytics/conditions.py --method-metric cyclomatic_complexity --method-metric cognitive_complexity
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ Method                                         ┃ cyclomatic_complexity ┃ cognitive_complexity ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━┩
+   │ sourcery_analytics.conditions.is_elif          │                     4 │                    0 │
+   │ sourcery_analytics.conditions.always           │                     0 │                    0 │
+   │ sourcery_analytics.conditions.is_type          │                     0 │                    0 │
+   │ sourcery_analytics.conditions.is_type._is_type │                     0 │                    0 │
+   └────────────────────────────────────────────────┴───────────────────────┴──────────────────────┘
+
 
 Sorting
 -------
 
-By default, the result is sorted by the first metric specified (``qualname``).
+By default, the result is sorted by the first metric specified.
 You can sort using any of the specified metrics using the ``--sort`` option:
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py --sort cognitive_complexity
+   $ sourcery-analytics analyze path/to/file.py --sort cognitive_complexity
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+   ┃ Method                                                                              ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+   │ sourcery_analytics.metrics.cyclomatic_complexity.cyclomatic_complexity              │     13 │                     7 │                    6 │             34 │
+   │ sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor._touch               │     11 │                     4 │                    4 │             13 │
+   │ sourcery_analytics.metrics.cognitive_complexity.CognitiveComplexityVisitor._enter   │      7 │                     3 │                    3 │             13 │
+   │ sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor._enter               │      9 │                     3 │                    3 │             16 │
+   │ sourcery_analytics.metrics.working_memory.get_name                                  │      7 │                     3 │                    3 │              7 │
+   │ sourcery_analytics.metrics.compounders._CompoundMetric.addone                       │      6 │                     3 │                    2 │              7 │
+
+   [Result truncated]
+
+
+.. note:: If you're specifying both ``--method-metrics`` and ``--sort``, you should ensure the sort value is one of the specified metrics.
 
 
 Using the library
@@ -87,35 +161,34 @@ a condition for this:
    >>> is_method(node)
    True
 
+A couple of common type-checks, including ``is_method`` and ``is_name`` are included in the :py:mod:`.conditions` module.
+
 .. hint::
 
    Why is this different to `isinstance`? ``is_type`` is a *higher-order* function, meaning it returns
    a function, in this case a condition, which means we can pass the result to other functions which
    expect conditions, and saves us writing lots of ``lambda node: ...`` expressions.
 
-Extractors
+Extracting
 ----------
 
 :py:class:`.Extractor`\ s take a condition and extract nodes satisfying the condition. They can be used in order to,
-for instance, extract constants from an expression or methods from a module.
+for instance, extract constants from an expression or methods from a module. Extractors can be used directly or through
+their high-level interface :py:meth:`.extract`.
 
 .. doctest::
 
-   >>> from sourcery_analytics.extractors import Extractor
-   >>> method_extractor = Extractor.from_condition(is_method)
-   >>> source = astroid.parse(
-   ...     '''
-   ...         def one():
-   ...             return 1
-   ...         def two():
-   ...             return 2
-   ...     '''
-   ... )
-   >>> methods = method_extractor.extract(source)
+   >>> from sourcery_analytics.extractors import extract
+   >>> source = '''
+   ...     def one():
+   ...         return 1
+   ...     def two():
+   ...         return 2
+   ... '''
+   >>> methods = extract(source, condition=is_method)
    >>> [method.name for method in methods]
    ['one', 'two']
-   >>> const_extractor = Extractor.from_condition(is_type(astroid.nodes.Const))
-   >>> consts = const_extractor.extract(source)
+   >>> consts = extract(source, condition=is_type(astroid.nodes.Const))
    >>> [const.value for const in consts]
    [1, 2]
 
@@ -137,15 +210,13 @@ As well as numerical metrics, several utility metrics (such as to get the method
 .. doctest::
 
    >>> from sourcery_analytics.metrics import method_name, method_length, method_cognitive_complexity
-   >>> method = astroid.extract_node(
-   ...     '''
-   ...         def slow_sum(xs):
-   ...             result = 0
-   ...             for x in xs:
-   ...                 result = result + x
-   ...             return result
-   ...     '''
-   ... )
+   >>> method = '''
+   ...     def slow_sum(xs):
+   ...         result = 0
+   ...         for x in xs:
+   ...             result = result + x
+   ...         return result
+   ... '''
    >>> method_name(method)
    'slow_sum'
    >>> method_length(method)
@@ -153,12 +224,12 @@ As well as numerical metrics, several utility metrics (such as to get the method
    >>> method_cognitive_complexity(method)
    1
 
-Metrics can be combined using Collector functions. Collectors take several metrics and combine them
+Metrics can be compounded using Compounder functions. Compounders take several metrics and combine them
 into a single metric.
 
 .. doctest::
 
-   >>> from sourcery_analytics.metrics.collectors import name_metrics
+   >>> from sourcery_analytics.metrics.compounders import name_metrics
    >>> named_metrics = name_metrics(method_name, method_length, method_cognitive_complexity)
    >>> named_metrics(method)
    {'method_name': 'slow_sum', 'method_length': 4, 'method_cognitive_complexity': 1}
@@ -172,42 +243,43 @@ is just to collect the results in a list:
 
 .. doctest::
 
-   >>> from sourcery_analytics.aggregations import collect
-   >>> method_extractor = Extractor.from_condition(is_method)
-   >>> source = astroid.parse(
-   ...     '''
-   ...         def one():
-   ...             return 1
-   ...         def two(n):
-   ...             if n == 2:
-   ...                 return n
-   ...     '''
-   ... )
-   >>> methods = list(method_extractor.extract(source))
-   >>> collected = collect(method_cognitive_complexity)
-   >>> collected(methods)
-   [0, 1]
+   >>> source = '''
+   ...     def one():
+   ...         return 1
+   ...     def two(n):
+   ...         if n == 2:
+   ...             return n
+   ... '''
+   >>> methods = list(extract(source, condition=is_method))
+   >>> results = (method_length(method) for method in methods)
+   >>> list(results)
+   [1, 2]
 
 You can also aggregate using the average, total, or peak ("maximum") values, and combined metrics are supported.
 
 .. doctest::
 
-   >>> from sourcery_analytics.aggregations import average
-   >>> averaged = average(named_metrics)
-   >>> sorted(averaged(methods))  # sorted allows doctests to pass
+   >>> from sourcery_analytics.metrics.aggregations import average
+   >>> results = (named_metrics(method) for method in methods)
+   >>> sorted(average(results))  # sorted allows doctests to pass
    [('method_cognitive_complexity', 0.5), ('method_length', 1.5), ('method_name', None)]
 
-Analyzers
----------
+Analysis
+--------
 
-Analyzers are a combination of a metric with an aggregation. They are convenient to construct and use
-for large-scale analysis of methods.
+In :py:mod:`.analysis` there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
 
 .. doctest::
 
-   >>> from sourcery_analytics.analysis import Analyzer
-   >>> analyzer = Analyzer.from_metrics(method_name, method_length, method_cognitive_complexity)
-   >>> records = analyzer.analyze(methods)
+   >>> from sourcery_analytics.analysis import analyze_methods
+   >>> source = '''
+   ...     def one():
+   ...         return 1
+   ...     def two(n):
+   ...         if n == 2:
+   ...             return n
+   ... '''
+   >>> records = analyze_methods(source, metrics=(method_name, method_length, method_cognitive_complexity))
    >>> records
    [{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]
 

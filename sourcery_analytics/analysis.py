@@ -1,31 +1,97 @@
-"""Compute and aggregate metrics over methods, source code, files, and directories."""
-import dataclasses
+"""Compute and aggregate metrics over nodes, source code, files, and directories."""
 import typing
 
-import astroid
+import astroid.nodes
+import more_itertools
 
-from sourcery_analytics.aggregations import MetricAggregation, collect
-from sourcery_analytics.cli import (
-    MethodMetricChoice,
-    AggregationChoice,
-    CollectorChoice,
-)
+from sourcery_analytics.metrics.aggregations import Aggregation
+from sourcery_analytics.conditions import is_method
+from sourcery_analytics.extractors import Extractable, extract
 from sourcery_analytics.metrics import (
-    MethodMetric,
+    standard_method_metrics,
+    standard_metrics,
+)
+from sourcery_analytics.metrics.types import (
+    MetricVisitor,
     Metric,
+    MethodMetric,
     MetricResult,
 )
-from sourcery_analytics.metrics.collectors import name_metrics, Collector
+from sourcery_analytics.metrics.compounders import name_metrics, Compounder
+from sourcery_analytics.utils import nodedispatch
+from sourcery_analytics.visitors import (
+    Visitor,
+    FunctionVisitor,
+    CompoundVisitor,
+    TreeVisitor,
+)
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
 T = typing.TypeVar("T", bound=MetricResult)
 R = typing.TypeVar("R", bound=MetricResult)
-U = typing.TypeVar("U")
 
 
-@dataclasses.dataclass
-class Analyzer(typing.Generic[N, T, U]):
-    """Computer for method metrics.
+def analyze_methods(
+    item: Extractable,
+    /,
+    metrics: typing.Union[
+        None, MethodMetric[T], typing.Iterable[MethodMetric[T]]
+    ] = None,
+    compounder: Compounder[astroid.nodes.FunctionDef, T, R] = name_metrics,  # type: ignore
+    aggregation: Aggregation[R] = list,  # type: ignore
+) -> R:
+    """Extracts methods from ``item`` then computes and aggregates metrics.
+
+    Args:
+        item: source code, node, file path, or directory path to analyze
+        metrics: list of node metrics to compute
+        compounder: method to combine individual metrics into compound metric
+        aggregation: method to combine the results
+
+    Examples:
+        >>> from sourcery_analytics.metrics import (
+        ...     method_name,
+        ...     method_cognitive_complexity,
+        ... )
+        >>> source = '''
+        ...     def foo():
+        ...         return False
+        ...     def bar():
+        ...         if foo():
+        ...             return False
+        ...         return True
+        ... '''
+        >>> analyze_methods(
+        ...     source,
+        ...     metrics=(method_name, method_cognitive_complexity)
+        ... )
+        [{'method_name': 'foo', 'method_cognitive_complexity': 0}, {'method_name': 'bar', 'method_cognitive_complexity': 1}]
+        >>> from sourcery_analytics.metrics.aggregations import average
+        >>> sorted(analyze_methods(
+        ...     source,
+        ...     metrics=(method_name, method_cognitive_complexity),
+        ...     aggregation=average
+        ... ))
+        [('method_cognitive_complexity', 0.5), ('method_name', None)]
+    """
+    methods: typing.Iterator[astroid.nodes.FunctionDef] = extract(
+        item, condition=is_method
+    )
+    if not metrics:
+        metrics = standard_method_metrics()
+    return analyze(
+        methods, metrics=metrics, compounder=compounder, aggregation=aggregation
+    )
+
+
+def analyze(
+    nodes: typing.Iterable[N],
+    /,
+    metrics: typing.Union[None, Metric[N, T], typing.Iterable[Metric[N, T]]] = None,
+    compounder: Compounder[N, T, R] = name_metrics,  # type: ignore
+    aggregation: Aggregation[R] = list,  # type: ignore
+) -> R:
+    """Computes and aggregates metrics over ``nodes``.
 
     Examples:
         >>> from sourcery_analytics.metrics import (
@@ -41,47 +107,34 @@ class Analyzer(typing.Generic[N, T, U]):
         ...         return None if y == 0 else x / y
         ... '''
         >>> methods = astroid.extract_node(source)
-        >>> analyzer = Analyzer.from_metrics(
-        ...     method_name,
-        ...     method_cognitive_complexity,
-        ...     method_cyclomatic_complexity,
-        ... )
-        >>> analyzer.analyze(methods)
+        >>> analyze(methods, metrics=(method_name, method_cognitive_complexity, method_cyclomatic_complexity))
         [{'method_name': 'add', 'method_cognitive_complexity': 0, 'method_cyclomatic_complexity': 0}, {'method_name': 'div', 'method_cognitive_complexity': 2, 'method_cyclomatic_complexity': 2}]
     """
+    metrics = more_itertools.always_iterable(metrics)
+    metric = compounder(*metrics)
+    results = (metric(node) for node in nodes)
+    return aggregation(results)
 
-    metric: Metric[N, T]
-    aggregation: MetricAggregation[N, T, U] = collect  # type: ignore
 
-    def analyze(self, nodes: typing.Iterable[N]) -> U:
-        """Aggregates the metric over the nodes."""
-        return self.aggregation(self.metric)(nodes)
-
-    @classmethod
-    def from_metrics(
-        cls,
-        *metrics: Metric[N, R],
-        collector: Collector[N, R, T] = name_metrics,  # type: ignore
-        aggregation: MetricAggregation[N, T, U] = collect,  # type: ignore
-    ) -> "Analyzer[N, T, U]":
-        """Construct an analyzer from the metrics."""
-        metric = collector(*metrics)
-        return cls(metric, aggregation)  # type: ignore
-
-    @classmethod
-    def from_choices(
-        cls,
-        *method_metric_choices: MethodMetricChoice,
-        collector_choice: CollectorChoice,
-        aggregation_choice: AggregationChoice,
-    ) -> "Analyzer":
-        """Construct a method analyzer from the method metric choice and aggregation choice."""
-        method_metrics = (
-            method_metric_choice.as_callable()
-            for method_metric_choice in method_metric_choices
-        )
-        return cls.from_metrics(
-            *method_metrics,
-            collector=collector_choice.as_callable(),
-            aggregation=aggregation_choice.as_callable(),
-        )
+@nodedispatch
+def break_down(
+    node: astroid.nodes.NodeNG,
+    /,
+    metrics: typing.Iterable[typing.Union[Metric[N, T], MetricVisitor[T]]] = (),
+) -> typing.List[typing.Dict[str, T]]:
+    """Walk the node's tree with the provided metrics and calculate them at each sub-node."""
+    if not metrics:
+        metrics = standard_metrics()
+    names = [metric.__name__ for metric in metrics]
+    visitors = [
+        metric if isinstance(metric, Visitor) else FunctionVisitor(metric)
+        for metric in metrics
+    ]
+    collector = lambda results: dict(zip(names, results))
+    compound_visitor = CompoundVisitor[T, typing.Dict[str, T]](
+        *visitors, collector=collector
+    )
+    tree_visitor = TreeVisitor[typing.Tuple[T], typing.List[typing.Dict[str, T]]](
+        compound_visitor, collector=list  # type: ignore
+    )
+    return tree_visitor.visit(node)

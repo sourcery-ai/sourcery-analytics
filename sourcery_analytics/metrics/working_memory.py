@@ -9,14 +9,16 @@ import typing
 
 import astroid
 
-from sourcery_analytics.extractors import Extractor
+from sourcery_analytics.extractors import extract
+from sourcery_analytics.metrics.types import MetricVisitor
+from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
 from sourcery_analytics.visitors import (
-    Visitor,
     TreeVisitor,
 )
 
 
+@nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_working_memory(method: astroid.nodes.FunctionDef) -> int:
     """Calculates the peak working memory within a method.
@@ -25,15 +27,14 @@ def method_working_memory(method: astroid.nodes.FunctionDef) -> int:
         method: a node for a function definition
 
     Examples:
-        >>> method = astroid.parse("def add(a, b): return a + b").body[0]
-        >>> method_working_memory(method)
+        >>> method_working_memory("def add(a, b): return a + b")
         2
     """
     visitor = TreeVisitor[int, int](WorkingMemoryVisitor(), max)
     return visitor.visit(method)
 
 
-class WorkingMemoryVisitor(Visitor[int]):
+class WorkingMemoryVisitor(MetricVisitor[int]):
     """Visitor to calculate the working memory of a node.
 
     Working memory is contextual. Alone, its value is the number of variables,
@@ -50,6 +51,10 @@ class WorkingMemoryVisitor(Visitor[int]):
         self.condition_penalty: int = _condition_penalty
         self.scoped_variables: typing.Set[str] = _scoped_variables
 
+    @property
+    def __name__(self) -> str:
+        return "working_memory"
+
     @contextlib.contextmanager
     def _enter(self, node: astroid.nodes.NodeNG):
         if isinstance(node, astroid.nodes.If):
@@ -63,20 +68,15 @@ class WorkingMemoryVisitor(Visitor[int]):
         else:
             yield
 
-    def visit(self, node: astroid.nodes.NodeNG) -> int:
-        """Returns the working memory for a single node.
-
-        * If statements return the number of variables they're testing.
-        * For statements return the number of variables assigned and in the iterator.
-        * All other statements return the number of variables they use and assign,
-          incremented by context such as conditions and unused variables, as described
-          above.
-        """
+    def _touch(self, node: astroid.nodes.NodeNG) -> int:
+        unused_variables = self.scoped_variables - get_names(node)
         if isinstance(node, astroid.nodes.If):
-            return len(get_names(node.test)) + self.condition_penalty
+            # this is the same as any pre-existing condition penalties less the penalty for this node
+            return len(unused_variables) + self.condition_penalty
         if isinstance(node, astroid.nodes.For):
             return (
-                len(get_names(node.iter))
+                len(unused_variables)
+                + len(get_names(node.iter))
                 + len(get_names(node.target))
                 + self.condition_penalty
             )
@@ -84,7 +84,6 @@ class WorkingMemoryVisitor(Visitor[int]):
             return 0
         if isinstance(node, astroid.nodes.Statement):
             statement_variables = get_names(node)
-            unused_variables = self.scoped_variables - statement_variables
             return (
                 len(statement_variables)
                 + len(unused_variables)
@@ -94,8 +93,8 @@ class WorkingMemoryVisitor(Visitor[int]):
 
 
 def get_names(node: astroid.nodes.NodeNG) -> typing.Set[str]:
-    name_extractor = Extractor.from_function(get_name)
-    return set(name_extractor.extract(node))
+    """Returns the set of variable names in the node."""
+    return set(extract(node, function=get_name))
 
 
 def get_name(node: astroid.nodes.NodeNG) -> typing.Optional[str]:

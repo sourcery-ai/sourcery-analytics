@@ -13,6 +13,7 @@ packages, modules, or source code.
 Installation and Quickstart
 ===========================
 
+
 Installation
 ------------
 
@@ -26,6 +27,23 @@ Analyze a file
 .. code-block::
 
    sourcery-analytics analyze path/to/file.py
+
+Example
+-------
+
+.. code-block::
+
+   sourcery-analytics analyze sourcery_analytics/analysis.py
+
+.. code-block::
+
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+   ┃                                    qualname ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
+   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+   │      sourcery_analytics.analysis.break_down │      8 │                     5 │                    3 │             17 │
+   │ sourcery_analytics.analysis.analyze_methods │      4 │                     1 │                    1 │             12 │
+   │         sourcery_analytics.analysis.analyze │      4 │                     1 │                    0 │              7 │
+   └─────────────────────────────────────────────┴────────┴───────────────────────┴──────────────────────┴────────────────┘
 
 
 Contributing

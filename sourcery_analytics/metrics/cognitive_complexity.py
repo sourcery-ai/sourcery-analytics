@@ -3,14 +3,18 @@
 Cognitive complexity is intended to reflect the difficulty in understanding deeply-nested
 code, especially nested conditionals.
 """
-import astroid
 import contextlib
 
+import astroid
+
 from sourcery_analytics.conditions import is_elif
+from sourcery_analytics.metrics.types import MetricVisitor
+from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
-from sourcery_analytics.visitors import Visitor, TreeVisitor
+from sourcery_analytics.visitors import TreeVisitor
 
 
+@nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_cognitive_complexity(method: astroid.nodes.FunctionDef) -> int:
     """Calculates the total cognitive complexity of the method as the total complexity of its body.
@@ -25,20 +29,34 @@ def method_cognitive_complexity(method: astroid.nodes.FunctionDef) -> int:
         ...             if y:
         ...                 return x + y
         ... '''
-        >>> method = astroid.parse(source).body[0]
-        >>> method_cognitive_complexity(method)
+        >>> method_cognitive_complexity(source)
         3
     """
+    return total_cognitive_complexity(method)
+
+
+@nodedispatch
+def total_cognitive_complexity(node: astroid.nodes.NodeNG):
+    """Calculates the total cognitive complexity of all sub-nodes within the node.
+
+    Examples:
+        >>> total_cognitive_complexity('''x + y if x and y else 0''')
+        2
+    """
     visitor = TreeVisitor[int, int](CognitiveComplexityVisitor(), sum)
-    return visitor.visit(method)
+    return visitor.visit(node)
 
 
-class CognitiveComplexityVisitor(Visitor[int]):
+class CognitiveComplexityVisitor(MetricVisitor[int]):
     """Visitor to calculate the cognitive complexity of a node.
 
     Cognitive complexity is contextual. Alone, its value is 1 for control flow elements.
     It is incremented by 1 for each level of "nesting" within control flow structures.
     """
+
+    @property
+    def __name__(self) -> str:
+        return "cognitive_complexity"
 
     def __init__(self, _nesting=0):
         self.nesting = _nesting
@@ -63,12 +81,7 @@ class CognitiveComplexityVisitor(Visitor[int]):
         else:
             yield
 
-    def visit(self, node: astroid.nodes.NodeNG) -> int:
-        """Returns the cognitive complexity of a single node.
-
-        If statements, if expressions, for statements, while expressions, and
-        except blocks all have a cognitive complexity of 1.
-        """
+    def _touch(self, node: astroid.nodes.NodeNG) -> int:
         if (
             isinstance(node, astroid.nodes.If)
             and node.orelse

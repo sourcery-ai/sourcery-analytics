@@ -9,26 +9,39 @@ For implementation details see methods below.
 import astroid
 
 from sourcery_analytics.conditions import is_elif
+from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
 from sourcery_analytics.visitors import TreeVisitor, FunctionVisitor
 
 
+@nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_cyclomatic_complexity(method: astroid.nodes.FunctionDef) -> int:
-    """The total cyclomatic complexity of the method's body.
-
-    A method always has at least one path through it, so the minimum cyclomatic complexity is 1.
+    """The total cyclomatic complexity of a method.
 
     Args:
         method: a node for a function definition
 
     Examples:
-        >>> method = astroid.extract_node("def div(x, y): return None if y == 0 else x / y")
-        >>> method_cyclomatic_complexity(method)
+        >>> method_cyclomatic_complexity("def div(x, y): return None if y == 0 else x / y")
         2
     """
+    return total_cyclomatic_complexity(method)
+
+
+@nodedispatch
+def total_cyclomatic_complexity(node: astroid.nodes.NodeNG) -> int:
+    """Computes the total cyclomatic complexity within a node.
+
+    Args:
+        node: any node in an astroid syntax tree
+
+    Examples:
+         >>> total_cyclomatic_complexity('''if x: pass''')
+         1
+    """
     visitor = TreeVisitor[int, int](FunctionVisitor(cyclomatic_complexity), sum)
-    return visitor.visit(method)
+    return visitor.visit(node)
 
 
 def cyclomatic_complexity(node: astroid.nodes.NodeNG) -> int:
