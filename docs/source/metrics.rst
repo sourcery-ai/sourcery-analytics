@@ -151,5 +151,5 @@ with clear roles.
 References
 ==========
 
-.. [#] T. J. McCabe, "A Complexity Measure," in IEEE Transactions on Software Engineering, vol. SE-2, no. 4, pp. 308-320, Dec. 1976, doi: 10.1109/TSE.1976.233837.
+.. [#] T.J. McCabe, "A Complexity Measure," in IEEE Transactions on Software Engineering, vol. SE-2, no. 4, pp. 308-320, Dec. 1976, doi: 10.1109/TSE.1976.233837.
 .. [#] Campbell, G. Ann, and Product Owner-SonarSource SA. "Cognitive complexity." Proceedings of the 2018 International Conference on Technical Debt-TechDebt’. Vol. 18. 2018.

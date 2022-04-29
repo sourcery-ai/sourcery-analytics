@@ -1,3 +1,9 @@
+/* fix footnote references */
+.footnote-reference {
+    vertical-align: super;
+    font-size: 80%;
+}
+
 /* Fix spacing above and below main titles */
 .md-typeset h1 {
     margin: 2rem 0 0.5rem 0;
@@ -55,7 +61,7 @@ dl.py.class {
     padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 }
 
-.py.property > .sig,
+.py.property > .sig:target,
 .py.method > .sig:target,
 .py.attribute > .sig:target,
 .py.class > .sig:target,
