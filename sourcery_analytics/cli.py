@@ -79,3 +79,4 @@ class OutputChoice(enum.Enum):
 
     plain = "plain"
     rich = "rich"
+    csv = "csv"

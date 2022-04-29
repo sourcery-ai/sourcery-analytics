@@ -44,6 +44,7 @@ def cli_analyze(
         sort = method_metric[0]
     elif sort not in method_metric:
         raise typer.BadParameter("`--sort` must be one of the method metrics")
+
     # use extract directly here rather than `analyze_methods` in case we want
     # the progressbar
     methods = extract_methods(path)
@@ -62,8 +63,10 @@ def cli_analyze(
         methods_progress = rich.progress.track(
             methods, description="Analyzing methods..."
         )
-        result: typing.List[NamedMetricResult] = analyze(
-            methods_progress, metrics=metrics
+        analysis: typing.List[NamedMetricResult] = sorted(
+            analyze(methods_progress, metrics=metrics),
+            key=operator.itemgetter(sort.method_method_name),
+            reverse=True,
         )
 
         console.print("[bold green]Analysis Complete")
@@ -72,11 +75,7 @@ def cli_analyze(
         table.add_column("Method")
         for metric_choice in method_metric:
             table.add_column(metric_choice.value, justify="right")
-        for metric in sorted(
-            result,
-            key=operator.itemgetter(sort.method_method_name),
-            reverse=True,
-        ):
+        for metric in analysis:
             table.add_row(
                 *(
                     f"{value}" if isinstance(value, (float, int)) else str(value)
@@ -85,16 +84,29 @@ def cli_analyze(
             )
 
         console.print(table)
+        raise typer.Exit()
 
-    elif output is OutputChoice.plain:
-        result = analyze(methods, metrics=metrics)
-        typer.echo(
-            sorted(
-                result,
-                key=operator.itemgetter(sort.method_method_name),
-                reverse=True,
-            )
+    analysis = sorted(
+        analyze(methods, metrics=metrics),
+        key=operator.itemgetter(sort.method_method_name),
+        reverse=True,
+    )
+
+    if output is OutputChoice.plain:
+        typer.echo(analysis)
+
+    elif output is OutputChoice.csv:
+        result = ""
+        result += (
+            "qualname,"
+            + ",".join([str(metric_choice.value) for metric_choice in method_metric])
+            + "\n"
         )
+        for metric in analysis:
+            result += (
+                ",".join([str(value) for _sub_metric_name, value in metric]) + "\n"
+            )
+        typer.echo(result)
 
 
 @app.command(name="aggregate")
@@ -148,6 +160,9 @@ def cli_aggregate(
     elif output is OutputChoice.plain:
         result = analyze(methods, metrics=metrics, aggregation=aggregation_method)
         typer.echo(result)
+
+    elif output is OutputChoice.csv:
+        raise NotImplementedError
 
 
 @app.command(name="assess")
