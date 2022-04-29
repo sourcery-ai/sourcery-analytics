@@ -13,8 +13,8 @@ and code analytics can help identify areas in need of improvement.
 The ``sourcery-analytics`` repository provides several code quality metrics, with room to grow.
 
 
-Method Length
-=============
+Function Length
+===============
 
 See :py:mod:`.method_length`
 
@@ -39,17 +39,21 @@ See :py:mod:`.cyclomatic_complexity`
 
 Although longer functions tend to be more complex, there are clear differences in the complexity of
 functions with the same length.
-For instance, consider the following two snippets:
+For instance, consider the following snippet:
+
+
 
 .. code-block:: python
 
+   if talk.length < 45:
+       talk.length = 40
+   elif talk.category == "Continuous Integration Systems"
+       if talk.room_number in {4, 5}:
+           if talk.length > 50:
+               talk.length = 45
    ...
 
-.. code-block:: python
-
-   ...
-
-They have the same length, but the second is more difficult to understand.
+This code only has seven statements but quickly gets difficult to understand.
 One way of rationalizing this complexity is by considering the number of *branches* in the code.
 Branching code is more difficult to reason about, and this raises the potential for accidentally including
 bugs in your code.
@@ -77,11 +81,23 @@ is more difficult to understand.
 
 .. code-block:: python
 
-   ...
+   if not talk.name.startswith("Keynote:"):
+       print("Standard talk")
+   elif talk.length < 5:
+       print("Lighting talk")
+   elif talk.sponsor:
+       print("Sponsored talk")
+   elif has_high_interest(talk.subject):
+       print("Featured talk")
+
 
 .. code-block:: python
 
-   ...
+   if talk.title.contains(keyword):
+       if talk.length > 40:
+           if large_number(talk.attendees):
+               for attendee in talk.attendees:
+                   print(attendee.name)
 
 The additional difficulty here can be explained by focusing on the code's nesting.
 When code is nested, it becomes increasingly difficult for us to keep track of the context of the
