@@ -65,6 +65,7 @@ Contents
    :maxdepth: 3
 
    user_guide
+   metrics
    api/sourcery_analytics
 
 
