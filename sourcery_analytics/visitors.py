@@ -6,6 +6,7 @@ import typing
 import astroid
 
 from sourcery_analytics.conditions import always, Condition
+from sourcery_analytics.utils import nodedispatch
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
 P = typing.TypeVar("P")

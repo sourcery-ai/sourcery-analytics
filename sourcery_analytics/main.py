@@ -15,7 +15,6 @@ from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
 from sourcery_analytics.metrics.compounders import NamedMetricResult
 
-T = typing.TypeVar("T")
 
 app = typer.Typer()
 

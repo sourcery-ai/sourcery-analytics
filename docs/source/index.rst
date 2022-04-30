@@ -66,6 +66,7 @@ Contents
 
    user_guide
    metrics
+   architecture
    api/sourcery_analytics
 
 
