@@ -98,10 +98,8 @@ throughout ``sourcery-analytics``. See the source for :py:mod:`.extractors`, :py
 :py:mod:`.metrics.cognitive_complexity` for some examples.
 
 
-Designing a New Metric
-
-
-
+References
+==========
 
 .. [#] https://en.wikipedia.org/wiki/Abstract_syntax_tree
 .. [#] https://docs.python.org/3/library/ast.html

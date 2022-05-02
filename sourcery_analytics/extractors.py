@@ -147,7 +147,7 @@ class Extractor(typing.Generic[T]):
             return self._extract_from_file(path)
         elif path.is_dir():
             return self._extract_from_directory(path)
-        else:
+        else:  # pragma: no cover
             raise NotImplementedError(
                 f"Unable to extract from {path}: not a file or directory."
             )

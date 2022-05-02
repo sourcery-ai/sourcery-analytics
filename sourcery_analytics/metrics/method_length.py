@@ -24,8 +24,22 @@ def method_length(method: astroid.nodes.FunctionDef) -> int:
         >>> method_length("def add(x, y): z = x + y; return z")
         2
     """
+    return total_statement_count(method)
+
+
+@nodedispatch
+def total_statement_count(node: astroid.nodes.NodeNG) -> int:
+    """Calculates the total number of statements in the node.
+
+    Args:
+        node: any astroid node
+
+    Examples:
+        >>> total_statement_count("if x: y()")
+        2
+    """
     visitor = TreeVisitor[int, int](FunctionVisitor(statement_count), collector=sum)
-    return visitor.visit(method)
+    return visitor.visit(node)
 
 
 def statement_count(node: astroid.nodes.NodeNG) -> int:

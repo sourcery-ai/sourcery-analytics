@@ -44,14 +44,11 @@ class _CompoundMetric:
     def addone(v, u):
         if not isinstance(v, (float, int)) or not isinstance(u, (float, int)):
             return None
-        try:
-            return v + u
-        except TypeError:
-            return None
+        return v + u
 
     @staticmethod
-    def ltone(v, u):
-        return v < u
+    def eqone(v, u):
+        return v == u
 
 
 class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
@@ -63,8 +60,8 @@ class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
     def __truediv__(self, other):
         return TupleMetricResult((self.divone(v, other) for v in self))
 
-    def __lt__(self, other):
-        return all(self.ltone(v, u) for v, u in zip(self, other))
+    def __eq__(self, other):
+        return all(self.eqone(v, u) for v, u in zip(self, other))
 
 
 class NamedMetricResult(typing.Dict[str, T], _CompoundMetric):
@@ -72,10 +69,7 @@ class NamedMetricResult(typing.Dict[str, T], _CompoundMetric):
 
     def __add__(self, other):
         return NamedMetricResult(
-            {
-                k: self.addone(self.get(k), other.get(k))
-                for k in self.keys() | other.keys()
-            }
+            {k: self.addone(self.get(k), other.get(k)) for k in self.keys()}
         )
 
     def __truediv__(self, other):
@@ -86,5 +80,5 @@ class NamedMetricResult(typing.Dict[str, T], _CompoundMetric):
     def __iter__(self):
         return iter(self.items())
 
-    def __lt__(self, other):
-        return all(self.ltone(self[k], other[k]) for k in self.keys() | other.keys())
+    def __eq__(self, other):
+        return all(self.eqone(self[k], other[k]) for k in self.keys())

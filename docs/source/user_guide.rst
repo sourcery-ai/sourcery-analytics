@@ -53,8 +53,8 @@ Analyze all methods in all Python files in a directory:
    [Result truncated]
 
 
-Rich Display
-------------
+Output Options
+--------------
 
 By default, the analysis results are displayed in a rich text format in the command line.
 To suppress this behaviour, use the ``--output`` option to select plain Python output.
@@ -66,6 +66,25 @@ To suppress this behaviour, use the ``--output`` option to select plain Python o
 .. code-block::
 
    [{'method_qualname': 'sourcery_analytics.utils.nodedispatch.wrapped', 'method_length': 9, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 9}, {'method_qualname': 'sourcery_analytics.utils.nodedispatch', 'method_length': 11, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 10}, {'method_qualname': 'sourcery_analytics.utils.clean_source', 'method_length': 1, 'method_cyclomatic_complexity': 0, 'method_cognitive_complexity': 0, 'method_working_memory': 4}]
+
+Alternatively, you can output in CSV format.
+
+.. code-block::
+
+   $ sourcery-analytics analyze sourcery_analytics/utils.py --output csv
+
+.. code-block::
+
+   qualname,length,cyclomatic_complexity,cognitive_complexity,working_memory
+   sourcery_analytics.utils.nodedispatch,11,3,3,10
+   sourcery_analytics.utils.nodedispatch.wrapped,9,3,3,9
+   sourcery_analytics.utils.clean_source,1,0,0,4
+
+This can be readily dumped to a file using the command line:
+
+.. code-block::
+
+   $ sourcery-analytics analyze sourcery_analytics/utils.py --output csv > utils_metrics.csv
 
 
 Metrics

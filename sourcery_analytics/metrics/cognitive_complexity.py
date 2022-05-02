@@ -8,10 +8,9 @@ import contextlib
 import astroid
 
 from sourcery_analytics.conditions import is_elif
-from sourcery_analytics.metrics.types import MetricVisitor
 from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
-from sourcery_analytics.visitors import TreeVisitor
+from sourcery_analytics.visitors import TreeVisitor, Visitor
 
 
 @nodedispatch
@@ -47,16 +46,12 @@ def total_cognitive_complexity(node: astroid.nodes.NodeNG):
     return visitor.visit(node)
 
 
-class CognitiveComplexityVisitor(MetricVisitor[int]):
+class CognitiveComplexityVisitor(Visitor[int]):
     """Visitor to calculate the cognitive complexity of a node.
 
     Cognitive complexity is contextual. Alone, its value is 1 for control flow elements.
     It is incremented by 1 for each level of "nesting" within control flow structures.
     """
-
-    @property
-    def __name__(self) -> str:
-        return "cognitive_complexity"
 
     def __init__(self, _nesting=0):
         self.nesting = _nesting

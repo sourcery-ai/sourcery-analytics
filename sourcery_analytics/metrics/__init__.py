@@ -39,14 +39,3 @@ def standard_method_metrics():
         method_cognitive_complexity,
         method_working_memory,
     )
-
-
-def standard_metrics():
-    """Returns a collection of standard metrics that can be used on any node."""
-    return (
-        node_type_name,
-        statement_count,
-        cyclomatic_complexity,
-        CognitiveComplexityVisitor(),
-        WorkingMemoryVisitor(),
-    )

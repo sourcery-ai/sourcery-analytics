@@ -4,26 +4,17 @@ import typing
 import astroid.nodes
 import more_itertools
 
-from sourcery_analytics.metrics.aggregations import Aggregation
 from sourcery_analytics.conditions import is_method
 from sourcery_analytics.extractors import Extractable, extract
 from sourcery_analytics.metrics import (
     standard_method_metrics,
-    standard_metrics,
 )
+from sourcery_analytics.metrics.aggregations import Aggregation
+from sourcery_analytics.metrics.compounders import name_metrics, Compounder
 from sourcery_analytics.metrics.types import (
-    MetricVisitor,
     Metric,
     MethodMetric,
     MetricResult,
-)
-from sourcery_analytics.metrics.compounders import name_metrics, Compounder
-from sourcery_analytics.utils import nodedispatch
-from sourcery_analytics.visitors import (
-    Visitor,
-    FunctionVisitor,
-    CompoundVisitor,
-    TreeVisitor,
 )
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
@@ -85,9 +76,9 @@ def analyze_methods(
 
 
 def analyze(
-    nodes: typing.Iterable[N],
+    nodes: typing.Union[N, typing.Iterable[N]],
     /,
-    metrics: typing.Union[None, Metric[N, T], typing.Iterable[Metric[N, T]]] = None,
+    metrics: typing.Union[Metric[N, T], typing.Iterable[Metric[N, T]]] = None,
     compounder: Compounder[N, T, R] = name_metrics,  # type: ignore
     aggregation: Aggregation[R] = list,  # type: ignore
 ) -> R:
@@ -110,31 +101,8 @@ def analyze(
         >>> analyze(methods, metrics=(method_name, method_cognitive_complexity, method_cyclomatic_complexity))
         [{'method_name': 'add', 'method_cognitive_complexity': 0, 'method_cyclomatic_complexity': 0}, {'method_name': 'div', 'method_cognitive_complexity': 2, 'method_cyclomatic_complexity': 2}]
     """
+    nodes = more_itertools.always_iterable(nodes, base_type=astroid.nodes.NodeNG)
     metrics = more_itertools.always_iterable(metrics)
     metric = compounder(*metrics)
     results = (metric(node) for node in nodes)
     return aggregation(results)
-
-
-@nodedispatch
-def break_down(
-    node: astroid.nodes.NodeNG,
-    /,
-    metrics: typing.Iterable[typing.Union[Metric[N, T], MetricVisitor[T]]] = (),
-) -> typing.List[typing.Dict[str, T]]:
-    """Walk the node's tree with the provided metrics and calculate them at each sub-node."""
-    if not metrics:
-        metrics = standard_metrics()
-    names = [metric.__name__ for metric in metrics]
-    visitors = [
-        metric if isinstance(metric, Visitor) else FunctionVisitor(metric)
-        for metric in metrics
-    ]
-    collector = lambda results: dict(zip(names, results))
-    compound_visitor = CompoundVisitor[T, typing.Dict[str, T]](
-        *visitors, collector=collector
-    )
-    tree_visitor = TreeVisitor[typing.Tuple[T], typing.List[typing.Dict[str, T]]](
-        compound_visitor, collector=list  # type: ignore
-    )
-    return tree_visitor.visit(node)

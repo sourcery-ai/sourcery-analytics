@@ -1,24 +1,15 @@
-"""Types, especially Enums, associated with the CLI."""
+"""Choices, implemented as Enums, associated with the CLI."""
+
 import enum
 
-from sourcery_analytics.metrics.aggregations import (
-    Aggregation,
-    average,
-    total,
-    peak,
-)
 from sourcery_analytics.metrics import (
     method_cognitive_complexity,
     method_cyclomatic_complexity,
     method_length,
     method_working_memory,
 )
+from sourcery_analytics.metrics.aggregations import Aggregation, total, average, peak
 from sourcery_analytics.metrics.types import MethodMetric
-from sourcery_analytics.metrics.compounders import (
-    Compounder,
-    tuple_metrics,
-    name_metrics,
-)
 
 
 class MethodMetricChoice(enum.Enum):
@@ -41,20 +32,6 @@ class MethodMetricChoice(enum.Enum):
             MethodMetricChoice.cyclomatic_complexity: method_cyclomatic_complexity,
             MethodMetricChoice.length: method_length,
             MethodMetricChoice.working_memory: method_working_memory,
-        }[self]
-
-
-class CompounderChoice(enum.Enum):
-    """Compounders available to the CLI."""
-
-    tuple = "tuple"
-    name = "name"
-
-    def as_compounder(self) -> Compounder:
-        """Returns the string choice as a callable method."""
-        return {
-            CompounderChoice.tuple: tuple_metrics,
-            CompounderChoice.name: name_metrics,
         }[self]
 
 

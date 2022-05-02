@@ -1,7 +1,20 @@
 import astroid
 import pytest
 
-from sourcery_analytics.conditions import is_elif, is_type
+from sourcery_analytics.conditions import (
+    is_elif,
+    is_type,
+    always,
+    is_method,
+    is_const,
+    is_name,
+)
+
+
+class TestAlways:
+    @pytest.mark.parametrize("source", ["x + y", "foo()", "pass"])
+    def test_ok(self, node):
+        assert always(node)
 
 
 class TestIsType:
@@ -52,3 +65,48 @@ class TestIsElif:
 
     def test_ok_else(self, nodes):
         assert not is_elif(nodes[2])
+
+
+class TestIsMethod:
+    @pytest.fixture
+    def source(self):
+        return """
+            def add(x, y):  #@
+                return x + y  #@
+        """
+
+    def test_ok(self, nodes):
+        assert is_method(nodes[0])
+
+    def test_neg(self, nodes):
+        assert not is_method(nodes[1])
+
+
+class TestIsConst:
+    @pytest.fixture
+    def source(self):
+        return """
+            def minus_one(x):
+                return __(x) - __(1)
+        """
+
+    def test_ok(self, nodes):
+        assert is_const(nodes[1])
+
+    def test_neg(self, nodes):
+        assert not is_const(nodes[0])
+
+
+class TestIsName:
+    @pytest.fixture
+    def source(self):
+        return """
+            def minus_one(x):
+                return __(x) - __(1)
+        """
+
+    def test_ok(self, nodes):
+        assert is_name(nodes[0])
+
+    def test_neg(self, nodes):
+        assert not is_name(nodes[1])

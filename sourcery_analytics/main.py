@@ -1,20 +1,24 @@
 """CLI interface to ``sourcery-analytics``."""
-import operator
 import pathlib
 import typing
 
 import typer
 
-from sourcery_analytics.analysis import analyze
-from sourcery_analytics.cli import (
+from sourcery_analytics.cli.choices import (
     MethodMetricChoice,
-    OutputChoice,
     AggregationChoice,
+    OutputChoice,
+)
+from sourcery_analytics.cli.partials import (
+    analyze_csv_output,
+    analyze_plain_output,
+    analyze_rich_output,
+    aggregate_csv_output,
+    aggregate_plain_output,
+    aggregate_rich_output,
 )
 from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
-from sourcery_analytics.metrics.compounders import NamedMetricResult
-
 
 app = typer.Typer()
 
@@ -53,59 +57,11 @@ def cli_analyze(
     ]
 
     if output is OutputChoice.rich:
-        import rich.console
-        import rich.table
-        import rich.progress
-
-        console = rich.console.Console()
-
-        methods_progress = rich.progress.track(
-            methods, description="Analyzing methods..."
-        )
-        analysis: typing.List[NamedMetricResult] = sorted(
-            analyze(methods_progress, metrics=metrics),
-            key=operator.itemgetter(sort.method_method_name),
-            reverse=True,
-        )
-
-        console.print("[bold green]Analysis Complete")
-
-        table = rich.table.Table()
-        table.add_column("Method")
-        for metric_choice in method_metric:
-            table.add_column(metric_choice.value, justify="right")
-        for metric in analysis:
-            table.add_row(
-                *(
-                    f"{value}" if isinstance(value, (float, int)) else str(value)
-                    for _sub_metric_name, value in metric
-                )
-            )
-
-        console.print(table)
-        raise typer.Exit()
-
-    analysis = sorted(
-        analyze(methods, metrics=metrics),
-        key=operator.itemgetter(sort.method_method_name),
-        reverse=True,
-    )
-
-    if output is OutputChoice.plain:
-        typer.echo(analysis)
-
+        analyze_rich_output(method_metric, methods, metrics, sort)
+    elif output is OutputChoice.plain:
+        analyze_plain_output(methods, metrics, sort)
     elif output is OutputChoice.csv:
-        result = ""
-        result += (
-            "qualname,"
-            + ",".join([str(metric_choice.value) for metric_choice in method_metric])
-            + "\n"
-        )
-        for metric in analysis:
-            result += (
-                ",".join([str(value) for _sub_metric_name, value in metric]) + "\n"
-            )
-        typer.echo(result)
+        analyze_csv_output(method_metric, methods, metrics, sort)
 
 
 @app.command(name="aggregate")
@@ -116,7 +72,7 @@ def cli_aggregate(
         file_okay=True,
         dir_okay=True,
     ),
-    metric: typing.List[MethodMetricChoice] = typer.Option(
+    method_metric: typing.List[MethodMetricChoice] = typer.Option(
         [
             "length",
             "cyclomatic_complexity",
@@ -131,37 +87,17 @@ def cli_aggregate(
     # use extract directly here rather than `analyze_methods` in case we want
     # the progressbar
     methods = extract_methods(path)
-    metrics = [m.as_method_metric() for m in metric]
+    metrics = [m.as_method_metric() for m in method_metric]
     aggregation_method = aggregation.as_aggregation()
 
     if output is OutputChoice.rich:
-        import rich.console
-        import rich.table
-        import rich.progress
-
-        console = rich.console.Console()
-
-        methods_progress = rich.progress.track(
-            methods, description="Analyzing methods..."
-        )
-        result = analyze(
-            methods_progress, metrics=metrics, aggregation=aggregation_method
-        )
-
-        table = rich.table.Table()
-        table.add_column("Metric")
-        table.add_column(f"{aggregation.value.title()} Value", justify="right")
-        for metric_name, metric_value in result:
-            table.add_row(metric_name, str(metric_value))
-
-        console.print(table)
+        aggregate_rich_output(aggregation, aggregation_method, methods, metrics)
 
     elif output is OutputChoice.plain:
-        result = analyze(methods, metrics=metrics, aggregation=aggregation_method)
-        typer.echo(result)
+        aggregate_plain_output(aggregation_method, methods, metrics)
 
     elif output is OutputChoice.csv:
-        raise NotImplementedError
+        aggregate_csv_output(aggregation_method, method_metric, methods, metrics)
 
 
 @app.command(name="assess")

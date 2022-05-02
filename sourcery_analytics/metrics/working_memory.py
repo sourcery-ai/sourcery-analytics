@@ -10,11 +10,11 @@ import typing
 import astroid
 
 from sourcery_analytics.extractors import extract
-from sourcery_analytics.metrics.types import MetricVisitor
 from sourcery_analytics.utils import nodedispatch
 from sourcery_analytics.validators import validate_node_type
 from sourcery_analytics.visitors import (
     TreeVisitor,
+    Visitor,
 )
 
 
@@ -34,7 +34,7 @@ def method_working_memory(method: astroid.nodes.FunctionDef) -> int:
     return visitor.visit(method)
 
 
-class WorkingMemoryVisitor(MetricVisitor[int]):
+class WorkingMemoryVisitor(Visitor[int]):
     """Visitor to calculate the working memory of a node.
 
     Working memory is contextual. Alone, its value is the number of variables,
@@ -50,10 +50,6 @@ class WorkingMemoryVisitor(MetricVisitor[int]):
             _scoped_variables = set()
         self.condition_penalty: int = _condition_penalty
         self.scoped_variables: typing.Set[str] = _scoped_variables
-
-    @property
-    def __name__(self) -> str:
-        return "working_memory"
 
     @contextlib.contextmanager
     def _enter(self, node: astroid.nodes.NodeNG):
