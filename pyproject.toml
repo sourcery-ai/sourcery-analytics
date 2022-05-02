@@ -10,10 +10,10 @@ sourcery-analytics = "sourcery_analytics.main:app"
 [tool.poetry.dependencies]
 python = "^3.9"
 astroid = "2.11.2"
-typer = "^0.4.1"
-sphinx-material = "^0.0.35"
-rich = "^12.2.0"
-more-itertools = "^8.12.0"
+typer = "0.4.1"
+sphinx-material = "0.0.35"
+rich = "12.2.0"
+more-itertools = "8.12.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.942"
