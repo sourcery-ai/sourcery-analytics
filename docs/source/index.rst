@@ -38,24 +38,12 @@ Example
 .. code-block::
 
    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
-   ┃                                    qualname ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
+   ┃ Method                                      ┃ length ┃ cyclomatic_complexity ┃ cognitive_complexity ┃ working_memory ┃
    ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
-   │      sourcery_analytics.analysis.break_down │      8 │                     5 │                    3 │             17 │
+   │ sourcery_analytics.analysis.analyze         │      5 │                     1 │                    0 │              8 │
    │ sourcery_analytics.analysis.analyze_methods │      4 │                     1 │                    1 │             12 │
-   │         sourcery_analytics.analysis.analyze │      4 │                     1 │                    0 │              7 │
    └─────────────────────────────────────────────┴────────┴───────────────────────┴──────────────────────┴────────────────┘
 
-
-Contributing
-============
-
-Build this documentation
-------------------------
-
-.. code-block::
-
-   sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
-   sphinx-build -b html docs/source docs/build
 
 
 Contents

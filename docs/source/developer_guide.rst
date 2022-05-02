@@ -9,6 +9,18 @@ This document aims to be a guide for those contributing to the repository by out
 during its development and a description of the patterns used.
 
 
+Local Development
+=================
+
+Build this documentation
+------------------------
+
+.. code-block::
+
+   sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
+   sphinx-build -b html docs/source docs/build
+
+
 Parsing
 =======
 
