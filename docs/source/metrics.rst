@@ -102,7 +102,7 @@ is more difficult to understand.
 The additional difficulty here can be explained by focusing on the code's nesting.
 When code is nested, it becomes increasingly difficult for us to keep track of the context of the
 statement being executed. This insight motivated the creation of a metric called cognitive complexity,
-developed by SonarSource [#]_.
+developed by Sonar [#]_.
 
 It is calculated similarly to cyclomatic complexity: if statements, for loops, and other control flow statements increment
 the cognitive complexity. However, these control flow elements also incur a penalty for all other statements in their body.
