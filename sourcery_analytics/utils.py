@@ -27,7 +27,15 @@ def clean_source(source_str: str) -> str:
 
 
 def nodedispatch(fn):
-    """Convert a function from one that works only on nodes to one that works on strings, nodes, and file paths."""
+    """Convert a function from one that works only on nodes to one that works on strings, nodes, and file paths.
+
+    Examples:
+        >>> @nodedispatch
+        ... def node_type(node):
+        ...     return node.__class__
+        >>> node_type("x")
+        <class 'astroid.nodes.node_classes.Name'>
+    """
     manager = astroid.manager.AstroidManager()
 
     @functools.wraps(fn)

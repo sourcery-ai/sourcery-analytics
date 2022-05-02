@@ -16,11 +16,9 @@ In order to analzye code, we need to parse it into a structure we can manipulate
 into an Abstract Syntax Tree, or AST [#]_. Python provides a standard implementation [#]_ to parse code into an AST,
 but it misses features we need for analysis, most notably a link from a child node to its parent.
 
-As a result, we've opted to use [*astroid*](https://github.com/PyCQA/astroid) as the principal parser.
-As well as providing an enhanced AST, *astroid* provides several convenient parsing functions which make testing
+As a result, we've opted to use `astroid <https://github.com/PyCQA/astroid>`_ as the principal parser.
+As well as providing an enhanced AST, astroid provides several convenient parsing functions which make testing
 and developing interfaces much easier than the built-in Python parser.
-
-Other Python parsers exist, and may prove even more suitable.
 
 
 Visitors
@@ -39,7 +37,7 @@ and ``_touch`` which returns a "fact" about the node, based on the context. Keep
 clear about how the calculation works. For an example, see :py:mod:`.cognitive_complexity`, in which the visitor
 increments its context penalty for nested structures, and returns the complexity of individual nodes.
 
-What about walking the tree? Well, the list of sub-nodes of a tree is a "fact" about that node, so we can implement
+What about walking the tree? Well, the list of sub-nodes of a node is a "fact" about that node, so we can implement
 the walker as a visitor! This is the job of the :py:class:`.TreeVisitor` which is used throughout the codebase.
 Let's dig a bit further into how the :py:class:`.TreeVisitor` works, as it's important for development.
 
