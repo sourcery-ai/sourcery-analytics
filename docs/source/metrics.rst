@@ -19,7 +19,7 @@ Function Length
 See :py:mod:`.method_length`
 
 Most style guides will tell you to keep your functions short.
-There are several good reasons to encourage short functions:
+There are many good reasons to encourage short functions, including:
 
 * by focusing on a single idea, they are easier to understand
 * because they are easy to reason about, they are easier to compose together into more powerful functions
