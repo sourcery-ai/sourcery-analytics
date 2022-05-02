@@ -34,6 +34,7 @@ extensions = [
     "sphinx.ext.autodoc",  # Read docstrings and modules
     "sphinx.ext.intersphinx",  # Cross-references to other documentation
     "sphinx.ext.doctest",  # inline doctest snippets
+    "sphinx.ext.githubpages",  # CNAME and .nojekyll
 ]
 
 # Add any paths that contain templates here, relative to this directory.
