@@ -55,6 +55,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <link rel="canonical" href="sourcery-analytics.sourcery.ai/user_guide.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Metrics" href="metrics.html" />
@@ -317,6 +318,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="api/sourcery_analytics.html" class="md-nav__link">sourcery_analytics</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -526,7 +534,7 @@ a condition for this:</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>A couple of common type-checks, including <code class="docutils literal notranslate"><span class="pre">is_method</span></code> and <code class="docutils literal notranslate"><span class="pre">is_name</span></code> are included in the <code class="xref py py-mod docutils literal notranslate"><span class="pre">conditions</span></code> module.</p>
+<p>A couple of common type-checks, including <code class="docutils literal notranslate"><span class="pre">is_method</span></code> and <code class="docutils literal notranslate"><span class="pre">is_name</span></code> are included in the <a class="reference internal" href="api/sourcery_analytics.conditions.html#module-sourcery_analytics.conditions" title="sourcery_analytics.conditions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conditions</span></code></a> module.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>Why is this different to <cite>isinstance</cite>? <code class="docutils literal notranslate"><span class="pre">is_type</span></code> is a <em>higher-order</em> function, meaning it returns
@@ -536,9 +544,9 @@ expect conditions, and saves us writing lots of <code class="docutils literal no
 </section>
 <section id="extracting">
 <h3 id="extracting">Extracting<a class="headerlink" href="#extracting" title="Permalink to this headline">¶</a></h3>
-<p><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code>s take a condition and extract nodes satisfying the condition. They can be used in order to,
+<p><a class="reference internal" href="api/sourcery_analytics.extractors.html#sourcery_analytics.extractors.Extractor" title="sourcery_analytics.extractors.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a>s take a condition and extract nodes satisfying the condition. They can be used in order to,
 for instance, extract constants from an expression or methods from a module. Extractors can be used directly or through
-their high-level interface <code class="xref py py-meth docutils literal notranslate"><span class="pre">extract()</span></code>.</p>
+their high-level interface <a class="reference internal" href="api/sourcery_analytics.extractors.html#sourcery_analytics.extractors.Extractor.extract" title="sourcery_analytics.extractors.Extractor.extract"><code class="xref py py-meth docutils literal notranslate"><span class="pre">extract()</span></code></a>.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.extractors</span> <span class="kn">import</span> <span class="n">extract</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="gp">... </span><span class="s1">    def one():</span>
@@ -561,7 +569,7 @@ their high-level interface <code class="xref py py-meth docutils literal notrans
 for instance the number of statements in a method or the number of handlers in a try/except block.
 These can be implemented as functions of the node.</p>
 <p>Other metrics depend on context, such as the depth of the node. Where the context matters,
-metrics are implemented as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code> class.</p>
+metrics are implemented as a <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code></a> class.</p>
 <p><em>Method</em> metrics are special functions that calculate metrics over a whole method.
 In <code class="docutils literal notranslate"><span class="pre">sourcery_analytics.metrics</span></code>, these are prefixed with <code class="docutils literal notranslate"><span class="pre">method_</span></code> for clarity.
 As well as numerical metrics, several utility metrics (such as to get the method name) are provided.</p>
@@ -617,7 +625,7 @@ is just to collect the results in a list:</p>
 </section>
 <section id="analysis">
 <h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h3>
-<p>In <code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.</p>
+<p>In <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.analysis</span> <span class="kn">import</span> <span class="n">analyze_methods</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="gp">... </span><span class="s1">    def one():</span>

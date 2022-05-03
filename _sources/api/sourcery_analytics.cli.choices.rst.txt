@@ -1,0 +1,7 @@
+sourcery\_analytics.cli.choices
+===============================
+
+.. automodule:: sourcery_analytics.cli.choices
+   :members:
+   :undoc-members:
+   :show-inheritance:
