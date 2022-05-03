@@ -163,6 +163,34 @@ You can sort using any of the specified metrics using the ``--sort`` option:
 Using the library
 =================
 
+Analysis
+--------
+
+In :py:mod:`.analysis` there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
+To perform analysis like the CLI commands described above, use these functions.
+For more details about how
+
+.. doctest::
+
+   >>> from sourcery_analytics.analysis import analyze_methods
+   >>> source = '''
+   ...     def one():
+   ...         return 1
+   ...     def two(n):
+   ...         if n == 2:
+   ...             return n
+   ... '''
+   >>> records = analyze_methods(source, metrics=(method_name, method_length, method_cognitive_complexity))
+   >>> records
+   [{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]
+
+For further analysis, results like this can be readily incorporated into, for example, a pandas dataframe:
+
+.. doctest::
+
+   >>> import pandas  # doctest: +SKIP
+   >>> data = pandas.DataFrame.from_records(records)  # doctest: +SKIP
+
 Conditions
 ----------
 
@@ -288,30 +316,4 @@ You can also aggregate using the average, total, or peak ("maximum") values, and
    >>> results = (named_metrics(method) for method in methods)
    >>> sorted(average(results))  # sorted allows doctests to pass
    [('method_cognitive_complexity', 0.5), ('method_length', 1.5), ('method_name', None)]
-
-Analysis
---------
-
-In :py:mod:`.analysis` there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
-
-.. doctest::
-
-   >>> from sourcery_analytics.analysis import analyze_methods
-   >>> source = '''
-   ...     def one():
-   ...         return 1
-   ...     def two(n):
-   ...         if n == 2:
-   ...             return n
-   ... '''
-   >>> records = analyze_methods(source, metrics=(method_name, method_length, method_cognitive_complexity))
-   >>> records
-   [{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]
-
-For further analysis, results like this can be readily incorporated into, for example, a pandas dataframe:
-
-.. doctest::
-
-   >>> import pandas  # doctest: +SKIP
-   >>> data = pandas.DataFrame.from_records(records)  # doctest: +SKIP
 
