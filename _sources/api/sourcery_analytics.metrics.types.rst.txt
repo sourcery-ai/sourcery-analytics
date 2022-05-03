@@ -1,0 +1,7 @@
+sourcery\_analytics.metrics.types
+=================================
+
+.. automodule:: sourcery_analytics.metrics.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
