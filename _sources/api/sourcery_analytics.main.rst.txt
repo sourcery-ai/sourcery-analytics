@@ -1,7 +1,0 @@
-sourcery\_analytics.main
-========================
-
-.. automodule:: sourcery_analytics.main
-   :members:
-   :undoc-members:
-   :show-inheritance:

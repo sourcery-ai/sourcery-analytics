@@ -259,13 +259,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="api/sourcery_analytics.html" class="md-nav__link">sourcery_analytics</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -325,7 +318,7 @@ and code analytics can help identify areas in need of improvement.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> repository provides several code quality metrics, with room to grow.</p>
 <section id="function-length">
 <h2 id="function-length">Function Length<a class="headerlink" href="#function-length" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference internal" href="api/sourcery_analytics.metrics.method_length.html#module-sourcery_analytics.metrics.method_length" title="sourcery_analytics.metrics.method_length"><code class="xref py py-mod docutils literal notranslate"><span class="pre">method_length</span></code></a></p>
+<p>See <code class="xref py py-mod docutils literal notranslate"><span class="pre">method_length</span></code></p>
 <p>Most style guides will tell you to keep your functions short.
 There are many good reasons to encourage short functions, including:</p>
 <ul class="simple">
@@ -340,7 +333,7 @@ comprehensions, or delegating custom process to library tools.</p>
 </section>
 <section id="cyclomatic-complexity">
 <h2 id="cyclomatic-complexity">Cyclomatic Complexity<a class="headerlink" href="#cyclomatic-complexity" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference internal" href="api/sourcery_analytics.metrics.cyclomatic_complexity.html#module-sourcery_analytics.metrics.cyclomatic_complexity" title="sourcery_analytics.metrics.cyclomatic_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cyclomatic_complexity</span></code></a></p>
+<p>See <code class="xref py py-mod docutils literal notranslate"><span class="pre">cyclomatic_complexity</span></code></p>
 <p>Although longer functions tend to be more complex, there are clear differences in the complexity of
 functions with the same length.
 For instance, consider the following snippet:</p>
@@ -359,7 +352,7 @@ Branching code is more difficult to reason about, and this raises the potential 
 bugs in your code.</p>
 <p>Cyclomatic Complexity <a class="footnote-reference brackets" href="#id3" id="id1">1</a> is a metric designed to capture the number of branches in code.
 In Python, it can be easily calculated based on if/elif/else statements, try/except blocks, and so on - for details
-see <a class="reference internal" href="api/sourcery_analytics.metrics.cyclomatic_complexity.html#module-sourcery_analytics.metrics.cyclomatic_complexity" title="sourcery_analytics.metrics.cyclomatic_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cyclomatic_complexity</span></code></a>.</p>
+see <code class="xref py py-mod docutils literal notranslate"><span class="pre">cyclomatic_complexity</span></code>.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="_images/calculation-cyclomatic-complexity.png"><img alt="a visual depiction of the methodology for calculating cyclomatic complexity" src="_images/calculation-cyclomatic-complexity.png" style="width: 400px;"/></a>
 </figure>
@@ -368,7 +361,7 @@ concise and focused on a single workflow.</p>
 </section>
 <section id="cognitive-complexity">
 <h2 id="cognitive-complexity">Cognitive Complexity<a class="headerlink" href="#cognitive-complexity" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference internal" href="api/sourcery_analytics.metrics.cognitive_complexity.html#module-sourcery_analytics.metrics.cognitive_complexity" title="sourcery_analytics.metrics.cognitive_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cognitive_complexity</span></code></a></p>
+<p>See <code class="xref py py-mod docutils literal notranslate"><span class="pre">cognitive_complexity</span></code></p>
 <p>Cyclomatic complexity captures code quality issues not handled by function length alone. However, there is
 clearly further to go. The following two snippets both share the same cyclomatic complexity, but the second
 is more difficult to understand.</p>
@@ -403,7 +396,7 @@ and, as before, aim for concise functions with single responsibilities.</p>
 </section>
 <section id="working-memory">
 <h2 id="working-memory">Working Memory<a class="headerlink" href="#working-memory" title="Permalink to this headline">¶</a></h2>
-<p>See <a class="reference internal" href="api/sourcery_analytics.metrics.working_memory.html#module-sourcery_analytics.metrics.working_memory" title="sourcery_analytics.metrics.working_memory"><code class="xref py py-mod docutils literal notranslate"><span class="pre">working_memory</span></code></a></p>
+<p>See <code class="xref py py-mod docutils literal notranslate"><span class="pre">working_memory</span></code></p>
 <p>One area of complexity not captured by any of the metrics mentioned above can be demonstrated using the following
 code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">all</span><span class="p">([</span>

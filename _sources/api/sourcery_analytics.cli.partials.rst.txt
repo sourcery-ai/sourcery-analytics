@@ -1,7 +1,0 @@
-sourcery\_analytics.cli.partials
-================================
-
-.. automodule:: sourcery_analytics.cli.partials
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -57,7 +57,6 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="sourcery_analytics" href="api/sourcery_analytics.html" />
     <link rel="prev" title="Metrics" href="metrics.html" />
   
    
@@ -272,13 +271,6 @@
     </li></ul>
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="api/sourcery_analytics.html" class="md-nav__link">sourcery_analytics</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -366,13 +358,13 @@ handling the traversal of the tree.</p>
 <p>For code analysis, we typically need to calculate some property of a node, such as its “complexity”, with
 respect to the context of the node, for instance whether or not it is in a conditional.</p>
 <p>Underlying the high-level analysis in <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> is a set of generic visitors which operate
-on astroid’s ASTs (see <a class="reference internal" href="api/sourcery_analytics.visitors.html#module-sourcery_analytics.visitors" title="sourcery_analytics.visitors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visitors</span></code></a>). Visitors implement two methods: <code class="docutils literal notranslate"><span class="pre">_enter</span></code>, which handles the context,
+on astroid’s ASTs (see <code class="xref py py-mod docutils literal notranslate"><span class="pre">visitors</span></code>). Visitors implement two methods: <code class="docutils literal notranslate"><span class="pre">_enter</span></code>, which handles the context,
 and <code class="docutils literal notranslate"><span class="pre">_touch</span></code> which returns a “fact” about the node, based on the context. Keeping these separate helps us be very
-clear about how the calculation works. For an example, see <a class="reference internal" href="api/sourcery_analytics.metrics.cognitive_complexity.html#module-sourcery_analytics.metrics.cognitive_complexity" title="sourcery_analytics.metrics.cognitive_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cognitive_complexity</span></code></a>, in which the visitor
+clear about how the calculation works. For an example, see <code class="xref py py-mod docutils literal notranslate"><span class="pre">cognitive_complexity</span></code>, in which the visitor
 increments its context penalty for nested structures, and returns the complexity of individual nodes.</p>
 <p>What about walking the tree? Well, the list of sub-nodes of a node is a “fact” about that node, so we can implement
-the walker as a visitor! This is the job of the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> which is used throughout the codebase.
-Let’s dig a bit further into how the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> works, as it’s important for development.</p>
+the walker as a visitor! This is the job of the <code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code> which is used throughout the codebase.
+Let’s dig a bit further into how the <code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code> works, as it’s important for development.</p>
 <section id="the-tree-visitor">
 <h3 id="the-tree-visitor">The Tree Visitor<a class="headerlink" href="#the-tree-visitor" title="Permalink to this headline">¶</a></h3>
 <p>Consider this simple example:</p>
@@ -388,7 +380,7 @@ Let’s dig a bit further into how the <a class="reference internal" href="api/s
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tree_visitor</span> <span class="o">=</span> <span class="n">TreeVisitor</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>By default, the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> will return every sub-node of the node as an iterator.</p>
+<p>By default, the <code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code> will return every sub-node of the node as an iterator.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tree_visitor</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 <span class="go">&lt;generator object TreeVisitor._visit at 0x...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">tree_visitor</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
@@ -396,7 +388,7 @@ Let’s dig a bit further into how the <a class="reference internal" href="api/s
 </pre></div>
 </div>
 <p>Instead of returning the nodes, we can use a sub-visitor to return alternative information.
-One useful generic visitor is the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.FunctionVisitor" title="sourcery_analytics.visitors.FunctionVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionVisitor</span></code></a> which wraps a function for use as a visitor.
+One useful generic visitor is the <code class="xref py py-class docutils literal notranslate"><span class="pre">FunctionVisitor</span></code> which wraps a function for use as a visitor.
 Let’s return just the name of each node in the tree:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.visitors</span> <span class="kn">import</span> <span class="n">FunctionVisitor</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">name_visitor</span> <span class="o">=</span> <span class="n">FunctionVisitor</span><span class="p">(</span><span class="k">lambda</span> <span class="n">node</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
@@ -416,8 +408,8 @@ Let’s return just the name of each node in the tree:</p>
 </pre></div>
 </div>
 <p>Of course, there are other ways to calculate this, but the flexibility of the tree visitor means it is useful
-throughout <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code>. See the source for <a class="reference internal" href="api/sourcery_analytics.extractors.html#module-sourcery_analytics.extractors" title="sourcery_analytics.extractors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">extractors</span></code></a>, <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a>, or
-<a class="reference internal" href="api/sourcery_analytics.metrics.cognitive_complexity.html#module-sourcery_analytics.metrics.cognitive_complexity" title="sourcery_analytics.metrics.cognitive_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">metrics.cognitive_complexity</span></code></a> for some examples.</p>
+throughout <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code>. See the source for <code class="xref py py-mod docutils literal notranslate"><span class="pre">extractors</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code>, or
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">metrics.cognitive_complexity</span></code> for some examples.</p>
 </section>
 </section>
 <section id="references">
@@ -459,17 +451,6 @@ throughout <code class="docutils literal notranslate"><span class="pre">sourcery
               </div>
             </a>
           
-          
-            <a href="api/sourcery_analytics.html" title="sourcery_analytics"
-               class="md-flex md-footer-nav__link md-footer-nav__link--next"
-               rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
-                class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> sourcery_analytics </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink"><i
-                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           
         </a>
         

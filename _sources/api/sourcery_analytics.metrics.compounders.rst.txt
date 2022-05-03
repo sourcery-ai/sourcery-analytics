@@ -1,7 +1,0 @@
-sourcery\_analytics.metrics.compounders
-=======================================
-
-.. automodule:: sourcery_analytics.metrics.compounders
-   :members:
-   :undoc-members:
-   :show-inheritance:
