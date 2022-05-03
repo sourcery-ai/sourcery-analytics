@@ -9,7 +9,7 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+
 import os
 import sys
 import typing
@@ -22,7 +22,6 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = "sourcery-analytics"
 copyright = "2022, Ben Martineau"
 author = "Ben Martineau"
-html_baseurl = "sourcery-analytics.sourcery.ai"
 
 
 # -- General configuration ---------------------------------------------------
@@ -75,6 +74,7 @@ autodoc_type_aliases = {
 
 
 # Sphinx Material
+html_baseurl = "https://sourcery-analytics.sourcery.ai/"
 html_theme = "sphinx_material"  # custom theme
 html_logo = "_static/img/sourcery-logo-300-greyscale.png"
 html_theme_options = {
