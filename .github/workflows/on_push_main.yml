@@ -23,21 +23,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry install
-
-  test:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
       - name: Test
         run: |
           poetry run python -m pytest
-
-  build-docs:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    steps:
       - name: sphinx-apidoc
         run:
           poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
