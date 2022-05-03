@@ -56,6 +56,9 @@ Analyze all methods in all Python files in a directory:
 Output Options
 --------------
 
+Plain Python Output
+~~~~~~~~~~~~~~~~~~~
+
 By default, the analysis results are displayed in a rich text format in the command line.
 To suppress this behaviour, use the ``--output`` option to select plain Python output.
 
@@ -66,6 +69,9 @@ To suppress this behaviour, use the ``--output`` option to select plain Python o
 .. code-block::
 
    [{'method_qualname': 'sourcery_analytics.utils.nodedispatch.wrapped', 'method_length': 9, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 9}, {'method_qualname': 'sourcery_analytics.utils.nodedispatch', 'method_length': 11, 'method_cyclomatic_complexity': 3, 'method_cognitive_complexity': 3, 'method_working_memory': 10}, {'method_qualname': 'sourcery_analytics.utils.clean_source', 'method_length': 1, 'method_cyclomatic_complexity': 0, 'method_cognitive_complexity': 0, 'method_working_memory': 4}]
+
+CSV Output
+~~~~~~~~~~
 
 Alternatively, you can output in CSV format.
 
