@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = "sourcery-analytics"
 copyright = "2022, Ben Martineau"
 author = "Ben Martineau"
+html_baseurl = "sourcery-analytics.sourcery.ai"
 
 
 # -- General configuration ---------------------------------------------------

@@ -41,12 +41,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install poetry
           poetry install
-      - name: sphinx-build
-        run:
-          poetry run sphinx-build -b html docs/source docs/build
       - name: sphinx-apidoc
         run:
           poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
+      - name: sphinx-build
+        run:
+          poetry run sphinx-build -b html docs/source docs/build
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
