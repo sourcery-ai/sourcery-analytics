@@ -195,7 +195,13 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#basic-analysis" class="md-nav__link">Basic Analysis</a>
         </li>
-        <li class="md-nav__item"><a href="#output-options" class="md-nav__link">Output Options</a>
+        <li class="md-nav__item"><a href="#output-options" class="md-nav__link">Output Options</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#plain-python-output" class="md-nav__link">Plain Python Output</a>
+        </li>
+        <li class="md-nav__item"><a href="#csv-output" class="md-nav__link">CSV Output</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#metrics" class="md-nav__link">Metrics</a>
         </li>
@@ -205,6 +211,8 @@
         </li>
         <li class="md-nav__item"><a href="#using-the-library" class="md-nav__link">Using the library</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#analysis" class="md-nav__link">Analysis</a>
+        </li>
         <li class="md-nav__item"><a href="#conditions" class="md-nav__link">Conditions</a>
         </li>
         <li class="md-nav__item"><a href="#extracting" class="md-nav__link">Extracting</a>
@@ -212,8 +220,6 @@
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Metrics</a>
         </li>
         <li class="md-nav__item"><a href="#aggregations" class="md-nav__link">Aggregations</a>
-        </li>
-        <li class="md-nav__item"><a href="#analysis" class="md-nav__link">Analysis</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -268,6 +274,13 @@
     <li class="md-nav__item">
     
     
+      <a href="#analysis" class="md-nav__link">Analysis</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="#conditions" class="md-nav__link">Conditions</a>
       
     
@@ -290,13 +303,6 @@
     
     
       <a href="#aggregations" class="md-nav__link">Aggregations</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#analysis" class="md-nav__link">Analysis</a>
       
     
     </li></ul>
@@ -345,7 +351,13 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#basic-analysis" class="md-nav__link">Basic Analysis</a>
         </li>
-        <li class="md-nav__item"><a href="#output-options" class="md-nav__link">Output Options</a>
+        <li class="md-nav__item"><a href="#output-options" class="md-nav__link">Output Options</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#plain-python-output" class="md-nav__link">Plain Python Output</a>
+        </li>
+        <li class="md-nav__item"><a href="#csv-output" class="md-nav__link">CSV Output</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#metrics" class="md-nav__link">Metrics</a>
         </li>
@@ -355,6 +367,8 @@
         </li>
         <li class="md-nav__item"><a href="#using-the-library" class="md-nav__link">Using the library</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#analysis" class="md-nav__link">Analysis</a>
+        </li>
         <li class="md-nav__item"><a href="#conditions" class="md-nav__link">Conditions</a>
         </li>
         <li class="md-nav__item"><a href="#extracting" class="md-nav__link">Extracting</a>
@@ -362,8 +376,6 @@
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Metrics</a>
         </li>
         <li class="md-nav__item"><a href="#aggregations" class="md-nav__link">Aggregations</a>
-        </li>
-        <li class="md-nav__item"><a href="#analysis" class="md-nav__link">Analysis</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -433,6 +445,8 @@
 </section>
 <section id="output-options">
 <h3 id="output-options">Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h3>
+<section id="plain-python-output">
+<h4 id="plain-python-output">Plain Python Output<a class="headerlink" href="#plain-python-output" title="Permalink to this headline">¶</a></h4>
 <p>By default, the analysis results are displayed in a rich text format in the command line.
 To suppress this behaviour, use the <code class="docutils literal notranslate"><span class="pre">--output</span></code> option to select plain Python output.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/utils.py --output plain
@@ -441,6 +455,9 @@ To suppress this behaviour, use the <code class="docutils literal notranslate"><
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">'method_qualname'</span><span class="p">:</span> <span class="s1">'sourcery_analytics.utils.nodedispatch.wrapped'</span><span class="p">,</span> <span class="s1">'method_length'</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="s1">'method_cyclomatic_complexity'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'method_cognitive_complexity'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'method_working_memory'</span><span class="p">:</span> <span class="mi">9</span><span class="p">},</span> <span class="p">{</span><span class="s1">'method_qualname'</span><span class="p">:</span> <span class="s1">'sourcery_analytics.utils.nodedispatch'</span><span class="p">,</span> <span class="s1">'method_length'</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">'method_cyclomatic_complexity'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'method_cognitive_complexity'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'method_working_memory'</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="p">{</span><span class="s1">'method_qualname'</span><span class="p">:</span> <span class="s1">'sourcery_analytics.utils.clean_source'</span><span class="p">,</span> <span class="s1">'method_length'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'method_cyclomatic_complexity'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'method_cognitive_complexity'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'method_working_memory'</span><span class="p">:</span> <span class="mi">4</span><span class="p">}]</span>
 </pre></div>
 </div>
+</section>
+<section id="csv-output">
+<h4 id="csv-output">CSV Output<a class="headerlink" href="#csv-output" title="Permalink to this headline">¶</a></h4>
 <p>Alternatively, you can output in CSV format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/utils.py --output csv
 </pre></div>
@@ -455,6 +472,7 @@ To suppress this behaviour, use the <code class="docutils literal notranslate"><
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/utils.py --output csv &gt; utils_metrics.csv
 </pre></div>
 </div>
+</section>
 </section>
 <section id="metrics">
 <h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
@@ -516,6 +534,31 @@ You can sort using any of the specified metrics using the <code class="docutils 
 </section>
 <section id="using-the-library">
 <h2 id="using-the-library">Using the library<a class="headerlink" href="#using-the-library" title="Permalink to this headline">¶</a></h2>
+<section id="analysis">
+<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h3>
+<p>In <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
+To perform analysis like the CLI commands described above, use these functions.
+For more details about how</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.analysis</span> <span class="kn">import</span> <span class="n">analyze_methods</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.metrics</span> <span class="kn">import</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cognitive_complexity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="gp">... </span><span class="s1">    def one():</span>
+<span class="gp">... </span><span class="s1">        return 1</span>
+<span class="gp">... </span><span class="s1">    def two(n):</span>
+<span class="gp">... </span><span class="s1">        if n == 2:</span>
+<span class="gp">... </span><span class="s1">            return n</span>
+<span class="gp">... </span><span class="s1">'''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">records</span> <span class="o">=</span> <span class="n">analyze_methods</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cognitive_complexity</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">records</span>
+<span class="go">[{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]</span>
+</pre></div>
+</div>
+<p>For further analysis, results like this can be readily incorporated into, for example, a pandas dataframe:</p>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>  
+</pre></div>
+</div>
+</section>
 <section id="conditions">
 <h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h3>
 <p>Conditions are functions which operate on nodes to return a boolean. For instance, the following function
@@ -620,28 +663,6 @@ is just to collect the results in a list:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="p">(</span><span class="n">named_metrics</span><span class="p">(</span><span class="n">method</span><span class="p">)</span> <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">average</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>  <span class="c1"># sorted allows doctests to pass</span>
 <span class="go">[('method_cognitive_complexity', 0.5), ('method_length', 1.5), ('method_name', None)]</span>
-</pre></div>
-</div>
-</section>
-<section id="analysis">
-<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h3>
-<p>In <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.analysis</span> <span class="kn">import</span> <span class="n">analyze_methods</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
-<span class="gp">... </span><span class="s1">    def one():</span>
-<span class="gp">... </span><span class="s1">        return 1</span>
-<span class="gp">... </span><span class="s1">    def two(n):</span>
-<span class="gp">... </span><span class="s1">        if n == 2:</span>
-<span class="gp">... </span><span class="s1">            return n</span>
-<span class="gp">... </span><span class="s1">'''</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">records</span> <span class="o">=</span> <span class="n">analyze_methods</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cognitive_complexity</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">records</span>
-<span class="go">[{'method_name': 'one', 'method_length': 1, 'method_cognitive_complexity': 0}, {'method_name': 'two', 'method_length': 2, 'method_cognitive_complexity': 1}]</span>
-</pre></div>
-</div>
-<p>For further analysis, results like this can be readily incorporated into, for example, a pandas dataframe:</p>
-<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span>  
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>  
 </pre></div>
 </div>
 </section>

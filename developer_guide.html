@@ -207,6 +207,12 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#local-development" class="md-nav__link">Local Development</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#getting-the-source-code" class="md-nav__link">Getting the source code</a>
+        </li>
+        <li class="md-nav__item"><a href="#install-dependencies" class="md-nav__link">Install Dependencies</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run Tests</a>
+        </li>
         <li class="md-nav__item"><a href="#build-this-documentation" class="md-nav__link">Build this documentation</a>
         </li></ul>
             </nav>
@@ -234,6 +240,27 @@
     
       <a href="#local-development" class="md-nav__link">Local Development</a>
       <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#getting-the-source-code" class="md-nav__link">Getting the source code</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#install-dependencies" class="md-nav__link">Install Dependencies</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#run-tests" class="md-nav__link">Run Tests</a>
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -298,6 +325,12 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#local-development" class="md-nav__link">Local Development</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#getting-the-source-code" class="md-nav__link">Getting the source code</a>
+        </li>
+        <li class="md-nav__item"><a href="#install-dependencies" class="md-nav__link">Install Dependencies</a>
+        </li>
+        <li class="md-nav__item"><a href="#run-tests" class="md-nav__link">Run Tests</a>
+        </li>
         <li class="md-nav__item"><a href="#build-this-documentation" class="md-nav__link">Build this documentation</a>
         </li></ul>
             </nav>
@@ -342,10 +375,44 @@
 during its development and a description of the patterns used.</p>
 <section id="local-development">
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permalink to this headline">¶</a></h2>
+<p>Prerequisites:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git_</span></code> for version control</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> for development</p></li>
+<li><p><a class="reference external" href="https://python-poetry.org/">poetry</a> for Python dependency management</p></li>
+</ul>
+<section id="getting-the-source-code">
+<h3 id="getting-the-source-code">Getting the source code<a class="headerlink" href="#getting-the-source-code" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:sourcery-ai/sourcery-analytics.git
+</pre></div>
+</div>
+</section>
+<section id="install-dependencies">
+<h3 id="install-dependencies">Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>From the top-level <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>you should already have installed <a class="reference external" href="https://python-poetry.org/">poetry</a> as indicated in the prerequisites.</p>
+</div>
+</section>
+<section id="run-tests">
+<h3 id="run-tests">Run Tests<a class="headerlink" href="#run-tests" title="Permalink to this headline">¶</a></h3>
+<p>From the top-level <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run pytest
+</pre></div>
+</div>
+</section>
 <section id="build-this-documentation">
 <h3 id="build-this-documentation">Build this documentation<a class="headerlink" href="#build-this-documentation" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">eMTf</span> <span class="o">--</span><span class="n">templatedir</span> <span class="o">./</span><span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">_templates</span><span class="o">/</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">api</span> <span class="n">sourcery_analytics</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">eMTf</span> <span class="o">--</span><span class="n">templatedir</span> <span class="o">./</span><span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">_templates</span><span class="o">/</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">api</span> <span class="n">sourcery_analytics</span>
 <span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">docs</span><span class="o">/</span><span class="n">build</span>
+</pre></div>
+</div>
+<p>Run tests with coverage</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span>
 </pre></div>
 </div>
 </section>

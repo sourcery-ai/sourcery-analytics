@@ -12,13 +12,56 @@ during its development and a description of the patterns used.
 Local Development
 =================
 
+Prerequisites:
+
+* ``git_`` for version control
+* Python_ for development
+* poetry_ for Python dependency management
+
+Getting the source code
+-----------------------
+
+.. code-block::
+
+   $ git clone git@github.com:sourcery-ai/sourcery-analytics.git
+
+Install Dependencies
+--------------------
+
+From the top-level ``sourcery-analytics`` directory:
+
+.. code-block::
+
+   $ poetry install
+
+.. note:: you should already have installed poetry_ as indicated in the prerequisites.
+
+Run Tests
+---------
+
+From the top-level ``sourcery-analytics`` directory:
+
+.. code-block::
+
+   $ poetry run pytest
+
 Build this documentation
 ------------------------
 
 .. code-block::
 
-   sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
+   poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
    sphinx-build -b html docs/source docs/build
+
+Run tests with coverage
+
+.. code-block::
+
+   pytest --cov
+
+.. _git: https://git-scm.com/
+.. _Python: https://www.python.org/
+.. _poetry: https://python-poetry.org/
 
 
 Parsing
