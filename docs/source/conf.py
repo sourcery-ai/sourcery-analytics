@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "sourcery-analytics"
-copyright = "2022, Ben Martineau"
+copyright = "2022, Sourcery.ai"
 author = "Ben Martineau"
 
 
@@ -79,9 +79,9 @@ html_theme = "sphinx_material"  # custom theme
 html_logo = "_static/img/sourcery-logo-300-greyscale.png"
 html_theme_options = {
     "nav_title": "Sourcery Analytics",
-    # "repo_url": "https://github.com/sourcery-ai/core",
-    # "repo_name": "sourcery-ai/core",
-    # "repo_type": "github",
+    "repo_url": "https://github.com/sourcery-ai/sourcery-analytics",
+    "repo_name": "sourcery-ai/sourcery-analytics",
+    "repo_type": "github",
     "globaltoc_depth": 3,
 }
 html_title = "Sourcery Analytics"

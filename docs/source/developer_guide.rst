@@ -5,8 +5,7 @@ Developer Guide
 :Created: 2022-04-19
 :Last Updated: 2022-04-28
 
-This document aims to be a guide for those contributing to the repository by outlining the decisions taken
-during its development and a description of the patterns used.
+This document aims to be a guide for those contributing to the repository.
 
 
 Local Development
@@ -14,8 +13,8 @@ Local Development
 
 Prerequisites:
 
-* ``git_`` for version control
-* Python_ for development
+* git_ for version control
+* Python_ (3.9 or higher) for development
 * poetry_ for Python dependency management
 
 Getting the source code
@@ -45,27 +44,30 @@ From the top-level ``sourcery-analytics`` directory:
 
    $ poetry run pytest
 
+Run tests with a coverage report, including missing lines:
+
+.. code-block::
+
+   $ poetry run pytest --cov=sourcery_analytics --cov-report term-missing
+
 Build this documentation
 ------------------------
 
 .. code-block::
 
-   poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
-   sphinx-build -b html docs/source docs/build
-
-Run tests with coverage
-
-.. code-block::
-
-   pytest --cov
+   $ poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
+   $ poetry run sphinx-build -b html docs/source docs/build
 
 .. _git: https://git-scm.com/
 .. _Python: https://www.python.org/
 .. _poetry: https://python-poetry.org/
 
 
+Architecture
+============
+
 Parsing
-=======
+-------
 
 In order to analzye code, we need to parse it into a structure we can manipulate. Code is typically parsed
 into an Abstract Syntax Tree, or AST [#]_. Python provides a standard implementation [#]_ to parse code into an AST,
@@ -77,7 +79,7 @@ and developing interfaces much easier than the built-in Python parser.
 
 
 Visitors
-========
+--------
 
 The Visitor pattern [#]_ is a well-known pattern for analyzing trees of any type. At a high-level,
 it separates the calculation over elements (also known as *nodes*) within the tree from the calculation
@@ -97,15 +99,14 @@ the walker as a visitor! This is the job of the :py:class:`.TreeVisitor` which i
 Let's dig a bit further into how the :py:class:`.TreeVisitor` works, as it's important for development.
 
 The Tree Visitor
-----------------
+~~~~~~~~~~~~~~~~
 
-Consider this simple example:
+Let's set up a short example.
 
 .. doctest::
 
    >>> import astroid
    >>> from sourcery_analytics.visitors import TreeVisitor
-
    >>> src = '''
    ...     def add(x, y):
    ...         z = x + y
