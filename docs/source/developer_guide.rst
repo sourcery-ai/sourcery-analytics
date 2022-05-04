@@ -20,7 +20,7 @@ Prerequisites:
 Getting the source code
 -----------------------
 
-.. code-block::
+.. code-block:: bash
 
    $ git clone git@github.com:sourcery-ai/sourcery-analytics.git
 

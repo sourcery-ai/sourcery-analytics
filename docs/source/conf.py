@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 project = "sourcery-analytics"
 copyright = "2022, Sourcery.ai"
 author = "Ben Martineau"
+html_baseurl = "https://sourcery-analytics.sourcery.ai/"  # CNAME
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,6 +36,7 @@ extensions = [
     "sphinx.ext.intersphinx",  # Cross-references to other documentation
     "sphinx.ext.doctest",  # inline doctest snippets
     "sphinx.ext.githubpages",  # CNAME and .nojekyll
+    "sphinx_copybutton",  # copyable code
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -74,7 +76,6 @@ autodoc_type_aliases = {
 
 
 # Sphinx Material
-html_baseurl = "https://sourcery-analytics.sourcery.ai/"
 html_theme = "sphinx_material"  # custom theme
 html_logo = "_static/img/sourcery-logo-300-greyscale.png"
 html_theme_options = {
@@ -87,3 +88,8 @@ html_theme_options = {
 html_title = "Sourcery Analytics"
 html_short_title = "Sourcery Analytics"
 html_sidebars = {"**": ["globaltoc.html", "localtoc.html", "searchbox.html"]}
+
+
+# sphinx_copybutton config
+copybutton_prompt_text = r">>> |\.\.\. |\$ "
+copybutton_prompt_is_regexp = True
