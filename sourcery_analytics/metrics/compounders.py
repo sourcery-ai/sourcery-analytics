@@ -10,7 +10,7 @@ T = typing.TypeVar("T", contravariant=True)
 U = typing.TypeVar("U")
 
 
-class Compounder(typing.Protocol[N, T]):
+class Compounder(typing.Protocol[N, T, U]):
     def __call__(self, *metrics: Metric[N, T]) -> Metric[N, U]:
         ...
 
