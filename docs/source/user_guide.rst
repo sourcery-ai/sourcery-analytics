@@ -173,6 +173,7 @@ For more details about how
 .. doctest::
 
    >>> from sourcery_analytics.analysis import analyze_methods
+   >>> from sourcery_analytics.metrics import method_name, method_length, method_cognitive_complexity
    >>> source = '''
    ...     def one():
    ...         return 1
