@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "sourcery-analytics is a library and command-line interface (CLI) for analyzing the code quality of Python packages, modules, or source code."
 authors = ["Ben Martineau <ben@sourcery.ai>"]
 readme = "README.md"
+homepage = "https://github.com/sourcery-ai/sourcery-analytics"
 documentation = "https://sourcery-analytics.sourcery.ai/"
 keywords = ["cli", "code-quality", "python"]
 classifiers = [
