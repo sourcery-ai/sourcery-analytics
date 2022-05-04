@@ -50,11 +50,14 @@
     <title>Developer Guide &#8212; Sourcery Analytics</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <link rel="canonical" href="https://sourcery-analytics.sourcery.ai/developer_guide.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -130,6 +133,23 @@
 
       </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/sourcery-ai/sourcery-analytics" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    sourcery-ai/sourcery-analytics
+  </div>
+</a>
+          </div>
+        </div>
+      
       
   
   <script src="_static/javascripts/version_dropdown.js"></script>
@@ -173,6 +193,21 @@
     <a href="index.html"
        title="Sourcery Analytics">Sourcery Analytics</a>
   </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/sourcery-ai/sourcery-analytics" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    sourcery-ai/sourcery-analytics
+  </div>
+</a>
+    </div>
+  
   
 
   
@@ -217,11 +252,15 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#architecture" class="md-nav__link">Architecture</a><nav class="md-nav">
+              <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#parsing" class="md-nav__link">Parsing</a>
         </li>
         <li class="md-nav__item"><a href="#visitors" class="md-nav__link">Visitors</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#the-tree-visitor" class="md-nav__link">The Tree Visitor</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -273,6 +312,11 @@
     <li class="md-nav__item">
     
     
+      <a href="#architecture" class="md-nav__link">Architecture</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
       <a href="#parsing" class="md-nav__link">Parsing</a>
       
     
@@ -281,11 +325,6 @@
     
     
       <a href="#visitors" class="md-nav__link">Visitors</a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#the-tree-visitor" class="md-nav__link">The Tree Visitor</a>
       
     
     </li></ul>
@@ -335,11 +374,15 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#architecture" class="md-nav__link">Architecture</a><nav class="md-nav">
+              <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#parsing" class="md-nav__link">Parsing</a>
         </li>
         <li class="md-nav__item"><a href="#visitors" class="md-nav__link">Visitors</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#the-tree-visitor" class="md-nav__link">The Tree Visitor</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -371,19 +414,18 @@
 <dd class="field-even"><p>2022-04-28</p>
 </dd>
 </dl>
-<p>This document aims to be a guide for those contributing to the repository by outlining the decisions taken
-during its development and a description of the patterns used.</p>
+<p>This document aims to be a guide for those contributing to the repository.</p>
 <section id="local-development">
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permalink to this headline">¶</a></h2>
 <p>Prerequisites:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git_</span></code> for version control</p></li>
-<li><p><a class="reference external" href="https://www.python.org/">Python</a> for development</p></li>
+<li><p><a class="reference external" href="https://git-scm.com/">git</a> for version control</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">Python</a> (3.9 or higher) for development</p></li>
 <li><p><a class="reference external" href="https://python-poetry.org/">poetry</a> for Python dependency management</p></li>
 </ul>
 <section id="getting-the-source-code">
 <h3 id="getting-the-source-code">Getting the source code<a class="headerlink" href="#getting-the-source-code" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:sourcery-ai/sourcery-analytics.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:sourcery-ai/sourcery-analytics.git
 </pre></div>
 </div>
 </section>
@@ -404,21 +446,23 @@ during its development and a description of the patterns used.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run pytest
 </pre></div>
 </div>
+<p>Run tests with a coverage report, including missing lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run pytest --cov=sourcery_analytics --cov-report term-missing
+</pre></div>
+</div>
 </section>
 <section id="build-this-documentation">
 <h3 id="build-this-documentation">Build this documentation<a class="headerlink" href="#build-this-documentation" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">run</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">eMTf</span> <span class="o">--</span><span class="n">templatedir</span> <span class="o">./</span><span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">_templates</span><span class="o">/</span><span class="n">apidoc</span> <span class="o">-</span><span class="n">o</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">api</span> <span class="n">sourcery_analytics</span>
-<span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="n">docs</span><span class="o">/</span><span class="n">source</span> <span class="n">docs</span><span class="o">/</span><span class="n">build</span>
-</pre></div>
-</div>
-<p>Run tests with coverage</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">--</span><span class="n">cov</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
+$ poetry run sphinx-build -b html docs/source docs/build
 </pre></div>
 </div>
 </section>
 </section>
+<section id="architecture">
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
 <section id="parsing">
-<h2 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h2>
+<h3 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h3>
 <p>In order to analzye code, we need to parse it into a structure we can manipulate. Code is typically parsed
 into an Abstract Syntax Tree, or AST <a class="footnote-reference brackets" href="#id4" id="id1">1</a>. Python provides a standard implementation <a class="footnote-reference brackets" href="#id5" id="id2">2</a> to parse code into an AST,
 but it misses features we need for analysis, most notably a link from a child node to its parent.</p>
@@ -427,7 +471,7 @@ As well as providing an enhanced AST, astroid provides several convenient parsin
 and developing interfaces much easier than the built-in Python parser.</p>
 </section>
 <section id="visitors">
-<h2 id="visitors">Visitors<a class="headerlink" href="#visitors" title="Permalink to this headline">¶</a></h2>
+<h3 id="visitors">Visitors<a class="headerlink" href="#visitors" title="Permalink to this headline">¶</a></h3>
 <p>The Visitor pattern <a class="footnote-reference brackets" href="#id6" id="id3">3</a> is a well-known pattern for analyzing trees of any type. At a high-level,
 it separates the calculation over elements (also known as <em>nodes</em>) within the tree from the calculation
 handling the traversal of the tree.</p>
@@ -442,11 +486,10 @@ increments its context penalty for nested structures, and returns the complexity
 the walker as a visitor! This is the job of the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> which is used throughout the codebase.
 Let’s dig a bit further into how the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> works, as it’s important for development.</p>
 <section id="the-tree-visitor">
-<h3 id="the-tree-visitor">The Tree Visitor<a class="headerlink" href="#the-tree-visitor" title="Permalink to this headline">¶</a></h3>
-<p>Consider this simple example:</p>
+<h4 id="the-tree-visitor">The Tree Visitor<a class="headerlink" href="#the-tree-visitor" title="Permalink to this headline">¶</a></h4>
+<p>Let’s set up a short example.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astroid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.visitors</span> <span class="kn">import</span> <span class="n">TreeVisitor</span>
-
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="gp">... </span><span class="s1">    def add(x, y):</span>
 <span class="gp">... </span><span class="s1">        z = x + y</span>
@@ -486,6 +529,7 @@ Let’s return just the name of each node in the tree:</p>
 <p>Of course, there are other ways to calculate this, but the flexibility of the tree visitor means it is useful
 throughout <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code>. See the source for <a class="reference internal" href="api/sourcery_analytics.extractors.html#module-sourcery_analytics.extractors" title="sourcery_analytics.extractors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">extractors</span></code></a>, <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a>, or
 <a class="reference internal" href="api/sourcery_analytics.metrics.cognitive_complexity.html#module-sourcery_analytics.metrics.cognitive_complexity" title="sourcery_analytics.metrics.cognitive_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">metrics.cognitive_complexity</span></code></a> for some examples.</p>
+</section>
 </section>
 </section>
 <section id="references">
@@ -547,7 +591,7 @@ throughout <code class="docutils literal notranslate"><span class="pre">sourcery
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2022, Ben Martineau.
+              &#169; Copyright 2022, Sourcery.ai.
               
           </div>
             Created using

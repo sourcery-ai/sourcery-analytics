@@ -19,21 +19,21 @@ Installation
 
 .. code-block::
 
-   pip install sourcery_analytics
+   $ pip install sourcery_analytics
 
 Analyze a file
 --------------
 
 .. code-block::
 
-   sourcery-analytics analyze path/to/file.py
+   $ sourcery-analytics analyze path/to/file.py
 
 Example
 -------
 
 .. code-block::
 
-   sourcery-analytics analyze sourcery_analytics/analysis.py
+   $ sourcery-analytics analyze sourcery_analytics/analysis.py
 
 .. code-block::
 

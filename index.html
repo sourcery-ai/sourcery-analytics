@@ -50,11 +50,14 @@
     <title>Welcome to sourcery-analytics’s documentation! &#8212; Sourcery Analytics</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <link rel="canonical" href="https://sourcery-analytics.sourcery.ai/index.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -129,6 +132,23 @@
 
       </div>
       
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/sourcery-ai/sourcery-analytics" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    sourcery-ai/sourcery-analytics
+  </div>
+</a>
+          </div>
+        </div>
+      
       
   
   <script src="_static/javascripts/version_dropdown.js"></script>
@@ -172,6 +192,21 @@
     <a href="#"
        title="Sourcery Analytics">Sourcery Analytics</a>
   </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/sourcery-ai/sourcery-analytics" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    sourcery-ai/sourcery-analytics
+  </div>
+</a>
+    </div>
+  
   
 
   
@@ -257,19 +292,19 @@ packages, modules, or source code.</p>
 <h1 id="installation-and-quickstart">Installation and Quickstart<a class="headerlink" href="#installation-and-quickstart" title="Permalink to this headline">¶</a></h1>
 <section id="installation">
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sourcery_analytics</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install sourcery_analytics
 </pre></div>
 </div>
 </section>
 <section id="analyze-a-file">
 <h2 id="analyze-a-file">Analyze a file<a class="headerlink" href="#analyze-a-file" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sourcery</span><span class="o">-</span><span class="n">analytics</span> <span class="n">analyze</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze path/to/file.py
 </pre></div>
 </div>
 </section>
 <section id="example">
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sourcery</span><span class="o">-</span><span class="n">analytics</span> <span class="n">analyze</span> <span class="n">sourcery_analytics</span><span class="o">/</span><span class="n">analysis</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/analysis.py
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
@@ -320,9 +355,9 @@ packages, modules, or source code.</p>
 <li class="toctree-l3"><a class="reference internal" href="developer_guide.html#build-this-documentation">Build this documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="developer_guide.html#parsing">Parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="developer_guide.html#visitors">Visitors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="developer_guide.html#the-tree-visitor">The Tree Visitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="developer_guide.html#architecture">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="developer_guide.html#parsing">Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="developer_guide.html#visitors">Visitors</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="developer_guide.html#references">References</a></li>
@@ -388,7 +423,7 @@ packages, modules, or source code.</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2022, Ben Martineau.
+              &#169; Copyright 2022, Sourcery.ai.
               
           </div>
             Created using
