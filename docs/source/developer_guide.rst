@@ -63,6 +63,17 @@ Build this documentation
 .. _poetry: https://python-poetry.org/
 
 
+Releases
+========
+
+1. Create a new section in CHANGELOG.md
+2. Add a new release in GitHub (see `release documentation`_), creating a new tag
+3. CI in ``on_release.yml`` will apply the tag as the build version and publish to PyPi
+
+.. _release documentation: https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
+
+
+
 Architecture
 ============
 
