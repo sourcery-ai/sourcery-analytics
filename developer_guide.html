@@ -252,6 +252,8 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#releases" class="md-nav__link">Releases</a>
+        </li>
         <li class="md-nav__item"><a href="#architecture" class="md-nav__link">Architecture</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#parsing" class="md-nav__link">Parsing</a>
@@ -307,6 +309,13 @@
       
     
     </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#releases" class="md-nav__link">Releases</a>
+      
     
     </li>
     <li class="md-nav__item">
@@ -373,6 +382,8 @@
         <li class="md-nav__item"><a href="#build-this-documentation" class="md-nav__link">Build this documentation</a>
         </li></ul>
             </nav>
+        </li>
+        <li class="md-nav__item"><a href="#releases" class="md-nav__link">Releases</a>
         </li>
         <li class="md-nav__item"><a href="#architecture" class="md-nav__link">Architecture</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -458,6 +469,14 @@ $ poetry run sphinx-build -b html docs/source docs/build
 </pre></div>
 </div>
 </section>
+</section>
+<section id="releases">
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Create a new section in CHANGELOG.md</p></li>
+<li><p>Add a new release in GitHub (see <a class="reference external" href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository">release documentation</a>), creating a new tag</p></li>
+<li><p>CI in <code class="docutils literal notranslate"><span class="pre">on_release.yml</span></code> will apply the tag as the build version and publish to PyPi</p></li>
+</ol>
 </section>
 <section id="architecture">
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
