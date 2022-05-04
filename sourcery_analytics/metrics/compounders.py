@@ -2,16 +2,17 @@
 import typing
 
 import astroid
-from mypy_extensions import VarArg
 
 from sourcery_analytics.metrics.types import Metric
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
-T = typing.TypeVar("T")
+T = typing.TypeVar("T", contravariant=True)
 U = typing.TypeVar("U")
 
 
-Compounder = typing.Callable[[VarArg(Metric[N, T])], Metric[N, U]]
+class Compounder(typing.Protocol[N, T]):
+    def __call__(self, *metrics: Metric[N, T]) -> Metric[N, U]:
+        ...
 
 
 def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:

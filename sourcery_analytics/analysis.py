@@ -103,6 +103,6 @@ def analyze(
     """
     nodes = more_itertools.always_iterable(nodes, base_type=astroid.nodes.NodeNG)
     metrics = more_itertools.always_iterable(metrics)
-    metric = compounder(*metrics)
+    metric: Metric[N, R] = compounder(*metrics)
     results = (metric(node) for node in nodes)
     return aggregation(results)
