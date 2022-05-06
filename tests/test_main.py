@@ -165,8 +165,24 @@ def test_aggregate_results(cli_runner, tmp_path, directory, aggregation, expecte
     assert result.stdout == expected
 
 
-def test_assess(cli_runner):
+@pytest.mark.parametrize(
+    "toml_file_source, expected_exit_code",
+    [
+        (
+            """
+                [tool.sourcery-analytics.thresholds]
+                cyclomatic_complexity = 2
+            """,
+            1,
+        ),
+        ("", 0),
+    ],
+)
+def test_assess(
+    cli_runner, file, file_path, toml_file, toml_file_path, expected_exit_code
+):
     """Check assess raises correct error pending implementation."""
-    result = cli_runner.invoke(app, ["assess"])
-    with pytest.raises(NotImplementedError):
-        raise result.exception
+    result = cli_runner.invoke(
+        app, ["assess", str(file_path), "--settings-file", str(toml_file_path)]
+    )
+    assert result.exit_code == expected_exit_code

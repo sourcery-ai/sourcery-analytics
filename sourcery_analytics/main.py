@@ -1,9 +1,11 @@
 """CLI interface to ``sourcery-analytics``."""
 import pathlib
+import sys
 import typing
 
 import typer
 
+from sourcery_analytics import analyze_methods
 from sourcery_analytics.cli.choices import (
     MethodMetricChoice,
     AggregationChoice,
@@ -19,6 +21,7 @@ from sourcery_analytics.cli.partials import (
 )
 from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
+from sourcery_analytics.settings import Settings
 
 app = typer.Typer()
 
@@ -101,9 +104,51 @@ def cli_aggregate(
 
 
 @app.command(name="assess")
-def cli_assess():
+def cli_assess(
+    path: pathlib.Path = typer.Argument(
+        ...,
+        exists=True,
+        file_okay=True,
+        dir_okay=True,
+    ),
+    method_metric: typing.List[MethodMetricChoice] = typer.Option(
+        [
+            "length",
+            "cyclomatic_complexity",
+            "cognitive_complexity",
+            "working_memory",
+        ],
+    ),
+    settings_file: pathlib.Path = typer.Option(
+        "pyproject.toml", exists=True, file_okay=True, dir_okay=False
+    ),
+    output: OutputChoice = typer.Option("rich"),
+):
     """Using configurable values, will pass or fail according to calculated metrics."""
-    raise NotImplementedError("Coming soon!")
+    metrics = [
+        method_qualname,
+        *(metric.as_method_metric() for metric in method_metric),
+    ]
+    settings = Settings.from_toml_file(settings_file)
+    thresholds = {
+        f"method_{metric}": threshold_value
+        for metric, threshold_value in settings.thresholds.dict().items()
+    }
+    analysis = analyze_methods(path, metrics=metrics)
+    threshold_breaches = []
+    for result in analysis:
+        for metric_option in method_metric:
+            metric_value = result[metric_option.method_method_name]
+            threshold_value = thresholds.get(
+                metric_option.method_method_name, sys.maxsize
+            )
+            if metric_value >= threshold_value:
+                threshold_breaches.append(
+                    (result["method_qualname"], metric_option.value, metric_value)
+                )
+    if threshold_breaches:
+        typer.echo(threshold_breaches)
+        raise typer.Exit(1)
 
 
 @app.callback()

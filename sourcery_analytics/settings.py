@@ -4,12 +4,12 @@ import pydantic
 import tomli
 
 
-class MetricThresholdSettings(pydantic.BaseModel):
+class ThresholdSettings(pydantic.BaseModel):
     cyclomatic_complexity: int = 15
 
 
 class Settings(pydantic.BaseSettings):
-    metric_thresholds: MetricThresholdSettings = MetricThresholdSettings()
+    thresholds: ThresholdSettings = ThresholdSettings()
 
     @classmethod
     def from_toml_file(cls, toml_file_path: pathlib.Path):
