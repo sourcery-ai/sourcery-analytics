@@ -24,10 +24,10 @@ def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:
     return tupled_metrics
 
 
-def name_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Dict[str, T]]:
+def name_metrics(*metrics: Metric[N, T]) -> Metric[N, "NamedMetricResult"]:
     """A compounder which joins the result via a dictionary keyed on the metric names."""
 
-    def name_dict(node: N) -> typing.Dict[str, T]:
+    def name_dict(node: N) -> NamedMetricResult:
         return NamedMetricResult({metric.__name__: metric(node) for metric in metrics})
 
     return name_dict

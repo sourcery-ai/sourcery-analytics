@@ -5,7 +5,13 @@ import tomli
 
 
 class ThresholdSettings(pydantic.BaseModel):
-    cyclomatic_complexity: int = 15
+    length: pydantic.PositiveInt = 15
+    cyclomatic_complexity: pydantic.PositiveInt = 10
+    cognitive_complexity: pydantic.PositiveInt = 10
+    working_memory: pydantic.PositiveInt = 20
+
+    class Config:
+        extras_allowed = True
 
 
 class Settings(pydantic.BaseSettings):
@@ -15,4 +21,5 @@ class Settings(pydantic.BaseSettings):
     def from_toml_file(cls, toml_file_path: pathlib.Path):
         with toml_file_path.open("rb") as f:
             config = tomli.load(f)
-        return cls(**config.get("tool", {}).get("sourcery-analytics", {}))
+        final = cls().dict() | config.get("tool", {}).get("sourcery-analytics", {})
+        return cls(**final)

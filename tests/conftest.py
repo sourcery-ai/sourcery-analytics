@@ -1,4 +1,3 @@
-import textwrap
 import typing
 
 import astroid
@@ -58,3 +57,4 @@ def toml_file_source():
 @pytest.fixture
 def toml_file(toml_file_path, toml_file_source):
     toml_file_path.write_text(clean_source(toml_file_source))
+    return toml_file_path

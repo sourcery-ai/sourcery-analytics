@@ -171,18 +171,45 @@ def test_aggregate_results(cli_runner, tmp_path, directory, aggregation, expecte
         (
             """
                 [tool.sourcery-analytics.thresholds]
-                cyclomatic_complexity = 2
+                cyclomatic_complexity = 1
             """,
             1,
         ),
         ("", 0),
     ],
 )
-def test_assess(
-    cli_runner, file, file_path, toml_file, toml_file_path, expected_exit_code
-):
+def test_assess(cli_runner, file, file_path, toml_file, expected_exit_code):
     """Check assess raises correct error pending implementation."""
     result = cli_runner.invoke(
-        app, ["assess", str(file_path), "--settings-file", str(toml_file_path)]
+        app, ["assess", str(file_path), "--settings-file", str(toml_file)]
     )
     assert result.exit_code == expected_exit_code
+
+
+def test_assess_missing_toml(cli_runner, file, file_path):
+    result = cli_runner.invoke(
+        app, ["assess", str(file_path), "--settings-file", "custom.toml"]
+    )
+    assert result.exit_code == 0
+    assert "Warning" in result.stdout
+
+
+@pytest.mark.parametrize(
+    "toml_file_source",
+    [
+        """
+            [tool.sourcery-analytics.weirdness]
+            cyclomatic_complexity = 0
+        """,
+        """
+            [tool.sourcery-analytics.thresholds]
+            cyclomatic_complexity = -1
+        """,
+    ],
+)
+def test_assess_bad_toml(cli_runner, file, file_path, toml_file):
+    result = cli_runner.invoke(
+        app, ["assess", str(file_path), "--settings-file", str(toml_file)]
+    )
+    assert result.exit_code == 2
+    assert "Error" in result.stdout

@@ -51,3 +51,4 @@ addopts = "--doctest-modules --doctest-glob=\"**/*.rst\""
 
 [tool.sourcery-analytics.thresholds]
 cyclomatic_complexity = 5
+cognitive_complexity = 5

@@ -1,21 +1,29 @@
 """Compute and aggregate metrics over nodes, source code, files, and directories."""
+import itertools
 import typing
 
 import astroid.nodes
 import more_itertools
 
+from sourcery_analytics.cli.data import ThresholdBreach
 from sourcery_analytics.conditions import is_method
 from sourcery_analytics.extractors import Extractable, extract
 from sourcery_analytics.metrics import (
     standard_method_metrics,
 )
 from sourcery_analytics.metrics.aggregations import Aggregation
-from sourcery_analytics.metrics.compounders import name_metrics, Compounder
+from sourcery_analytics.metrics.compounders import (
+    name_metrics,
+    Compounder,
+    NamedMetricResult,
+)
 from sourcery_analytics.metrics.types import (
     Metric,
     MethodMetric,
     MetricResult,
 )
+from sourcery_analytics.metrics.utils import method_file, method_lineno, method_name
+from sourcery_analytics.settings import ThresholdSettings
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
 T = typing.TypeVar("T", bound=MetricResult)
@@ -106,3 +114,44 @@ def analyze(
     metric: Metric[N, R] = compounder(*metrics)
     results = (metric(node) for node in nodes)
     return aggregation(results)
+
+
+def melt(
+    results: typing.Iterable[NamedMetricResult], metrics: typing.List[Metric[N, T]]
+) -> typing.Iterator[typing.Dict[str, typing.Any]]:
+    metric_vars = [m.__name__ for m in metrics]
+    first_result, *remaining_results = results
+    id_vars = [k for k in first_result.keys() if k not in metric_vars]
+    yield from melt_one(first_result, metric_vars, id_vars)
+    for result in remaining_results:
+        yield from melt_one(result, metric_vars, id_vars)
+
+
+def melt_one(
+    result: NamedMetricResult, metric_vars: typing.List[str], id_vars: typing.List[str]
+) -> typing.Iterator[typing.Dict[str, typing.Any]]:
+    id_values = {id_var: result[id_var] for id_var in id_vars}
+    for metric_var in metric_vars:
+        metric_values = {"metric_name": metric_var, "metric_value": result[metric_var]}
+        yield id_values | metric_values
+
+
+def assess(
+    nodes: typing.Union[N, typing.Iterable[N]],
+    /,
+    metrics: typing.Union[Metric[N, T], typing.Iterable[Metric[N, T]]] = None,
+    threshold_settings: ThresholdSettings = ThresholdSettings(),
+) -> typing.Iterator[NamedMetricResult]:
+    nodes = more_itertools.always_iterable(nodes, base_type=astroid.nodes.NodeNG)
+    metrics = list(more_itertools.always_iterable(metrics))
+    threshold_values = threshold_settings.dict()
+    metric: Metric[N, NamedMetricResult] = name_metrics(
+        method_file, method_lineno, method_name, *metrics
+    )
+    results = melt((metric(node) for node in nodes), metrics)
+    for result in results:
+        metric_name = result["metric_name"].removeprefix("method_")
+        metric_value = result["metric_value"]
+        threshold_value = threshold_values[metric_name]
+        if metric_value > threshold_value:
+            yield result

@@ -1,16 +1,18 @@
 """CLI interface to ``sourcery-analytics``."""
+import dataclasses
 import pathlib
-import sys
 import typing
 
+import pydantic
 import typer
 
-from sourcery_analytics import analyze_methods
+from sourcery_analytics.analysis import assess
 from sourcery_analytics.cli.choices import (
     MethodMetricChoice,
     AggregationChoice,
     OutputChoice,
 )
+from sourcery_analytics.cli.data import ThresholdBreach
 from sourcery_analytics.cli.partials import (
     analyze_csv_output,
     analyze_plain_output,
@@ -21,7 +23,7 @@ from sourcery_analytics.cli.partials import (
 )
 from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
-from sourcery_analytics.metrics.utils import method_lineno, method_name, method_file
+from sourcery_analytics.metrics.compounders import NamedMetricResult
 from sourcery_analytics.settings import Settings
 
 app = typer.Typer()
@@ -121,64 +123,56 @@ def cli_assess(
         ],
     ),
     settings_file: pathlib.Path = typer.Option(
-        "pyproject.toml", exists=True, file_okay=True, dir_okay=False
+        "pyproject.toml", file_okay=True, dir_okay=False
     ),
-    output: OutputChoice = typer.Option("rich"),
 ):
-    """Using configurable values, will pass or fail according to calculated metrics."""
-    metrics = [
-        method_file,
-        method_lineno,
-        method_name,
-        *(metric.as_method_metric() for metric in method_metric),
-    ]
-    settings = Settings.from_toml_file(settings_file)
-    thresholds = {
-        f"method_{metric}": threshold_value
-        for metric, threshold_value in settings.thresholds.dict().items()
-    }
+    """Using configurable values, will pass or fail according to calculated metrics.
 
-    import rich.console
+    Exits with code 1 if assessment fails i.e. any methods exceed the thresholds.
+    Exits with code 2 for run-time errors, such as mis-configured settings.
+    """
+
+    import rich.progress
 
     console = rich.console.Console()
-
-    analysis = analyze_methods(path, metrics=metrics, aggregation=iter)
-    threshold_breaches = []
-    for result in analysis:
-        for metric_option in method_metric:
-            metric_value = result[metric_option.method_method_name]
-            threshold_value = thresholds.get(
-                metric_option.method_method_name, sys.maxsize
+    metrics = [metric.as_method_metric() for metric in method_metric]
+    if not settings_file.exists():
+        console.print(
+            f"[yellow]Warning:[/] could not find settings file [bold]{settings_file}[/], using defaults."
+        )
+        settings = Settings()
+    else:
+        try:
+            settings = Settings.from_toml_file(settings_file)
+        except pydantic.ValidationError as e:
+            console.print(
+                f"[bold red]Error:[/] unable to parse settings file [bold]{settings_file}[/]."
             )
-            if metric_value > threshold_value:
-                threshold_breaches.append(
-                    {
-                        "method_file": result["method_file"],
-                        "method_lineno": result["method_lineno"],
-                        "method_name": result["method_name"],
-                        "metric": metric_option.value,
-                        "value": metric_value,
-                    }
-                )
+            raise typer.Exit(2) from e
 
-    if not threshold_breaches:
+    methods = rich.progress.track(extract_methods(path))
+
+    threshold_breach_results: typing.List[NamedMetricResult] = list(
+        assess(methods, metrics=metrics, threshold_settings=settings.thresholds)
+    )
+
+    if not threshold_breach_results:
         console.print("[bold green]Assessment Complete")
         console.print("[green]No issues found.")
         raise typer.Exit(0)
 
-    for threshold_breach in threshold_breaches:
-        relative_path = pathlib.Path(threshold_breach["method_file"]).relative_to(
-            pathlib.Path.cwd().absolute()
+    for threshold_breach_result in threshold_breach_results:
+        threshold_breach = ThresholdBreach.from_dict(
+            threshold_breach_result, threshold_settings=settings.thresholds
         )
-        lineno = threshold_breach["method_lineno"]
-        metric = threshold_breach["metric"]
-        method = threshold_breach["method_name"]
-        metric_value = threshold_breach["value"]
-        threshold_value = thresholds.get(f"method_{metric}")
         console.print(
-            f"{relative_path}:{lineno}: [bold red]error:[/] {metric} of [bold]{method}[/] is {metric_value} exceeding threshold of {threshold_value}"
+            "{relative_path}:{lineno}: [bold red]error:[/] "
+            "{metric_name} of [bold]{method_name}[/] is {metric_value} "
+            "exceeding threshold of {threshold_value}".format(
+                **dataclasses.asdict(threshold_breach)
+            )
         )
-    console.print(f"[bold red]Found {len(threshold_breaches)} errors.")
+    console.print(f"[bold red]Found {len(threshold_breach_results)} errors.")
     raise typer.Exit(1)
 
 
