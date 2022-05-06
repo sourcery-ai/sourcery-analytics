@@ -37,6 +37,23 @@ def method_name(method: astroid.nodes.FunctionDef) -> str:
 
 
 @nodedispatch
+@validate_node_type(astroid.nodes.FunctionDef)
+def method_lineno(method: astroid.nodes.FunctionDef) -> int:
+    return method.lineno
+
+
+@nodedispatch
+@validate_node_type(astroid.nodes.FunctionDef)
+def method_file(method: astroid.nodes.FunctionDef) -> str:
+    def get_module(node: astroid.nodes.NodeNG):
+        if isinstance(node, astroid.nodes.Module):
+            return node
+        return get_module(node.parent)
+
+    return get_module(method).file
+
+
+@nodedispatch
 def node_type_name(node: astroid.nodes.NodeNG) -> str:
     """Returns a string representing the type of the node.
 

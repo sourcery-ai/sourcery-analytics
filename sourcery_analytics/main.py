@@ -21,6 +21,7 @@ from sourcery_analytics.cli.partials import (
 )
 from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
+from sourcery_analytics.metrics.utils import method_lineno, method_name, method_file
 from sourcery_analytics.settings import Settings
 
 app = typer.Typer()
@@ -126,7 +127,9 @@ def cli_assess(
 ):
     """Using configurable values, will pass or fail according to calculated metrics."""
     metrics = [
-        method_qualname,
+        method_file,
+        method_lineno,
+        method_name,
         *(metric.as_method_metric() for metric in method_metric),
     ]
     settings = Settings.from_toml_file(settings_file)
@@ -134,7 +137,12 @@ def cli_assess(
         f"method_{metric}": threshold_value
         for metric, threshold_value in settings.thresholds.dict().items()
     }
-    analysis = analyze_methods(path, metrics=metrics)
+
+    import rich.console
+
+    console = rich.console.Console()
+
+    analysis = analyze_methods(path, metrics=metrics, aggregation=iter)
     threshold_breaches = []
     for result in analysis:
         for metric_option in method_metric:
@@ -142,13 +150,36 @@ def cli_assess(
             threshold_value = thresholds.get(
                 metric_option.method_method_name, sys.maxsize
             )
-            if metric_value >= threshold_value:
+            if metric_value > threshold_value:
                 threshold_breaches.append(
-                    (result["method_qualname"], metric_option.value, metric_value)
+                    {
+                        "method_file": result["method_file"],
+                        "method_lineno": result["method_lineno"],
+                        "method_name": result["method_name"],
+                        "metric": metric_option.value,
+                        "value": metric_value,
+                    }
                 )
-    if threshold_breaches:
-        typer.echo(threshold_breaches)
-        raise typer.Exit(1)
+
+    if not threshold_breaches:
+        console.print("[bold green]Assessment Complete")
+        console.print("[green]No issues found.")
+        raise typer.Exit(0)
+
+    for threshold_breach in threshold_breaches:
+        relative_path = pathlib.Path(threshold_breach["method_file"]).relative_to(
+            pathlib.Path.cwd().absolute()
+        )
+        lineno = threshold_breach["method_lineno"]
+        metric = threshold_breach["metric"]
+        method = threshold_breach["method_name"]
+        metric_value = threshold_breach["value"]
+        threshold_value = thresholds.get(f"method_{metric}")
+        console.print(
+            f"{relative_path}:{lineno}: [bold red]error:[/] {metric} of [bold]{method}[/] is {metric_value} exceeding threshold of {threshold_value}"
+        )
+    console.print(f"[bold red]Found {len(threshold_breaches)} errors.")
+    raise typer.Exit(1)
 
 
 @app.callback()
