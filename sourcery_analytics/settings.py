@@ -5,10 +5,10 @@ import tomli
 
 
 class ThresholdSettings(pydantic.BaseModel):
-    length: pydantic.PositiveInt = 15
-    cyclomatic_complexity: pydantic.PositiveInt = 10
-    cognitive_complexity: pydantic.PositiveInt = 10
-    working_memory: pydantic.PositiveInt = 20
+    method_length: pydantic.PositiveInt = 15
+    method_cyclomatic_complexity: pydantic.PositiveInt = 10
+    method_cognitive_complexity: pydantic.PositiveInt = 10
+    method_working_memory: pydantic.PositiveInt = 20
 
     class Config:
         extras_allowed = True

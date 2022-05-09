@@ -171,7 +171,7 @@ def test_aggregate_results(cli_runner, tmp_path, directory, aggregation, expecte
         (
             """
                 [tool.sourcery-analytics.thresholds]
-                cyclomatic_complexity = 1
+                method_cyclomatic_complexity = 1
             """,
             1,
         ),
@@ -199,11 +199,11 @@ def test_assess_missing_toml(cli_runner, file, file_path):
     [
         """
             [tool.sourcery-analytics.weirdness]
-            cyclomatic_complexity = 0
+            method_cyclomatic_complexity = 0
         """,
         """
             [tool.sourcery-analytics.thresholds]
-            cyclomatic_complexity = -1
+            method_cyclomatic_complexity = -1
         """,
     ],
 )

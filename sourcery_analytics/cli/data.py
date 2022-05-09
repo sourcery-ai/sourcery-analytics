@@ -20,12 +20,12 @@ class ThresholdBreach:
         d: typing.Dict[str, typing.Any],
         threshold_settings: ThresholdSettings,
     ):
-        metric_name = d["metric_name"].removeprefix("method_")
+        metric_name = d["metric_name"]
         return ThresholdBreach(
             pathlib.Path(d["method_file"]).relative_to(pathlib.Path.cwd().absolute()),
             d["method_lineno"],
             d["method_name"],
-            metric_name,
+            metric_name.removeprefix("method_"),
             d["metric_value"],
             threshold_settings.dict()[metric_name],
         )

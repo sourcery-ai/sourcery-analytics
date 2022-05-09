@@ -3,7 +3,6 @@ import dataclasses
 import pathlib
 import typing
 
-import pydantic
 import typer
 
 from sourcery_analytics.analysis import assess
@@ -20,11 +19,11 @@ from sourcery_analytics.cli.partials import (
     aggregate_csv_output,
     aggregate_plain_output,
     aggregate_rich_output,
+    read_settings,
 )
 from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.metrics import method_qualname
 from sourcery_analytics.metrics.compounders import NamedMetricResult
-from sourcery_analytics.settings import Settings
 
 app = typer.Typer()
 
@@ -129,26 +128,15 @@ def cli_assess(
     """Using configurable values, will pass or fail according to calculated metrics.
 
     Exits with code 1 if assessment fails i.e. any methods exceed the thresholds.
-    Exits with code 2 for run-time errors, such as mis-configured settings.
+    Exits with code 2 for runtime errors, such as mis-configured settings.
     """
 
     import rich.progress
 
     console = rich.console.Console()
     metrics = [metric.as_method_metric() for metric in method_metric]
-    if not settings_file.exists():
-        console.print(
-            f"[yellow]Warning:[/] could not find settings file [bold]{settings_file}[/], using defaults."
-        )
-        settings = Settings()
-    else:
-        try:
-            settings = Settings.from_toml_file(settings_file)
-        except pydantic.ValidationError as e:
-            console.print(
-                f"[bold red]Error:[/] unable to parse settings file [bold]{settings_file}[/]."
-            )
-            raise typer.Exit(2) from e
+
+    settings = read_settings(settings_file, console)
 
     methods = rich.progress.track(extract_methods(path))
 

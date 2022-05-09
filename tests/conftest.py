@@ -50,7 +50,7 @@ def toml_file_path(tmp_path):
 def toml_file_source():
     return """
         [tool.sourcery-analytics.thresholds]
-        cyclomatic_complexity = 10
+        method_cyclomatic_complexity = 5
     """
 
 
