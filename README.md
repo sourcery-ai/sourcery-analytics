@@ -47,3 +47,9 @@ analyze_methods(source)
 ```
 
 For more, see the [docs](https://sourcery-analytics.sourcery.ai/).
+
+### Repoanalysis.com
+You can see how hundreds of top projects measure across different code quality metrics and see how your priojects compare at [repoanalysis.com](repoanalysis.com)
+
+### Developed by Sourcery
+Sourcery Analytics was originally developed by the team at [Sourcery](https://sourcery.ai/?utm_source=sourcery-analytics). Sourcery is an automated coding assistant to help Python developers review and improve their code while they work. Sourcery has a built in library of 100+ core rules and you can extend it further to create custom rules for any scenario.
