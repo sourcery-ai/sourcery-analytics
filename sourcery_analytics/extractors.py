@@ -9,6 +9,7 @@ import astroid
 import astroid.manager
 
 from sourcery_analytics.conditions import Condition, is_method
+from sourcery_analytics.utils import clean_source
 from sourcery_analytics.visitors import (
     Visitor,
     FunctionVisitor,
@@ -139,7 +140,7 @@ class Extractor(typing.Generic[T]):
 
     @extract.register
     def _extract_from_source(self, source: str) -> typing.Iterator[T]:
-        node = astroid.parse(source)
+        node = self.manager.ast_from_string(clean_source(source))
         yield from self._extract_from_node(node)
 
     @extract.register

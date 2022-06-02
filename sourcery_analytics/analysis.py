@@ -148,7 +148,7 @@ def assess(
         >>> metrics = [method_length, method_cyclomatic_complexity]
         >>> threshold_settings = ThresholdSettings(method_cyclomatic_complexity=2)  # note: this is unreasonably low
         >>> list(assess(nodes, metrics=metrics, threshold_settings=threshold_settings))
-        [{'method_file': '<?>', 'method_lineno': 2, 'method_name': 'bin', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 5}]
+        [{'method_file': '<?>', 'method_lineno': 1, 'method_name': 'bin', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 5}]
 
     """
     nodes = more_itertools.always_iterable(nodes, base_type=astroid.nodes.NodeNG)
