@@ -186,6 +186,25 @@ def test_assess(cli_runner, file, file_path, toml_file, expected_exit_code):
     assert result.exit_code == expected_exit_code
 
 
+@pytest.mark.parametrize(
+    "toml_file_source, expected_errors",
+    [
+        (
+            """
+                [tool.sourcery-analytics.thresholds]
+                method_cyclomatic_complexity = 1
+            """,
+            1,
+        )
+    ],
+)
+def test_assess_result(cli_runner, file, file_path, toml_file, expected_errors):
+    result = cli_runner.invoke(
+        app, ["assess", str(file_path), "--settings-file", str(toml_file)]
+    )
+    assert f"Found {expected_errors} errors." in result.stdout
+
+
 def test_assess_missing_toml(cli_runner, file, file_path):
     result = cli_runner.invoke(
         app, ["assess", str(file_path), "--settings-file", "custom.toml"]

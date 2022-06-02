@@ -21,8 +21,14 @@ class ThresholdBreach:
         threshold_settings: ThresholdSettings,
     ):
         metric_name = d["metric_name"]
+        try:  # get relative path
+            path = pathlib.Path(d["method_file"]).relative_to(
+                pathlib.Path.cwd().absolute()
+            )
+        except ValueError:  # fall back to absolute path
+            path = pathlib.Path(d["method_file"])
         return ThresholdBreach(
-            pathlib.Path(d["method_file"]).relative_to(pathlib.Path.cwd().absolute()),
+            path,
             d["method_lineno"],
             d["method_name"],
             metric_name.removeprefix("method_"),
