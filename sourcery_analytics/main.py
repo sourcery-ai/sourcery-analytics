@@ -3,6 +3,7 @@ import dataclasses
 import pathlib
 import typing
 
+import more_itertools
 import typer
 
 from sourcery_analytics.analysis import assess
@@ -137,19 +138,14 @@ def cli_assess(
     metrics = [metric.as_method_metric() for metric in method_metric]
 
     settings = read_settings(settings_file, console)
-
     methods = rich.progress.track(extract_methods(path))
 
-    threshold_breach_results: typing.List[typing.Dict[str, typing.Any]] = list(
-        assess(methods, metrics=metrics, threshold_settings=settings.thresholds)
+    threshold_breach_results = assess(
+        methods, metrics=metrics, threshold_settings=settings.thresholds
     )
 
-    if not threshold_breach_results:
-        console.print("[bold green]Assessment Complete")
-        console.print("[green]No issues found.")
-        raise typer.Exit(0)
-
-    for threshold_breach_result in threshold_breach_results:
+    count = 0
+    for count, threshold_breach_result in enumerate(threshold_breach_results, 1):
         threshold_breach = ThresholdBreach.from_dict(
             threshold_breach_result, threshold_settings=settings.thresholds
         )
@@ -160,8 +156,13 @@ def cli_assess(
                 **dataclasses.asdict(threshold_breach)
             )
         )
-    console.print(f"[bold red]Found {len(threshold_breach_results)} errors.")
-    raise typer.Exit(1)
+
+    if count:
+        console.print(f"[bold red]Found {count} errors.")
+        raise typer.Exit(1)
+
+    console.print("[bold green]Assessment Complete")
+    console.print("[green]No issues found.")
 
 
 @app.callback()
