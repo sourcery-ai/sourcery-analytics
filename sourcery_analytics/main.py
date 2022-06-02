@@ -140,7 +140,7 @@ def cli_assess(
 
     methods = rich.progress.track(extract_methods(path))
 
-    threshold_breach_results: typing.List[NamedMetricResult] = list(
+    threshold_breach_results: typing.List[typing.Dict[str, typing.Any]] = list(
         assess(methods, metrics=metrics, threshold_settings=settings.thresholds)
     )
 
