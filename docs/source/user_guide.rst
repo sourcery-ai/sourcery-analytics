@@ -6,8 +6,9 @@ User Guide
 :Last Updated: 2022-04-28
 
 
-Using the CLI
-=============
+Command-Line Analysis
+=====================
+
 
 Basic Analysis
 --------------
@@ -158,6 +159,71 @@ You can sort using any of the specified metrics using the ``--sort`` option:
 
 
 .. note:: If you're specifying both ``--method-metrics`` and ``--sort``, you should ensure the sort value is one of the specified metrics.
+
+
+Command-Line Assessment
+=======================
+
+The "assess" command will return a non-zero exit code if it finds functions exceeding threshold values.
+
+
+Assess Metrics
+--------------
+
+Identify functions exceeding metric thresholds.
+
+.. code-block::
+
+   $ sourcery-analytics assess sourcery-analytics/metrics
+
+.. code-block::
+
+   sourcery_analytics/metrics/cyclomatic_complexity.py:47: error: working_memory of cyclomatic_complexity is 34 exceeding threshold of 20
+   Found 1 errors.
+
+
+Setting Thresholds
+------------------
+
+You can customise the error thresholds by adding the following section to your ``pyproject.toml`` file.
+The values shown here are the defaults.
+
+.. code-block:: toml
+
+   # other settings...
+
+   [tool.sourcery-analytics]
+
+   [tool.sourcery-analytics.thresholds]
+   method_length = 15
+   method_cyclomatic_complexity = 10
+   method_cognitive_complexity = 10
+   method_working_memory = 20
+
+
+Choosing Metrics
+----------------
+
+Select a sub-set of metrics to assess using a (optionally repeated) ``--method-metric`` option:
+
+.. code-block::
+
+   $ sourcery-analytics assess sourcery_analytics/metrics --method-metric cyclomatic_complexity --method-metric cognitive_complexity
+
+.. code-block::
+
+   Assessment Complete
+   No issues found.
+
+
+Custom Settings File
+--------------------
+
+If you don't have a ``pyproject.toml`` file, you can provide a custom ``.toml`` file to read thresholds from:
+
+.. code-block::
+
+   $ sourcery-analytics assess sourcery_analytics/metrics --settings-file thresholds.toml
 
 
 Using the library

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sourcery-analytics"
-version = "0.0.0"
+version = "0.0.0"  # this is a placeholder - version is set in the CI on release
 description = "sourcery-analytics is a library and command-line interface (CLI) for analyzing the code quality of Python packages, modules, or source code."
 authors = ["Ben Martineau <ben@sourcery.ai>"]
 readme = "README.md"
@@ -22,6 +22,8 @@ astroid = "2.11.2"
 typer = "0.4.1"
 rich = "12.3.0"
 more-itertools = "8.12.0"
+tomli = "2.0.1"
+pydantic = "1.9.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.942"
@@ -44,3 +46,9 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules --doctest-glob=\"**/*.rst\""
+
+[tool.sourcery-analytics]
+
+[tool.sourcery-analytics.thresholds]
+method_cyclomatic_complexity = 10
+method_cognitive_complexity = 10

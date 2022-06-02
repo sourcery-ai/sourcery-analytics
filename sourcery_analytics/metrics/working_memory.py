@@ -10,8 +10,7 @@ import typing
 import astroid
 
 from sourcery_analytics.extractors import extract
-from sourcery_analytics.utils import nodedispatch
-from sourcery_analytics.validators import validate_node_type
+from sourcery_analytics.utils import nodedispatch, validate_node_type
 from sourcery_analytics.visitors import (
     TreeVisitor,
     Visitor,

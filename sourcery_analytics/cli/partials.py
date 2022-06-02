@@ -1,11 +1,15 @@
 """Parts of larger commands."""
 import operator
+import pathlib
 import typing
 
+import pydantic
 import typer
+from rich.console import Console
 
 from sourcery_analytics import analyze
 from sourcery_analytics.metrics.compounders import NamedMetricResult
+from sourcery_analytics.settings import Settings
 
 
 def analyze_rich_output(method_metric, methods, metrics, sort):
@@ -92,3 +96,20 @@ def aggregate_csv_output(aggregation_method, method_metric, methods, metrics):
     result = ",".join([m.value for m in method_metric]) + "\n"
     result += ",".join(str(value) for _metric_name, value in analysis)
     typer.echo(result)
+
+
+def read_settings(settings_file: pathlib.Path, console: Console) -> Settings:
+    if not settings_file.exists():
+        console.print(
+            f"[yellow]Warning:[/] could not find settings file [bold]{settings_file}[/], using defaults."
+        )
+        settings = Settings()
+    else:
+        try:
+            settings = Settings.from_toml_file(settings_file)
+        except pydantic.ValidationError as e:
+            console.print(
+                f"[bold red]Error:[/] unable to parse settings file [bold]{settings_file}[/]."
+            )
+            raise typer.Exit(2) from e
+    return settings

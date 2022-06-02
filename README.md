@@ -6,20 +6,38 @@
 
 Get started by installing using `pip`:
 
-```commandline
+```shell
 pip install sourcery-analytics
 ```
 
 This will install `sourcery-analytics` as a command-line tool.
+
+To identify code quality issues:
+
+```shell
+sourcery-analytics assess path/to/file.py
+```
+
+Example:
+
+```shell
+sourcery-analytics assess sourcery_analytics/metrics
+```
+
+```
+sourcery_analytics/metrics/cyclomatic_complexity.py:47: error: working_memory of cyclomatic_complexity is 34 exceeding threshold of 20
+Found 1 errors.
+```
+
 To analyze a single Python file, use the `analyze` subcommand:
 
-```commandline
+```shell
 sourcery-analytics analyze path/to/file.py
 ```
 
 Example:
 
-```commandline
+```shell
 sourcery-analytics analyze sourcery_analytics/analysis.py
 ```
 

@@ -1,8 +1,7 @@
 """Utility "metrics" for use in analysis."""
 import astroid
 
-from sourcery_analytics.utils import nodedispatch
-from sourcery_analytics.validators import validate_node_type
+from sourcery_analytics.utils import nodedispatch, validate_node_type
 
 
 @nodedispatch
@@ -34,6 +33,23 @@ def method_name(method: astroid.nodes.FunctionDef) -> str:
         'foo'
     """
     return method.name
+
+
+@nodedispatch
+@validate_node_type(astroid.nodes.FunctionDef)
+def method_lineno(method: astroid.nodes.FunctionDef) -> int:
+    return method.lineno
+
+
+@nodedispatch
+@validate_node_type(astroid.nodes.FunctionDef)
+def method_file(method: astroid.nodes.FunctionDef) -> str:
+    def get_module(node: astroid.nodes.NodeNG):
+        if isinstance(node, astroid.nodes.Module):
+            return node
+        return get_module(node.parent)
+
+    return get_module(method).file
 
 
 @nodedispatch

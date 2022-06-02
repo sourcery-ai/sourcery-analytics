@@ -11,8 +11,10 @@ U = typing.TypeVar("U")
 
 
 class Compounder(typing.Protocol[N, T, U]):
+    """A compounder function produces a compound metric function."""
+
     def __call__(self, *metrics: Metric[N, T]) -> Metric[N, U]:
-        ...
+        """Combine multiple metric functions into a single metric function."""
 
 
 def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:
@@ -24,16 +26,16 @@ def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:
     return tupled_metrics
 
 
-def name_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Dict[str, T]]:
+def name_metrics(*metrics: Metric[N, T]) -> Metric[N, "NamedMetricResult"]:
     """A compounder which joins the result via a dictionary keyed on the metric names."""
 
-    def name_dict(node: N) -> typing.Dict[str, T]:
+    def name_dict(node: N) -> NamedMetricResult:
         return NamedMetricResult({metric.__name__: metric(node) for metric in metrics})
 
     return name_dict
 
 
-class _CompoundMetric:
+class _CompoundMetricResult:
     @staticmethod
     def divone(v, u):
         try:
@@ -52,7 +54,7 @@ class _CompoundMetric:
         return v == u
 
 
-class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
+class TupleMetricResult(typing.Tuple[T], _CompoundMetricResult):
     """A compound metric result comprising a tuple of sub-result values."""
 
     def __add__(self, other):
@@ -65,7 +67,7 @@ class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
         return all(self.eqone(v, u) for v, u in zip(self, other))
 
 
-class NamedMetricResult(typing.Dict[str, T], _CompoundMetric):
+class NamedMetricResult(typing.Dict[str, T], _CompoundMetricResult):
     """A compound metric result mapping sub-metric name to sub-metric result."""
 
     def __add__(self, other):

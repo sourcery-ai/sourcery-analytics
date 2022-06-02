@@ -1,4 +1,3 @@
-import textwrap
 import typing
 
 import astroid
@@ -40,3 +39,22 @@ def file_path(tmp_path):
 @pytest.fixture
 def file(file_path, cleaned_source):
     file_path.write_text(cleaned_source)
+
+
+@pytest.fixture
+def toml_file_path(tmp_path):
+    return tmp_path / "pyproject.toml"
+
+
+@pytest.fixture
+def toml_file_source():
+    return """
+        [tool.sourcery-analytics.thresholds]
+        method_cyclomatic_complexity = 5
+    """
+
+
+@pytest.fixture
+def toml_file(toml_file_path, toml_file_source):
+    toml_file_path.write_text(clean_source(toml_file_source))
+    return toml_file_path
