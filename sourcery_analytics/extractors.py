@@ -4,6 +4,7 @@ import functools
 import itertools
 import pathlib
 import typing
+import warnings
 
 import astroid
 import astroid.manager
@@ -161,5 +162,12 @@ class Extractor(typing.Generic[T]):
         )
 
     def _extract_from_file(self, file: pathlib.Path) -> typing.Iterator[T]:
-        module = self.manager.ast_from_file(file)
-        yield from self._extract_from_node(module)
+        try:
+            module = self.manager.ast_from_file(file)
+            yield from self._extract_from_node(module)
+        except astroid.AstroidSyntaxError as e:
+            error_message = str(e).replace("\n", " ")
+            warnings.warn(
+                SyntaxWarning(f"skipped {file} due to syntax error: {error_message}"),
+            )
+            yield from ()

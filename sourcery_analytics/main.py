@@ -1,9 +1,11 @@
 """CLI interface to ``sourcery-analytics``."""
 import dataclasses
+import logging
 import pathlib
 import typing
 
 import more_itertools
+import rich.logging
 import typer
 
 from sourcery_analytics.analysis import assess
@@ -27,6 +29,9 @@ from sourcery_analytics.metrics import method_qualname
 from sourcery_analytics.metrics.compounders import NamedMetricResult
 
 app = typer.Typer()
+
+logging.basicConfig(format="%(message)s", handlers=[rich.logging.RichHandler()])
+logging.captureWarnings(True)
 
 
 @app.command(name="analyze")
