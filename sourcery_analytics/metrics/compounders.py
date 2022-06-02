@@ -11,8 +11,10 @@ U = typing.TypeVar("U")
 
 
 class Compounder(typing.Protocol[N, T, U]):
+    """A compounder function produces a compound metric function."""
+
     def __call__(self, *metrics: Metric[N, T]) -> Metric[N, U]:
-        ...
+        """Combine multiple metric functions into a single metric function."""
 
 
 def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:
