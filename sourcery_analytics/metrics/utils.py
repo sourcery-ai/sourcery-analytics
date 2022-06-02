@@ -1,8 +1,7 @@
 """Utility "metrics" for use in analysis."""
 import astroid
 
-from sourcery_analytics.utils import nodedispatch
-from sourcery_analytics.validators import validate_node_type
+from sourcery_analytics.utils import nodedispatch, validate_node_type
 
 
 @nodedispatch

@@ -8,8 +8,7 @@ import contextlib
 import astroid
 
 from sourcery_analytics.conditions import is_elif
-from sourcery_analytics.utils import nodedispatch
-from sourcery_analytics.validators import validate_node_type
+from sourcery_analytics.utils import nodedispatch, validate_node_type
 from sourcery_analytics.visitors import TreeVisitor, Visitor
 
 

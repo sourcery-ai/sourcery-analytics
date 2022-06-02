@@ -1,7 +1,7 @@
 import pytest
 
 from sourcery_analytics.metrics import method_length
-from sourcery_analytics.validators import InvalidNodeTypeError
+from sourcery_analytics.utils import InvalidNodeTypeError
 
 
 @pytest.fixture
