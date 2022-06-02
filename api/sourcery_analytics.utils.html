@@ -61,8 +61,8 @@
     <link rel="canonical" href="https://sourcery-analytics.sourcery.ai/api/sourcery_analytics.utils.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="sourcery_analytics.validators" href="sourcery_analytics.validators.html" />
-    <link rel="prev" title="sourcery_analytics.main" href="sourcery_analytics.main.html" />
+    <link rel="next" title="sourcery_analytics.visitors" href="sourcery_analytics.visitors.html" />
+    <link rel="prev" title="sourcery_analytics.settings" href="sourcery_analytics.settings.html" />
   
    
 
@@ -282,6 +282,13 @@
     <li class="md-nav__item">
     
     
+      <a href="sourcery_analytics.settings.html" class="md-nav__link">sourcery_analytics.settings</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> sourcery_analytics.utils </label>
     
@@ -295,13 +302,6 @@
 
   </ul>
 </nav>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="sourcery_analytics.validators.html" class="md-nav__link">sourcery_analytics.validators</a>
       
     
     </li>
@@ -363,7 +363,7 @@
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.utils.nodedispatch">
-<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.utils.</span></span><span class="sig-name descname"><span class="pre">nodedispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.utils.nodedispatch" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.utils.</span></span><span class="sig-name descname"><span class="pre">nodedispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.utils.nodedispatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a function from one that works only on nodes to one that works on strings, nodes, and file paths.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@nodedispatch</span>
@@ -371,6 +371,37 @@
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="vm">__class__</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">node_type</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>
 <span class="go">&lt;class 'astroid.nodes.node_classes.Name'&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="sourcery_analytics.utils.InvalidNodeTypeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.utils.</span></span><span class="sig-name descname"><span class="pre">InvalidNodeTypeError</span></span><a class="headerlink" href="#sourcery_analytics.utils.InvalidNodeTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#ValueError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a></p>
+<p>Raised when a node’s type is validated and found to be incorrect.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="sourcery_analytics.utils.validate_node_type">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.utils.</span></span><span class="sig-name descname"><span class="pre">validate_node_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Type" title="(in Python v3.9)"><span class="pre">Type</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.utils.validate_node_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps any method taking a node as its first argument and validates the node’s type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*types</strong> – any subclasses of <a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><code class="xref py py-class docutils literal notranslate"><span class="pre">astroid.nodes.NodeNG</span></code></a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#sourcery_analytics.utils.InvalidNodeTypeError" title="sourcery_analytics.utils.InvalidNodeTypeError"><strong>InvalidNodeTypeError</strong></a> – If the passed node doesn’t match one of the allowed types.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@validate_node_type</span><span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">is_int</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">Const</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">extract_node</span><span class="p">(</span><span class="s1">'5 + 4'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_int</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_int</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">sourcery_analytics.utils.InvalidNodeTypeError</span>: <span class="n">is_int is not defined for nodes of type &lt;class 'astroid.nodes.node_classes.BinOp'&gt;. Allowed types are: (&lt;class 'astroid.nodes.node_classes.Const'&gt;,).</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -386,7 +417,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="sourcery_analytics.main.html" title="sourcery_analytics.main"
+            <a href="sourcery_analytics.settings.html" title="sourcery_analytics.settings"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -395,17 +426,17 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> sourcery_analytics.main </span>
+                      class="md-footer-nav__direction"> Previous </span> sourcery_analytics.settings </span>
               </div>
             </a>
           
           
-            <a href="sourcery_analytics.validators.html" title="sourcery_analytics.validators"
+            <a href="sourcery_analytics.visitors.html" title="sourcery_analytics.visitors"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> sourcery_analytics.validators </span>
+                class="md-footer-nav__direction"> Next </span> sourcery_analytics.visitors </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

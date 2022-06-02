@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://sourcery-analytics.sourcery.ai/api/sourcery_analytics.main.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="sourcery_analytics.utils" href="sourcery_analytics.utils.html" />
+    <link rel="next" title="sourcery_analytics.settings" href="sourcery_analytics.settings.html" />
     <link rel="prev" title="sourcery_analytics.extractors" href="sourcery_analytics.extractors.html" />
   
    
@@ -294,14 +294,14 @@
     <li class="md-nav__item">
     
     
-      <a href="sourcery_analytics.utils.html" class="md-nav__link">sourcery_analytics.utils</a>
+      <a href="sourcery_analytics.settings.html" class="md-nav__link">sourcery_analytics.settings</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="sourcery_analytics.validators.html" class="md-nav__link">sourcery_analytics.validators</a>
+      <a href="sourcery_analytics.utils.html" class="md-nav__link">sourcery_analytics.utils</a>
       
     
     </li>
@@ -358,8 +358,10 @@
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.main.cli_assess">
-<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.main.</span></span><span class="sig-name descname"><span class="pre">cli_assess</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.main.cli_assess" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.main.</span></span><span class="sig-name descname"><span class="pre">cli_assess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">typer.Argument(...,</span> <span class="pre">exists=True,</span> <span class="pre">file_okay=True,</span> <span class="pre">dir_okay=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sourcery_analytics.cli.choices.html#sourcery_analytics.cli.choices.MethodMetricChoice" title="sourcery_analytics.cli.choices.MethodMetricChoice"><span class="pre">MethodMetricChoice</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">typer.Option(['length',</span> <span class="pre">'cyclomatic_complexity',</span> <span class="pre">'cognitive_complexity',</span> <span class="pre">'working_memory'])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">typer.Option('pyproject.toml',</span> <span class="pre">file_okay=True,</span> <span class="pre">dir_okay=False)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.main.cli_assess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Using configurable values, will pass or fail according to calculated metrics.</p>
+<p>Exits with code 1 if assessment fails i.e. any methods exceed the thresholds.
+Exits with code 2 for runtime errors, such as mis-configured settings.</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.main.callback">
@@ -392,12 +394,12 @@
             </a>
           
           
-            <a href="sourcery_analytics.utils.html" title="sourcery_analytics.utils"
+            <a href="sourcery_analytics.settings.html" title="sourcery_analytics.settings"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> sourcery_analytics.utils </span>
+                class="md-footer-nav__direction"> Next </span> sourcery_analytics.settings </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

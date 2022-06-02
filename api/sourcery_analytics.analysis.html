@@ -294,14 +294,14 @@
     <li class="md-nav__item">
     
     
-      <a href="sourcery_analytics.utils.html" class="md-nav__link">sourcery_analytics.utils</a>
+      <a href="sourcery_analytics.settings.html" class="md-nav__link">sourcery_analytics.settings</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="sourcery_analytics.validators.html" class="md-nav__link">sourcery_analytics.validators</a>
+      <a href="sourcery_analytics.utils.html" class="md-nav__link">sourcery_analytics.utils</a>
       
     
     </li>
@@ -409,6 +409,82 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span><span class="p">(</span><span class="n">methods</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="n">method_cognitive_complexity</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span><span class="p">))</span>
 <span class="go">[{'method_name': 'add', 'method_cognitive_complexity': 0, 'method_cyclomatic_complexity': 0}, {'method_name': 'div', 'method_cognitive_complexity': 2, 'method_cyclomatic_complexity': 2}]</span>
 </pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="sourcery_analytics.analysis.assess">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.analysis.</span></span><span class="sig-name descname"><span class="pre">assess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterable" title="(in Python v3.9)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterable" title="(in Python v3.9)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="sourcery_analytics.settings.html#sourcery_analytics.settings.ThresholdSettings" title="sourcery_analytics.settings.ThresholdSettings"><span class="pre">ThresholdSettings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ThresholdSettings()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.analysis.assess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields the nodes which breach the thresholds according to the metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> – an iterable of nodes, compatible with the metrics</p></li>
+<li><p><strong>metrics</strong> – a collection of metrics, which may have thresholds named in the settings</p></li>
+<li><p><strong>threshold_settings</strong> – describes the maximum allowed value for the metrics</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.metrics</span> <span class="kn">import</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="gp">... </span><span class="s1">    def bin(xs):</span>
+<span class="gp">... </span><span class="s1">        for x in xs:</span>
+<span class="gp">... </span><span class="s1">            if x &lt; 8:</span>
+<span class="gp">... </span><span class="s1">                yield "small"</span>
+<span class="gp">... </span><span class="s1">            elif x &lt; 10:</span>
+<span class="gp">... </span><span class="s1">                yield "medium"</span>
+<span class="gp">... </span><span class="s1">            elif x &lt; 12:</span>
+<span class="gp">... </span><span class="s1">                yield "large"</span>
+<span class="gp">... </span><span class="s1">            else:</span>
+<span class="gp">... </span><span class="s1">                yield "extra large"</span>
+<span class="gp">... </span><span class="s1">    def call(f, *args, **kwargs):</span>
+<span class="gp">... </span><span class="s1">        return f(*args, **kwargs)</span>
+<span class="gp">... </span><span class="s1">'''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">is_method</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_settings</span> <span class="o">=</span> <span class="n">ThresholdSettings</span><span class="p">(</span><span class="n">method_cyclomatic_complexity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># note: this is unreasonably low</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">assess</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="n">threshold_settings</span><span class="o">=</span><span class="n">threshold_settings</span><span class="p">))</span>
+<span class="go">[{'method_file': '&lt;?&gt;', 'method_lineno': 2, 'method_name': 'bin', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 5}]</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="sourcery_analytics.analysis.melt">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.analysis.</span></span><span class="sig-name descname"><span class="pre">melt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterable" title="(in Python v3.9)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="sourcery_analytics.metrics.compounders.html#sourcery_analytics.metrics.compounders.NamedMetricResult" title="sourcery_analytics.metrics.compounders.NamedMetricResult"><span class="pre">NamedMetricResult</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.List" title="(in Python v3.9)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">N</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Dict" title="(in Python v3.9)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.analysis.melt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts “wide-form” analysis into “long-form” analysis.</p>
+<p>For each named metric, of the form {metric_name: metric_value, …},
+create a new dictionary {“metric_name”: metric_name, “metric_value”: metric_value}.
+Keys in the analysis (such as method name) that are not metrics are left unchanged.</p>
+<p>Inspired by the functionality of pandas’ <cite>.melt()</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> – an iterable of named metric results, typically the output of a call to <a class="reference internal" href="#sourcery_analytics.analysis.analyze" title="sourcery_analytics.analysis.analyze"><code class="xref py py-func docutils literal notranslate"><span class="pre">analyze()</span></code></a></p></li>
+<li><p><strong>metrics</strong> – a list of metric functions - should match the names used in the analysis</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.metrics</span> <span class="kn">import</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="gp">... </span><span class="s1">    def maturity(cheese):</span>
+<span class="gp">... </span><span class="s1">        if cheese.years &gt; 5:</span>
+<span class="gp">... </span><span class="s1">            return "seriously mature"</span>
+<span class="gp">... </span><span class="s1">        else:</span>
+<span class="gp">... </span><span class="s1">            return "quite mild"</span>
+<span class="gp">... </span><span class="s1">'''</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">analyze_methods</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">method_name</span><span class="p">,</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[{'method_name': 'maturity', 'method_length': 3, 'method_cyclomatic_complexity': 2}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">melt</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span><span class="p">]))</span>
+<span class="go">[{'method_name': 'maturity', 'metric_name': 'method_length', 'metric_value': 3}, {'method_name': 'maturity', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 2}]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sourcery_analytics.analysis.assess" title="sourcery_analytics.analysis.assess"><code class="xref py py-func docutils literal notranslate"><span class="pre">assess()</span></code></a></p></li>
+</ul>
 </div>
 </dd></dl>
 </section>

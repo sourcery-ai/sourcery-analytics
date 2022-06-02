@@ -25,6 +25,6 @@ Submodules
    sourcery_analytics.conditions
    sourcery_analytics.extractors
    sourcery_analytics.main
+   sourcery_analytics.settings
    sourcery_analytics.utils
-   sourcery_analytics.validators
    sourcery_analytics.visitors

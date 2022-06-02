@@ -1,0 +1,7 @@
+sourcery\_analytics.cli.data
+============================
+
+.. automodule:: sourcery_analytics.cli.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
