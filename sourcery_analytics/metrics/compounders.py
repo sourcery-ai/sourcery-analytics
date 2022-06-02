@@ -35,7 +35,7 @@ def name_metrics(*metrics: Metric[N, T]) -> Metric[N, "NamedMetricResult"]:
     return name_dict
 
 
-class _CompoundMetric:
+class _CompoundMetricResult:
     @staticmethod
     def divone(v, u):
         try:
@@ -54,7 +54,7 @@ class _CompoundMetric:
         return v == u
 
 
-class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
+class TupleMetricResult(typing.Tuple[T], _CompoundMetricResult):
     """A compound metric result comprising a tuple of sub-result values."""
 
     def __add__(self, other):
@@ -67,7 +67,7 @@ class TupleMetricResult(typing.Tuple[T], _CompoundMetric):
         return all(self.eqone(v, u) for v, u in zip(self, other))
 
 
-class NamedMetricResult(typing.Dict[str, T], _CompoundMetric):
+class NamedMetricResult(typing.Dict[str, T], _CompoundMetricResult):
     """A compound metric result mapping sub-metric name to sub-metric result."""
 
     def __add__(self, other):
