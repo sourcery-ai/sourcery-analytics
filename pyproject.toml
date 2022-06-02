@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sourcery-analytics"
-version = "0.0.0"
+version = "0.0.0"  # this is a placeholder - version is set in the CI on release
 description = "sourcery-analytics is a library and command-line interface (CLI) for analyzing the code quality of Python packages, modules, or source code."
 authors = ["Ben Martineau <ben@sourcery.ai>"]
 readme = "README.md"
