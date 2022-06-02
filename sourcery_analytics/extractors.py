@@ -107,6 +107,7 @@ class Extractor(typing.Generic[T]):
     """
 
     visitor: Visitor[typing.Optional[T]] = IdentityVisitor()
+    manager: astroid.manager.AstroidManager = astroid.manager.AstroidManager()
 
     @classmethod
     def from_condition(
@@ -159,6 +160,5 @@ class Extractor(typing.Generic[T]):
         )
 
     def _extract_from_file(self, file: pathlib.Path) -> typing.Iterator[T]:
-        manager = astroid.manager.AstroidManager()
-        module = manager.ast_from_file(file)
+        module = self.manager.ast_from_file(file)
         yield from self._extract_from_node(module)
