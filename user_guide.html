@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -490,7 +491,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="user-guide">
-<h1 id="user-guide--page-root">User Guide<a class="headerlink" href="#user-guide--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="user-guide--page-root">User Guide<a class="headerlink" href="#user-guide--page-root" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Created</dt>
 <dd class="field-odd"><p>2022-04-19</p>
@@ -500,9 +501,9 @@
 </dd>
 </dl>
 <section id="command-line-analysis">
-<h2 id="command-line-analysis">Command-Line Analysis<a class="headerlink" href="#command-line-analysis" title="Permalink to this headline">¶</a></h2>
+<h2 id="command-line-analysis">Command-Line Analysis<a class="headerlink" href="#command-line-analysis" title="Permalink to this heading">¶</a></h2>
 <section id="basic-analysis">
-<h3 id="basic-analysis">Basic Analysis<a class="headerlink" href="#basic-analysis" title="Permalink to this headline">¶</a></h3>
+<h3 id="basic-analysis">Basic Analysis<a class="headerlink" href="#basic-analysis" title="Permalink to this heading">¶</a></h3>
 <p>Analyze methods in a single Python file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/analysis.py
 </pre></div>
@@ -538,9 +539,9 @@
 </div>
 </section>
 <section id="output-options">
-<h3 id="output-options">Output Options<a class="headerlink" href="#output-options" title="Permalink to this headline">¶</a></h3>
+<h3 id="output-options">Output Options<a class="headerlink" href="#output-options" title="Permalink to this heading">¶</a></h3>
 <section id="plain-python-output">
-<h4 id="plain-python-output">Plain Python Output<a class="headerlink" href="#plain-python-output" title="Permalink to this headline">¶</a></h4>
+<h4 id="plain-python-output">Plain Python Output<a class="headerlink" href="#plain-python-output" title="Permalink to this heading">¶</a></h4>
 <p>By default, the analysis results are displayed in a rich text format in the command line.
 To suppress this behaviour, use the <code class="docutils literal notranslate"><span class="pre">--output</span></code> option to select plain Python output.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/utils.py --output plain
@@ -551,7 +552,7 @@ To suppress this behaviour, use the <code class="docutils literal notranslate"><
 </div>
 </section>
 <section id="csv-output">
-<h4 id="csv-output">CSV Output<a class="headerlink" href="#csv-output" title="Permalink to this headline">¶</a></h4>
+<h4 id="csv-output">CSV Output<a class="headerlink" href="#csv-output" title="Permalink to this heading">¶</a></h4>
 <p>Alternatively, you can output in CSV format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/utils.py --output csv
 </pre></div>
@@ -569,7 +570,7 @@ To suppress this behaviour, use the <code class="docutils literal notranslate"><
 </section>
 </section>
 <section id="metrics">
-<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
+<h3 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permalink to this heading">¶</a></h3>
 <p>By default, all metrics are enabled, including providing the method’s qualified name.
 To limit to a single metric, use the <code class="docutils literal notranslate"><span class="pre">--method-metric</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze sourcery_analytics/conditions.py --method-metric cyclomatic_complexity
@@ -601,7 +602,7 @@ To limit to a single metric, use the <code class="docutils literal notranslate">
 </div>
 </section>
 <section id="sorting">
-<h3 id="sorting">Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h3>
+<h3 id="sorting">Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">¶</a></h3>
 <p>By default, the result is sorted by the first metric specified.
 You can sort using any of the specified metrics using the <code class="docutils literal notranslate"><span class="pre">--sort</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics analyze path/to/file.py --sort cognitive_complexity
@@ -627,10 +628,10 @@ You can sort using any of the specified metrics using the <code class="docutils 
 </section>
 </section>
 <section id="command-line-assessment">
-<h2 id="command-line-assessment">Command-Line Assessment<a class="headerlink" href="#command-line-assessment" title="Permalink to this headline">¶</a></h2>
+<h2 id="command-line-assessment">Command-Line Assessment<a class="headerlink" href="#command-line-assessment" title="Permalink to this heading">¶</a></h2>
 <p>The “assess” command will return a non-zero exit code if it finds functions exceeding threshold values.</p>
 <section id="assess-metrics">
-<h3 id="assess-metrics">Assess Metrics<a class="headerlink" href="#assess-metrics" title="Permalink to this headline">¶</a></h3>
+<h3 id="assess-metrics">Assess Metrics<a class="headerlink" href="#assess-metrics" title="Permalink to this heading">¶</a></h3>
 <p>Identify functions exceeding metric thresholds.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics assess sourcery-analytics/metrics
 </pre></div>
@@ -641,7 +642,7 @@ You can sort using any of the specified metrics using the <code class="docutils 
 </div>
 </section>
 <section id="setting-thresholds">
-<h3 id="setting-thresholds">Setting Thresholds<a class="headerlink" href="#setting-thresholds" title="Permalink to this headline">¶</a></h3>
+<h3 id="setting-thresholds">Setting Thresholds<a class="headerlink" href="#setting-thresholds" title="Permalink to this heading">¶</a></h3>
 <p>You can customise the error thresholds by adding the following section to your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file.
 The values shown here are the defaults.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># other settings...</span><span class="w"></span>
@@ -657,7 +658,7 @@ The values shown here are the defaults.</p>
 </div>
 </section>
 <section id="choosing-metrics">
-<h3 id="choosing-metrics">Choosing Metrics<a class="headerlink" href="#choosing-metrics" title="Permalink to this headline">¶</a></h3>
+<h3 id="choosing-metrics">Choosing Metrics<a class="headerlink" href="#choosing-metrics" title="Permalink to this heading">¶</a></h3>
 <p>Select a sub-set of metrics to assess using a (optionally repeated) <code class="docutils literal notranslate"><span class="pre">--method-metric</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics assess sourcery_analytics/metrics --method-metric cyclomatic_complexity --method-metric cognitive_complexity
 </pre></div>
@@ -668,7 +669,7 @@ The values shown here are the defaults.</p>
 </div>
 </section>
 <section id="custom-settings-file">
-<h3 id="custom-settings-file">Custom Settings File<a class="headerlink" href="#custom-settings-file" title="Permalink to this headline">¶</a></h3>
+<h3 id="custom-settings-file">Custom Settings File<a class="headerlink" href="#custom-settings-file" title="Permalink to this heading">¶</a></h3>
 <p>If you don’t have a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file, you can provide a custom <code class="docutils literal notranslate"><span class="pre">.toml</span></code> file to read thresholds from:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sourcery-analytics assess sourcery_analytics/metrics --settings-file thresholds.toml
 </pre></div>
@@ -676,9 +677,9 @@ The values shown here are the defaults.</p>
 </section>
 </section>
 <section id="using-the-library">
-<h2 id="using-the-library">Using the library<a class="headerlink" href="#using-the-library" title="Permalink to this headline">¶</a></h2>
+<h2 id="using-the-library">Using the library<a class="headerlink" href="#using-the-library" title="Permalink to this heading">¶</a></h2>
 <section id="analysis">
-<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h3>
+<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">¶</a></h3>
 <p>In <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
 To perform analysis like the CLI commands described above, use these functions.
 For more details about how</p>
@@ -703,7 +704,7 @@ For more details about how</p>
 </div>
 </section>
 <section id="conditions">
-<h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h3>
+<h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permalink to this heading">¶</a></h3>
 <p>Conditions are functions which operate on nodes to return a boolean. For instance, the following function
 is a method.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astroid</span>
@@ -729,7 +730,7 @@ expect conditions, and saves us writing lots of <code class="docutils literal no
 </div>
 </section>
 <section id="extracting">
-<h3 id="extracting">Extracting<a class="headerlink" href="#extracting" title="Permalink to this headline">¶</a></h3>
+<h3 id="extracting">Extracting<a class="headerlink" href="#extracting" title="Permalink to this heading">¶</a></h3>
 <p><a class="reference internal" href="api/sourcery_analytics.extractors.html#sourcery_analytics.extractors.Extractor" title="sourcery_analytics.extractors.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a>s take a condition and extract nodes satisfying the condition. They can be used in order to,
 for instance, extract constants from an expression or methods from a module. Extractors can be used directly or through
 their high-level interface <a class="reference internal" href="api/sourcery_analytics.extractors.html#sourcery_analytics.extractors.Extractor.extract" title="sourcery_analytics.extractors.Extractor.extract"><code class="xref py py-meth docutils literal notranslate"><span class="pre">extract()</span></code></a>.</p>
@@ -750,7 +751,7 @@ their high-level interface <a class="reference internal" href="api/sourcery_anal
 </div>
 </section>
 <section id="id1">
-<h3 id="id1">Metrics<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3 id="id1">Metrics<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>A metric is a “fact” about a node, typically a numeric value. Some metrics are simple,
 for instance the number of statements in a method or the number of handlers in a try/except block.
 These can be implemented as functions of the node.</p>
@@ -785,7 +786,7 @@ into a single metric.</p>
 </div>
 </section>
 <section id="aggregations">
-<h3 id="aggregations">Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h3>
+<h3 id="aggregations">Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this heading">¶</a></h3>
 <p>Aggregations are ways to combine the metrics from several methods. The simplest “aggregation”
 is just to collect the results in a list:</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
@@ -859,7 +860,7 @@ is just to collect the results in a list:</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.1.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

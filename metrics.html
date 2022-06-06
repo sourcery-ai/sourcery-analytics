@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -345,7 +346,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="metrics">
-<h1 id="metrics--page-root">Metrics<a class="headerlink" href="#metrics--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="metrics--page-root">Metrics<a class="headerlink" href="#metrics--page-root" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Created</dt>
 <dd class="field-odd"><p>2022-04-19</p>
@@ -360,7 +361,7 @@ Nevertheless, poor code quality metrics can be a strong indicator of overly-comp
 and code analytics can help identify areas in need of improvement.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> repository provides several code quality metrics, with room to grow.</p>
 <section id="function-length">
-<h2 id="function-length">Function Length<a class="headerlink" href="#function-length" title="Permalink to this headline">¶</a></h2>
+<h2 id="function-length">Function Length<a class="headerlink" href="#function-length" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="api/sourcery_analytics.metrics.method_length.html#module-sourcery_analytics.metrics.method_length" title="sourcery_analytics.metrics.method_length"><code class="xref py py-mod docutils literal notranslate"><span class="pre">method_length</span></code></a></p>
 <p>Most style guides will tell you to keep your functions short.
 There are many good reasons to encourage short functions, including:</p>
@@ -375,7 +376,7 @@ There are many good reasons to encourage short functions, including:</p>
 comprehensions, or delegating custom process to library tools.</p>
 </section>
 <section id="cyclomatic-complexity">
-<h2 id="cyclomatic-complexity">Cyclomatic Complexity<a class="headerlink" href="#cyclomatic-complexity" title="Permalink to this headline">¶</a></h2>
+<h2 id="cyclomatic-complexity">Cyclomatic Complexity<a class="headerlink" href="#cyclomatic-complexity" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="api/sourcery_analytics.metrics.cyclomatic_complexity.html#module-sourcery_analytics.metrics.cyclomatic_complexity" title="sourcery_analytics.metrics.cyclomatic_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cyclomatic_complexity</span></code></a></p>
 <p>Although longer functions tend to be more complex, there are clear differences in the complexity of
 functions with the same length.
@@ -403,7 +404,7 @@ see <a class="reference internal" href="api/sourcery_analytics.metrics.cyclomati
 concise and focused on a single workflow.</p>
 </section>
 <section id="cognitive-complexity">
-<h2 id="cognitive-complexity">Cognitive Complexity<a class="headerlink" href="#cognitive-complexity" title="Permalink to this headline">¶</a></h2>
+<h2 id="cognitive-complexity">Cognitive Complexity<a class="headerlink" href="#cognitive-complexity" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="api/sourcery_analytics.metrics.cognitive_complexity.html#module-sourcery_analytics.metrics.cognitive_complexity" title="sourcery_analytics.metrics.cognitive_complexity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cognitive_complexity</span></code></a></p>
 <p>Cyclomatic complexity captures code quality issues not handled by function length alone. However, there is
 clearly further to go. The following two snippets both share the same cyclomatic complexity, but the second
@@ -438,7 +439,7 @@ the cognitive complexity. However, these control flow elements also incur a pena
 and, as before, aim for concise functions with single responsibilities.</p>
 </section>
 <section id="working-memory">
-<h2 id="working-memory">Working Memory<a class="headerlink" href="#working-memory" title="Permalink to this headline">¶</a></h2>
+<h2 id="working-memory">Working Memory<a class="headerlink" href="#working-memory" title="Permalink to this heading">¶</a></h2>
 <p>See <a class="reference internal" href="api/sourcery_analytics.metrics.working_memory.html#module-sourcery_analytics.metrics.working_memory" title="sourcery_analytics.metrics.working_memory"><code class="xref py py-mod docutils literal notranslate"><span class="pre">working_memory</span></code></a></p>
 <p>One area of complexity not captured by any of the metrics mentioned above can be demonstrated using the following
 code:</p>
@@ -463,7 +464,7 @@ variables into classes, breaking functions apart into smaller ones, and, as usua
 with clear roles.</p>
 </section>
 <section id="references">
-<h2 id="references">References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>T.J. McCabe, “A Complexity Measure,” in IEEE Transactions on Software Engineering, vol. SE-2, no. 4, pp. 308-320, Dec. 1976, doi: 10.1109/TSE.1976.233837.</p>
@@ -522,7 +523,7 @@ with clear roles.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.1.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

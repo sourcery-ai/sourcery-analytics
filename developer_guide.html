@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
@@ -416,7 +417,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="developer-guide">
-<h1 id="developer-guide--page-root">Developer Guide<a class="headerlink" href="#developer-guide--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="developer-guide--page-root">Developer Guide<a class="headerlink" href="#developer-guide--page-root" title="Permalink to this heading">¶</a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Created</dt>
 <dd class="field-odd"><p>2022-04-19</p>
@@ -427,7 +428,7 @@
 </dl>
 <p>This document aims to be a guide for those contributing to the repository.</p>
 <section id="local-development">
-<h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permalink to this headline">¶</a></h2>
+<h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permalink to this heading">¶</a></h2>
 <p>Prerequisites:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://git-scm.com/">git</a> for version control</p></li>
@@ -435,13 +436,13 @@
 <li><p><a class="reference external" href="https://python-poetry.org/">poetry</a> for Python dependency management</p></li>
 </ul>
 <section id="getting-the-source-code">
-<h3 id="getting-the-source-code">Getting the source code<a class="headerlink" href="#getting-the-source-code" title="Permalink to this headline">¶</a></h3>
+<h3 id="getting-the-source-code">Getting the source code<a class="headerlink" href="#getting-the-source-code" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:sourcery-ai/sourcery-analytics.git
 </pre></div>
 </div>
 </section>
 <section id="install-dependencies">
-<h3 id="install-dependencies">Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
+<h3 id="install-dependencies">Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this heading">¶</a></h3>
 <p>From the top-level <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry install
 </pre></div>
@@ -452,7 +453,7 @@
 </div>
 </section>
 <section id="run-tests">
-<h3 id="run-tests">Run Tests<a class="headerlink" href="#run-tests" title="Permalink to this headline">¶</a></h3>
+<h3 id="run-tests">Run Tests<a class="headerlink" href="#run-tests" title="Permalink to this heading">¶</a></h3>
 <p>From the top-level <code class="docutils literal notranslate"><span class="pre">sourcery-analytics</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run pytest
 </pre></div>
@@ -463,7 +464,7 @@
 </div>
 </section>
 <section id="build-this-documentation">
-<h3 id="build-this-documentation">Build this documentation<a class="headerlink" href="#build-this-documentation" title="Permalink to this headline">¶</a></h3>
+<h3 id="build-this-documentation">Build this documentation<a class="headerlink" href="#build-this-documentation" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run sphinx-apidoc -eMTf --templatedir ./docs/source/_templates/apidoc -o docs/source/api sourcery_analytics
 $ poetry run sphinx-build -b html docs/source docs/build
 </pre></div>
@@ -471,7 +472,7 @@ $ poetry run sphinx-build -b html docs/source docs/build
 </section>
 </section>
 <section id="releases">
-<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h2>
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permalink to this heading">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Create a new section in CHANGELOG.md</p></li>
 <li><p>Add a new release in GitHub (see <a class="reference external" href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository">release documentation</a>), creating a new tag</p></li>
@@ -479,9 +480,9 @@ $ poetry run sphinx-build -b html docs/source docs/build
 </ol>
 </section>
 <section id="architecture">
-<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h2>
 <section id="parsing">
-<h3 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h3>
+<h3 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permalink to this heading">¶</a></h3>
 <p>In order to analzye code, we need to parse it into a structure we can manipulate. Code is typically parsed
 into an Abstract Syntax Tree, or AST <a class="footnote-reference brackets" href="#id4" id="id1">1</a>. Python provides a standard implementation <a class="footnote-reference brackets" href="#id5" id="id2">2</a> to parse code into an AST,
 but it misses features we need for analysis, most notably a link from a child node to its parent.</p>
@@ -490,7 +491,7 @@ As well as providing an enhanced AST, astroid provides several convenient parsin
 and developing interfaces much easier than the built-in Python parser.</p>
 </section>
 <section id="visitors">
-<h3 id="visitors">Visitors<a class="headerlink" href="#visitors" title="Permalink to this headline">¶</a></h3>
+<h3 id="visitors">Visitors<a class="headerlink" href="#visitors" title="Permalink to this heading">¶</a></h3>
 <p>The Visitor pattern <a class="footnote-reference brackets" href="#id6" id="id3">3</a> is a well-known pattern for analyzing trees of any type. At a high-level,
 it separates the calculation over elements (also known as <em>nodes</em>) within the tree from the calculation
 handling the traversal of the tree.</p>
@@ -505,7 +506,7 @@ increments its context penalty for nested structures, and returns the complexity
 the walker as a visitor! This is the job of the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> which is used throughout the codebase.
 Let’s dig a bit further into how the <a class="reference internal" href="api/sourcery_analytics.visitors.html#sourcery_analytics.visitors.TreeVisitor" title="sourcery_analytics.visitors.TreeVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TreeVisitor</span></code></a> works, as it’s important for development.</p>
 <section id="the-tree-visitor">
-<h4 id="the-tree-visitor">The Tree Visitor<a class="headerlink" href="#the-tree-visitor" title="Permalink to this headline">¶</a></h4>
+<h4 id="the-tree-visitor">The Tree Visitor<a class="headerlink" href="#the-tree-visitor" title="Permalink to this heading">¶</a></h4>
 <p>Let’s set up a short example.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astroid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.visitors</span> <span class="kn">import</span> <span class="n">TreeVisitor</span>
@@ -552,7 +553,7 @@ throughout <code class="docutils literal notranslate"><span class="pre">sourcery
 </section>
 </section>
 <section id="references">
-<h2 id="references">References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p><a class="reference external" href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">https://en.wikipedia.org/wiki/Abstract_syntax_tree</a></p>
@@ -614,7 +615,7 @@ throughout <code class="docutils literal notranslate"><span class="pre">sourcery
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.1.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
