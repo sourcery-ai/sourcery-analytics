@@ -1,6 +1,11 @@
 # Sourcery Analytics
 
-![PyPI](https://img.shields.io/pypi/v/sourcery-analytics)
+<a href="https://pypi.org/project/sourcery-analytics/">![PyPI](https://img.shields.io/pypi/v/sourcery-analytics)</a>
+![build, test, and publish docs](https://github.com/sourcery-ai/sourcery-analytics/actions/workflows/on_push_main.yml/badge.svg)
+<a href="https://github.com/psf/black">![code style](https://img.shields.io/badge/code%20style-black-000000.svg)</a>
+<a href="https://sourcery-analytics.sourcery.ai/">![docs](https://img.shields.io/badge/docs-github.io-green.svg)</a>
+
+---
 
 `sourcery-analytics` is a command line tool and library for statically analyzing Python code quality.
 
