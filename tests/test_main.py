@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 from typer.testing import CliRunner
 
@@ -101,6 +103,25 @@ def test_analyze_directory_plain(cli_runner, tmp_path, directory):
         f"}}"
         f"]\n"
     )
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        """
+            if something wrong:
+                print('there was supposed to be an underscore')
+        """
+        # warning: pytest fails to capture logs for more than one parameter here
+        # possibly related to https://github.com/pytest-dev/pytest/issues/3037
+    ],
+)
+def test_analyze_directory_with_syntax_error(
+    cli_runner, tmp_path, directory, file_path, caplog
+):
+    result = cli_runner.invoke(app, ["analyze", str(tmp_path)])
+    assert result.exit_code == 0
+    assert f"skipped {file_path} due to syntax error" in caplog.text
 
 
 def test_analyze_file_csv(cli_runner, file_path, file):
