@@ -2,9 +2,9 @@
 import dataclasses
 import functools
 import itertools
+import logging
 import pathlib
 import typing
-import warnings
 
 import astroid
 import astroid.manager
@@ -166,8 +166,24 @@ class Extractor(typing.Generic[T]):
             module = self.manager.ast_from_file(file)
             yield from self._extract_from_node(module)
         except astroid.AstroidSyntaxError as e:
-            error_message = str(e).replace("\n", " ")
-            warnings.warn(
-                SyntaxWarning(f"skipped {file} due to syntax error: {error_message}"),
-            )
+            if isinstance(e.error, SyntaxError):
+                error_message = _format_syntax_error_message(
+                    "skipping file", file, e.error
+                )
+            else:
+                error_message = str(e).replace("\n", " ")
+            logging.warning(error_message)
             yield from ()
+
+
+def _format_syntax_error_message(
+    main_message: str, file_path: pathlib.Path, syntax_error: SyntaxError
+):
+    """Pretty-prints a syntax error raised by Astroid."""
+    return (
+        f"{main_message}:\n"
+        f"{file_path!s}:{syntax_error.lineno}\n"
+        f"{syntax_error.msg!s}:\n"
+        f"{syntax_error.text.strip()}\n"
+        f"{'^':>{syntax_error.offset}}\n"
+    )

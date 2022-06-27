@@ -10,4 +10,3 @@ def set_up_logging(output: OutputChoice):
         logging.basicConfig(format="%(message)s", handlers=[rich.logging.RichHandler()])
     else:
         logging.basicConfig()
-    logging.captureWarnings(True)

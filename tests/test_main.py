@@ -121,7 +121,7 @@ def test_analyze_directory_with_syntax_error(
 ):
     result = cli_runner.invoke(app, ["analyze", str(tmp_path)])
     assert result.exit_code == 0
-    assert f"skipped {file_path} due to syntax error" in caplog.text
+    assert f"skipping file" in caplog.text
 
 
 def test_analyze_file_csv(cli_runner, file_path, file):

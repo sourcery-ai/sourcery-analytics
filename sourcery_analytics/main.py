@@ -164,8 +164,7 @@ def cli_assess(
         console.print(f"[bold red]Found {count} errors.")
         raise typer.Exit(1)
 
-    console.print("[bold green]Assessment Complete")
-    console.print("[green]No issues found.")
+    console.print("[bold green]Assessment Complete", "[green]No issues found.")
 
 
 @app.callback()
