@@ -76,7 +76,7 @@ def extract(
     elif condition:
         extractor = Extractor[T].from_condition(condition)
     elif function:
-        extractor = Extractor.from_function(function)
+        extractor = Extractor[T].from_function(function)
     else:
         # Fall back to just extracting all the nodes.
         extractor = Extractor[N]()
@@ -126,26 +126,30 @@ class Extractor(typing.Generic[T]):
         """Construct an arbitrary extractor from a function of a node."""
         return cls(FunctionVisitor(function))
 
-    @functools.singledispatchmethod
     def extract(self, item: Extractable) -> typing.Iterator[T]:
         """Extract from source code, a node, a file, or directory."""
+        # `singledispatchmethod` confuses mypy, so wrap with a mypy-friendly interface
+        return self._extract(item)
+
+    @functools.singledispatchmethod
+    def _extract(self, item: Extractable) -> typing.Iterator[T]:
         # Note we use regular dispatch rather than nodedispatch for this function
         # in order to support directories as well as files
         raise NotImplementedError(f"Unable to extract from {item}.")
 
-    @extract.register
+    @_extract.register
     def _extract_from_node(self, node: astroid.nodes.NodeNG) -> typing.Iterator[T]:
         visitor = TreeVisitor[typing.Optional[T], typing.Iterator[typing.Optional[T]]](
             self.visitor
         )
         yield from filter(None, visitor.visit(node))
 
-    @extract.register
+    @_extract.register
     def _extract_from_source(self, source: str) -> typing.Iterator[T]:
         node = self.manager.ast_from_string(clean_source(source))
         yield from self._extract_from_node(node)
 
-    @extract.register
+    @_extract.register
     def _extract_from_path(self, path: pathlib.Path) -> typing.Iterator[T]:
         if path.is_file():
             return self._extract_from_file(path)
@@ -180,12 +184,12 @@ class Extractor(typing.Generic[T]):
 
 def _format_syntax_error_message(
     main_message: str, file_path: pathlib.Path, syntax_error: SyntaxError
-):
+) -> str:
     """Pretty-prints a syntax error raised by Astroid."""
     return (
         f"{main_message}:\n"
         f"{file_path!s}:{syntax_error.lineno}\n"
         f"{syntax_error.msg!s}:\n"
-        f"{syntax_error.text.strip()}\n"
+        f"{(syntax_error.text or '').strip()}\n"
         f"{'^':>{syntax_error.offset}}\n"
     )
