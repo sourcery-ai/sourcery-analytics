@@ -101,5 +101,5 @@ class TestExtractor:
         ],
     )
     def test_extract_with_syntax_error(self, extractor, file_path, file, caplog):
-        list(extractor.extract(file_path))
-        assert "skipping file" in caplog.text
+        with pytest.warns(SyntaxWarning):
+            list(extractor.extract(file_path))

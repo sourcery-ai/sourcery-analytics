@@ -5,6 +5,7 @@ import itertools
 import logging
 import pathlib
 import typing
+import warnings
 
 import astroid
 import astroid.manager
@@ -172,7 +173,8 @@ class Extractor(typing.Generic[T]):
                 )
             else:
                 error_message = str(e).replace("\n", " ")
-            logging.warning(error_message)
+            warning = SyntaxWarning(error_message)
+            warnings.warn(warning)
             yield from ()
 
 
