@@ -329,11 +329,24 @@ fall back to the full file path if it can’t be sure.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.utils.method_lineno">
 <span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.utils.</span></span><span class="sig-name descname"><span class="pre">method_lineno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.utils.method_lineno" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the line number of the method.</p>
+<p>Not very useful by itself, but can be combined with other metrics for convenience.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">method_lineno</span><span class="p">(</span><span class="s2">"def foo(): pass"</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.utils.method_file">
 <span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.utils.</span></span><span class="sig-name descname"><span class="pre">method_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.utils.method_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the file name the method is in.</p>
+<p>Not very useful by itself, but can be combined with other metrics for convenience.</p>
+<p class="rubric">Examples</p>
+<p>Inline code doesn’t have a file.
+&gt;&gt;&gt; method_file(“def foo(): pass”)
+‘&lt;?&gt;’</p>
+</dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.utils.node_type_name">
 <span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.utils.</span></span><span class="sig-name descname"><span class="pre">node_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.utils.node_type_name" title="Permalink to this definition">¶</a></dt>

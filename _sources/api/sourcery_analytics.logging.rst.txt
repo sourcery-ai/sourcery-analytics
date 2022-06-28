@@ -1,0 +1,7 @@
+sourcery\_analytics.logging
+===========================
+
+.. automodule:: sourcery_analytics.logging
+   :members:
+   :undoc-members:
+   :show-inheritance:

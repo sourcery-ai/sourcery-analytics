@@ -288,6 +288,13 @@
     <li class="md-nav__item">
     
     
+      <a href="sourcery_analytics.logging.html" class="md-nav__link">sourcery_analytics.logging</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="sourcery_analytics.main.html" class="md-nav__link">sourcery_analytics.main</a>
       
     
@@ -445,7 +452,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">method_length</span><span class="p">,</span> <span class="n">method_cyclomatic_complexity</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">threshold_settings</span> <span class="o">=</span> <span class="n">ThresholdSettings</span><span class="p">(</span><span class="n">method_cyclomatic_complexity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># note: this is unreasonably low</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">assess</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span> <span class="n">threshold_settings</span><span class="o">=</span><span class="n">threshold_settings</span><span class="p">))</span>
-<span class="go">[{'method_file': '&lt;?&gt;', 'method_lineno': 2, 'method_name': 'bin', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 5}]</span>
+<span class="go">[{'method_file': '&lt;?&gt;', 'method_lineno': 1, 'method_name': 'bin', 'metric_name': 'method_cyclomatic_complexity', 'metric_value': 5}]</span>
 </pre></div>
 </div>
 </dd></dl>

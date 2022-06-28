@@ -276,6 +276,13 @@
     <li class="md-nav__item">
     
     
+      <a href="sourcery_analytics.logging.html" class="md-nav__link">sourcery_analytics.logging</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="sourcery_analytics.main.html" class="md-nav__link">sourcery_analytics.main</a>
       
     
@@ -346,10 +353,12 @@
             
   <section id="module-sourcery_analytics.settings">
 <span id="sourcery-analytics-settings"></span><h1 id="api-sourcery-analytics-settings--page-root">sourcery_analytics.settings<a class="headerlink" href="#api-sourcery-analytics-settings--page-root" title="Permalink to this heading">¶</a></h1>
+<p>Models describing sourcery-analytics settings.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.settings.ThresholdSettings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.settings.</span></span><span class="sig-name descname"><span class="pre">ThresholdSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PositiveInt</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_cyclomatic_complexity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PositiveInt</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_cognitive_complexity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PositiveInt</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_working_memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PositiveInt</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.settings.ThresholdSettings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Model describing the available thresholds and their defaults.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sourcery_analytics.settings.ThresholdSettings.method_length">
 <span class="sig-name descname"><span class="pre">method_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">PositiveInt</span></em><a class="headerlink" href="#sourcery_analytics.settings.ThresholdSettings.method_length" title="Permalink to this definition">¶</a></dt>
@@ -366,20 +375,12 @@
 <dt class="sig sig-object py" id="sourcery_analytics.settings.ThresholdSettings.method_working_memory">
 <span class="sig-name descname"><span class="pre">method_working_memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">PositiveInt</span></em><a class="headerlink" href="#sourcery_analytics.settings.ThresholdSettings.method_working_memory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="sourcery_analytics.settings.ThresholdSettings.Config">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#sourcery_analytics.settings.ThresholdSettings.Config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.settings.ThresholdSettings.Config.extras_allowed">
-<span class="sig-name descname"><span class="pre">extras_allowed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#sourcery_analytics.settings.ThresholdSettings.Config.extras_allowed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.settings.Settings">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.settings.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_env_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/os.html#os.PathLike" title="(in Python v3.9)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;object</span> <span class="pre">object&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_env_file_encoding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_env_nested_delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_secrets_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/os.html#os.PathLike" title="(in Python v3.9)"><span class="pre">PathLike</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sourcery_analytics.settings.ThresholdSettings" title="sourcery_analytics.settings.ThresholdSettings"><span class="pre">ThresholdSettings</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ThresholdSettings(method_length=15,</span> <span class="pre">method_cyclomatic_complexity=10,</span> <span class="pre">method_cognitive_complexity=10,</span> <span class="pre">method_working_memory=20)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.settings.Settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSettings</span></code></p>
+<p>Model describing general sourcery-analytics settings and their construction.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sourcery_analytics.settings.Settings.thresholds">
 <span class="sig-name descname"><span class="pre">thresholds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#sourcery_analytics.settings.ThresholdSettings" title="sourcery_analytics.settings.ThresholdSettings"><span class="pre">ThresholdSettings</span></a></em><a class="headerlink" href="#sourcery_analytics.settings.Settings.thresholds" title="Permalink to this definition">¶</a></dt>
@@ -387,7 +388,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.settings.Settings.from_toml_file">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_toml_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">toml_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.settings.Settings.from_toml_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Construct settings from a toml file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>toml_file_path</strong> – Relative or fully-qualified path to a toml file containing
+sourcery-analytics settings.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Settings instance.</p>
+</dd>
+</dl>
+</dd></dl>
 </dd></dl>
 </section>
 

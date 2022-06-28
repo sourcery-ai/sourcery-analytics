@@ -24,6 +24,7 @@ Submodules
    sourcery_analytics.analysis
    sourcery_analytics.conditions
    sourcery_analytics.extractors
+   sourcery_analytics.logging
    sourcery_analytics.main
    sourcery_analytics.settings
    sourcery_analytics.utils

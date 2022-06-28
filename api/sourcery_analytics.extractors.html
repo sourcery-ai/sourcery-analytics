@@ -62,7 +62,7 @@
     <link rel="canonical" href="https://sourcery-analytics.sourcery.ai/api/sourcery_analytics.extractors.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="sourcery_analytics.main" href="sourcery_analytics.main.html" />
+    <link rel="next" title="sourcery_analytics.logging" href="sourcery_analytics.logging.html" />
     <link rel="prev" title="sourcery_analytics.conditions" href="sourcery_analytics.conditions.html" />
   
    
@@ -288,6 +288,13 @@
     <li class="md-nav__item">
     
     
+      <a href="sourcery_analytics.logging.html" class="md-nav__link">sourcery_analytics.logging</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="sourcery_analytics.main.html" class="md-nav__link">sourcery_analytics.main</a>
       
     
@@ -395,7 +402,7 @@ If <code class="docutils literal notranslate"><span class="pre">function</span><
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.extractors.Extractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.extractors.</span></span><span class="sig-name descname"><span class="pre">Extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visitor:</span> <span class="pre">~sourcery_analytics.visitors.Visitor[~typing.Optional[~sourcery_analytics.extractors.T]]</span> <span class="pre">=</span> <span class="pre">&lt;sourcery_analytics.visitors.IdentityVisitor</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.extractors.Extractor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.extractors.</span></span><span class="sig-name descname"><span class="pre">Extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visitor:</span> <span class="pre">~sourcery_analytics.visitors.Visitor[~typing.Optional[~sourcery_analytics.extractors.T]]</span> <span class="pre">=</span> <span class="pre">&lt;sourcery_analytics.visitors.IdentityVisitor</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager:</span> <span class="pre">~astroid.manager.AstroidManager</span> <span class="pre">=</span> <span class="pre">&lt;astroid.manager.AstroidManager</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.extractors.Extractor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Generic" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
 <p>Extracts results by walking a tree with the provided visitor.</p>
 <p>The visitor should return either an object of type <code class="docutils literal notranslate"><span class="pre">T</span></code> (for instance a node)
@@ -422,6 +429,10 @@ or None. The <code class="docutils literal notranslate"><span class="pre">extrac
 <dt class="sig sig-object py" id="sourcery_analytics.extractors.Extractor.visitor">
 <span class="sig-name descname"><span class="pre">visitor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="sourcery_analytics.visitors.html#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><span class="pre">Visitor</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;sourcery_analytics.visitors.IdentityVisitor</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#sourcery_analytics.extractors.Extractor.visitor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sourcery_analytics.extractors.Extractor.manager">
+<span class="sig-name descname"><span class="pre">manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AstroidManager</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;astroid.manager.AstroidManager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#sourcery_analytics.extractors.Extractor.manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.extractors.Extractor.from_condition">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_visitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="sourcery_analytics.visitors.html#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><span class="pre">Visitor</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">IdentityVisitor()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#sourcery_analytics.extractors.Extractor" title="sourcery_analytics.extractors.Extractor"><span class="pre">Extractor</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.extractors.Extractor.from_condition" title="Permalink to this definition">¶</a></dt>
@@ -435,12 +446,6 @@ or None. The <code class="docutils literal notranslate"><span class="pre">extrac
 <dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.extractors.Extractor.extract">
 <span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Union" title="(in Python v3.9)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.extractors.Extractor.extract" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><span class="pre">Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Extract from source code, a node, a file, or directory.</p>
 </dd></dl>
 </dd></dl>
@@ -470,12 +475,12 @@ or None. The <code class="docutils literal notranslate"><span class="pre">extrac
             </a>
           
           
-            <a href="sourcery_analytics.main.html" title="sourcery_analytics.main"
+            <a href="sourcery_analytics.logging.html" title="sourcery_analytics.logging"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> sourcery_analytics.main </span>
+                class="md-footer-nav__direction"> Next </span> sourcery_analytics.logging </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
