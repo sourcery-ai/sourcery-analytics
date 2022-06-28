@@ -48,7 +48,6 @@ def cli_analyze(
     output: OutputChoice = typer.Option("rich"),
 ):
     """Produces a table of method metrics for all methods found in ``path``."""
-
     set_up_logging(output)
     if sort is None:
         sort = method_metric[0]

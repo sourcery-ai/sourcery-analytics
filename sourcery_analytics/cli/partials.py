@@ -99,6 +99,11 @@ def aggregate_csv_output(aggregation_method, method_metric, methods, metrics):
 
 
 def read_settings(settings_file: pathlib.Path, console: Console) -> Settings:
+    """Loads settings in the CLI.
+
+    Wraps the basic settings loader in order to print relevant error messages and
+    exit with correct codes.
+    """
     if not settings_file.exists():
         console.print(
             f"[yellow]Warning:[/] could not find settings file [bold]{settings_file}[/], using defaults."
