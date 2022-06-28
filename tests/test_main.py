@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 from typer.testing import CliRunner
 

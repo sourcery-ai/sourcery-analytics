@@ -91,3 +91,15 @@ class TestExtractor:
     def test_extract_from_nonsense(self, extractor):
         with pytest.raises(NotImplementedError):
             extractor.extract(8)
+
+    @pytest.mark.parametrize(
+        "source",
+        [
+            """
+                def foo():
+            """,
+        ],
+    )
+    def test_extract_with_syntax_error(self, extractor, file_path, file, caplog):
+        with pytest.warns(SyntaxWarning):
+            list(extractor.extract(file_path))

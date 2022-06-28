@@ -3,7 +3,6 @@ import dataclasses
 import pathlib
 import typing
 
-import more_itertools
 import typer
 
 from sourcery_analytics.analysis import assess
@@ -23,8 +22,8 @@ from sourcery_analytics.cli.partials import (
     read_settings,
 )
 from sourcery_analytics.extractors import extract_methods
+from sourcery_analytics.logging import set_up_logging
 from sourcery_analytics.metrics import method_qualname
-from sourcery_analytics.metrics.compounders import NamedMetricResult
 
 app = typer.Typer()
 
@@ -49,6 +48,7 @@ def cli_analyze(
     output: OutputChoice = typer.Option("rich"),
 ):
     """Produces a table of method metrics for all methods found in ``path``."""
+    set_up_logging(output)
     if sort is None:
         sort = method_metric[0]
     elif sort not in method_metric:
@@ -90,6 +90,7 @@ def cli_aggregate(
     output: OutputChoice = typer.Option("rich"),
 ):
     """Produces an aggregate of the metrics for all methods found in ``path``."""
+    set_up_logging(output)
     # use extract directly here rather than `analyze_methods` in case we want
     # the progressbar
     methods = extract_methods(path)
@@ -131,6 +132,7 @@ def cli_assess(
     Exits with code 1 if assessment fails i.e. any methods exceed the thresholds.
     Exits with code 2 for runtime errors, such as mis-configured settings.
     """
+    set_up_logging(OutputChoice.rich)
 
     import rich.progress
 
@@ -161,8 +163,7 @@ def cli_assess(
         console.print(f"[bold red]Found {count} errors.")
         raise typer.Exit(1)
 
-    console.print("[bold green]Assessment Complete")
-    console.print("[green]No issues found.")
+    console.print("[bold green]Assessment Complete", "[green]No issues found.")
 
 
 @app.callback()

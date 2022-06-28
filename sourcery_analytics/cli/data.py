@@ -1,3 +1,4 @@
+"""Models holding data for the command line, such as analysis results."""
 import dataclasses
 import pathlib
 import typing
@@ -7,6 +8,8 @@ from sourcery_analytics.settings import ThresholdSettings
 
 @dataclasses.dataclass
 class ThresholdBreach:
+    """A model describing a single threshold breach within a single method."""
+
     relative_path: pathlib.Path
     lineno: int
     method_name: str
@@ -19,7 +22,8 @@ class ThresholdBreach:
         cls,
         d: typing.Dict[str, typing.Any],
         threshold_settings: ThresholdSettings,
-    ):
+    ) -> "ThresholdBreach":
+        """Constructs a ThresholdBreach instance from a dictionary."""
         metric_name = d["metric_name"]
         try:  # get relative path
             path = pathlib.Path(d["method_file"]).relative_to(

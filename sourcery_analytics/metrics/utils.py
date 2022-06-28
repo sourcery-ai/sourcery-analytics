@@ -38,12 +38,30 @@ def method_name(method: astroid.nodes.FunctionDef) -> str:
 @nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_lineno(method: astroid.nodes.FunctionDef) -> int:
+    """Returns the line number of the method.
+
+    Not very useful by itself, but can be combined with other metrics for convenience.
+
+    Examples:
+        >>> method_lineno("def foo(): pass")
+        1
+    """
     return method.lineno
 
 
 @nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_file(method: astroid.nodes.FunctionDef) -> str:
+    """Returns the file name the method is in.
+
+    Not very useful by itself, but can be combined with other metrics for convenience.
+
+    Examples:
+        Inline code doesn't have a file.
+        >>> method_file("def foo(): pass")
+        '<?>'
+    """
+
     def get_module(node: astroid.nodes.NodeNG):
         if isinstance(node, astroid.nodes.Module):
             return node
