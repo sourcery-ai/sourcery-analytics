@@ -7,7 +7,7 @@ from sourcery_analytics.metrics.types import Metric
 
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
 T = typing.TypeVar("T", contravariant=True)
-U = typing.TypeVar("U")
+U = typing.TypeVar("U", covariant=True)
 
 
 class Compounder(typing.Protocol[N, T, U]):
