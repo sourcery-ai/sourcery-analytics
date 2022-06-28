@@ -26,3 +26,28 @@ jobs:
       - name: Test
         run: |
           poetry run python -m pytest
+
+  style-checks:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        task:
+          - pylint sourcery_analytics/
+          - mypy sourcery_analytics/
+          - black --check sourcery_analytics/
+          - sourcery-analytics assess sourcery_analytics/
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install poetry
+          poetry install
+      - name: Run checks
+        run: poetry run ${{ matrix.task }}
+
