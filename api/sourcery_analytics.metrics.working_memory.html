@@ -301,9 +301,10 @@
   <section id="module-sourcery_analytics.metrics.working_memory">
 <span id="sourcery-analytics-metrics-working-memory"></span><h1 id="api-sourcery-analytics-metrics-working-memory--page-root">sourcery_analytics.metrics.working_memory<a class="headerlink" href="#api-sourcery-analytics-metrics-working-memory--page-root" title="Permalink to this heading">¶</a></h1>
 <p>Working memory calculations.</p>
-<p>The working memory is motivated by considering the number of pieces of information it is necessary to keep
-in mind while reading a piece of code. High working memory implies the code may have too many “moving parts”
-and could be simplified. The implementation of the calculation is described in the classes below.</p>
+<p>The working memory is motivated by considering the number of pieces of information it
+is necessary to keep in mind while reading a piece of code. High working memory implies
+the code may have too many “moving parts” and could be simplified. The implementation
+of the calculation is described in the classes below.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.working_memory.method_working_memory">
 <span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.working_memory.</span></span><span class="sig-name descname"><span class="pre">method_working_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.working_memory.method_working_memory" title="Permalink to this definition">¶</a></dt>
@@ -328,6 +329,16 @@ and could be simplified. The implementation of the calculation is described in t
 including attributes and function calls, within the node. Within conditionals,
 this value is incremented by the number of variables used in the conditional.
 If variables are assigned before the node, these also increment the working memory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.working_memory.WorkingMemoryVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.working_memory.get_names">

@@ -307,20 +307,20 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Method metrics available to the CLI.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.cognitive_complexity">
-<span class="sig-name descname"><span class="pre">cognitive_complexity</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cognitive_complexity'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.cognitive_complexity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.COGNITIVE_COMPLEXITY">
+<span class="sig-name descname"><span class="pre">COGNITIVE_COMPLEXITY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cognitive_complexity'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.COGNITIVE_COMPLEXITY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.cyclomatic_complexity">
-<span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cyclomatic_complexity'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.cyclomatic_complexity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.CYCLOMATIC_COMPLEXITY">
+<span class="sig-name descname"><span class="pre">CYCLOMATIC_COMPLEXITY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cyclomatic_complexity'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.CYCLOMATIC_COMPLEXITY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.length">
-<span class="sig-name descname"><span class="pre">length</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'length'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.length" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.LENGTH">
+<span class="sig-name descname"><span class="pre">LENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'length'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.LENGTH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.working_memory">
-<span class="sig-name descname"><span class="pre">working_memory</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'working_memory'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.working_memory" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.WORKING_MEMORY">
+<span class="sig-name descname"><span class="pre">WORKING_MEMORY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'working_memory'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.WORKING_MEMORY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.method_method_name">
@@ -329,7 +329,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.cli.choices.MethodMetricChoice.as_method_metric">
-<span class="sig-name descname"><span class="pre">as_method_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">R</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.as_method_metric" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">as_method_metric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="sourcery_analytics.metrics.types.html#sourcery_analytics.metrics.types.MetricResult" title="sourcery_analytics.metrics.types.MetricResult"><span class="pre">MetricResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.cli.choices.MethodMetricChoice.as_method_metric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the string choice as a callable method.</p>
 </dd></dl>
 </dd></dl>
@@ -339,20 +339,20 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Aggregations available to the CLI.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.total">
-<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'total'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.total" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.TOTAL">
+<span class="sig-name descname"><span class="pre">TOTAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'total'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.TOTAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.average">
-<span class="sig-name descname"><span class="pre">average</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'average'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.average" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.AVERAGE">
+<span class="sig-name descname"><span class="pre">AVERAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'average'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.AVERAGE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.peak">
-<span class="sig-name descname"><span class="pre">peak</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'peak'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.peak" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.PEAK">
+<span class="sig-name descname"><span class="pre">PEAK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'peak'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.PEAK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.cli.choices.AggregationChoice.as_aggregation">
-<span class="sig-name descname"><span class="pre">as_aggregation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterable" title="(in Python v3.9)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">R</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">R</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.as_aggregation" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">as_aggregation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="sourcery_analytics.metrics.aggregations.html#sourcery_analytics.metrics.aggregations.Aggregation" title="sourcery_analytics.metrics.aggregations.Aggregation"><span class="pre">Aggregation</span></a></span></span><a class="headerlink" href="#sourcery_analytics.cli.choices.AggregationChoice.as_aggregation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the string choice as a callable method.</p>
 </dd></dl>
 </dd></dl>
@@ -362,16 +362,16 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>Outputs available in the CLI.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.plain">
-<span class="sig-name descname"><span class="pre">plain</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plain'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.plain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.PLAIN">
+<span class="sig-name descname"><span class="pre">PLAIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plain'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.PLAIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.rich">
-<span class="sig-name descname"><span class="pre">rich</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rich'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.rich" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.RICH">
+<span class="sig-name descname"><span class="pre">RICH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rich'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.RICH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.csv">
-<span class="sig-name descname"><span class="pre">csv</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csv'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.csv" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sourcery_analytics.cli.choices.OutputChoice.CSV">
+<span class="sig-name descname"><span class="pre">CSV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csv'</span></em><a class="headerlink" href="#sourcery_analytics.cli.choices.OutputChoice.CSV" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>

@@ -381,8 +381,18 @@ method to at once enter and calculate over a node.</p>
 </pre></div>
 </div>
 <dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.Visitor.touch">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">P</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.Visitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.Visitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.Visitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.Visitor.visit">
-<span class="sig-name descname"><span class="pre">visit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">P</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.Visitor.visit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">visit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">P</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.Visitor.visit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enters the node and returns a fact about it.</p>
 </dd></dl>
 </dd></dl>
@@ -392,6 +402,11 @@ method to at once enter and calculate over a node.</p>
 <dd><p>Bases: <a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code></a>[<a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeNG</span></code></a>]</p>
 <p>No-op visitor, returning the node itself.</p>
 <p>Useful as a default sub-visitor for other visitors.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.IdentityVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></span><a class="headerlink" href="#sourcery_analytics.visitors.IdentityVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.FunctionVisitor">
@@ -403,12 +418,17 @@ method to at once enter and calculate over a node.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">indentation_visitor</span> <span class="o">=</span> <span class="n">FunctionVisitor</span><span class="p">(</span><span class="k">lambda</span> <span class="n">node</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">col_offset</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.FunctionVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">P</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.FunctionVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.ConditionalVisitor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.visitors.</span></span><span class="sig-name descname"><span class="pre">ConditionalVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_visitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><span class="pre">Visitor</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">IdentityVisitor()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">always</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.ConditionalVisitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code></a>[<a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code>]], <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Generic" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code>]</p>
-<p>A visitor returning the result of its sub-visitor when its condition is True, and None otherwise.</p>
+<p>Returns the result of its sub-visitor when condition is True, and None otherwise.</p>
 <p>By default, this visitor will unconditionally return the node itself.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.ConditionalVisitor.sub_visitor">
@@ -422,7 +442,8 @@ method to at once enter and calculate over a node.</p>
 </dd></dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.conditions</span> <span class="kn">import</span> <span class="n">is_type</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">method_visitor</span> <span class="o">=</span> <span class="n">ConditionalVisitor</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">is_type</span><span class="p">(</span><span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astroid.nodes</span> <span class="kn">import</span> <span class="n">FunctionDef</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method_visitor</span> <span class="o">=</span> <span class="n">ConditionalVisitor</span><span class="p">(</span><span class="n">condition</span><span class="o">=</span><span class="n">is_type</span><span class="p">(</span><span class="n">FunctionDef</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">method</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">extract_node</span><span class="p">(</span><span class="s2">"def foo(): pass"</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">method_visitor</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
 <span class="go">'foo'</span>
@@ -437,12 +458,23 @@ method to at once enter and calculate over a node.</p>
 <li><p><a class="reference internal" href="sourcery_analytics.extractors.html#sourcery_analytics.extractors.Extractor" title="sourcery_analytics.extractors.Extractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Extractor</span></code></a></p></li>
 </ul>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.ConditionalVisitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.ConditionalVisitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.ConditionalVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Optional" title="(in Python v3.9)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.ConditionalVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.CompoundVisitor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.visitors.</span></span><span class="sig-name descname"><span class="pre">CompoundVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">visitors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><span class="pre">Visitor</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterable" title="(in Python v3.9)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Q</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.CompoundVisitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Q</span></code>], <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Generic" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Q</span></code>]</p>
-<p>Combines a collection of other visitors into a single visitor, handling context and collection of the results.</p>
+<p>Combines a collection of other visitors into a single visitor</p>
+<p>Handles context and collection of the results.</p>
 <p>This is most useful when you need a single sub-visitor for some other visitor.</p>
 <p class="rubric">Examples</p>
 <p>Collect the name and indentation of every sub-node in a tree:</p>
@@ -457,15 +489,25 @@ method to at once enter and calculate over a node.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.utils</span> <span class="kn">import</span> <span class="n">clean_source</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">astroid</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">clean_source</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">every_node_visitor</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-<span class="go">[('Module', 0), ('FunctionDef', 1), ('Arguments', None), ('Return', 2), ('Const', 2)]</span>
+<span class="go">[('Module', 0), ('FunctionDef', 1), ('Arguments', None), ('Return', 2)...</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.CompoundVisitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.CompoundVisitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.CompoundVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Q</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.CompoundVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="sourcery_analytics.visitors.TreeVisitor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sourcery_analytics.visitors.</span></span><span class="sig-name descname"><span class="pre">TreeVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_visitor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><span class="pre">Visitor</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">IdentityVisitor()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Callable" title="(in Python v3.9)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Iterator" title="(in Python v3.9)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Q</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">iter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.TreeVisitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#sourcery_analytics.visitors.Visitor" title="sourcery_analytics.visitors.Visitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Visitor</span></code></a>, <a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Generic" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">P</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Q</span></code>]</p>
-<p>Visitor with a sub-visitor which collects the result of that sub-visitor applied to every sub-node of a node.</p>
+<p>Collects the result of the sub-visitor applied to every sub-node of a node.</p>
 <p>By default, returns an iterable of every sub-node of a node.
 The type parameters indicate the expected output of the sub-visitor and
 the output of the tree visitor respectively (as handled by the collector).</p>
@@ -478,6 +520,16 @@ the output of the tree visitor respectively (as handled by the collector).</p>
 <span class="go">['BinOp', 'Name', 'Name']</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.TreeVisitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.visitors.TreeVisitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.visitors.TreeVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Q</span></span></span><a class="headerlink" href="#sourcery_analytics.visitors.TreeVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 </section>
 

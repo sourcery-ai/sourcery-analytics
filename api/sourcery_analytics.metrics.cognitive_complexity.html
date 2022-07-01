@@ -301,12 +301,12 @@
   <section id="module-sourcery_analytics.metrics.cognitive_complexity">
 <span id="sourcery-analytics-metrics-cognitive-complexity"></span><h1 id="api-sourcery-analytics-metrics-cognitive-complexity--page-root">sourcery_analytics.metrics.cognitive_complexity<a class="headerlink" href="#api-sourcery-analytics-metrics-cognitive-complexity--page-root" title="Permalink to this heading">¶</a></h1>
 <p>Cognitive complexity calculations.</p>
-<p>Cognitive complexity is intended to reflect the difficulty in understanding deeply-nested
-code, especially nested conditionals.</p>
+<p>Cognitive complexity is intended to reflect the difficulty in understanding
+deeply-nested code, especially nested conditionals.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.cognitive_complexity.method_cognitive_complexity">
 <span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cognitive_complexity.</span></span><span class="sig-name descname"><span class="pre">method_cognitive_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.FunctionDef" title="(in Astroid)"><span class="pre">FunctionDef</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.cognitive_complexity.method_cognitive_complexity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the total cognitive complexity of the method as the total complexity of its body.</p>
+<dd><p>Calculates the total cognitive complexity of the method body.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>method</strong> – a node for a function definition</p>
@@ -341,6 +341,16 @@ code, especially nested conditionals.</p>
 <p>Visitor to calculate the cognitive complexity of a node.</p>
 <p>Cognitive complexity is contextual. Alone, its value is 1 for control flow elements.
 It is incremented by 1 for each level of “nesting” within control flow structures.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.metrics.cognitive_complexity.CognitiveComplexityVisitor.enter">
+<span class="sig-name descname"><span class="pre">enter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sourcery_analytics.metrics.cognitive_complexity.CognitiveComplexityVisitor.enter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates visitor context then yields.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="sourcery_analytics.metrics.cognitive_complexity.CognitiveComplexityVisitor.touch">
+<span class="sig-name descname"><span class="pre">touch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.cognitive_complexity.CognitiveComplexityVisitor.touch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a “fact” about a node.</p>
+</dd></dl>
 </dd></dl>
 </section>
 

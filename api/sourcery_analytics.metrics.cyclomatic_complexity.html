@@ -301,9 +301,9 @@
   <section id="module-sourcery_analytics.metrics.cyclomatic_complexity">
 <span id="sourcery-analytics-metrics-cyclomatic-complexity"></span><h1 id="api-sourcery-analytics-metrics-cyclomatic-complexity--page-root">sourcery_analytics.metrics.cyclomatic_complexity<a class="headerlink" href="#api-sourcery-analytics-metrics-cyclomatic-complexity--page-root" title="Permalink to this heading">¶</a></h1>
 <p>Cyclomatic complexity calculations.</p>
-<p>Cyclomatic complexity is a measure of the number of “pathways” through a piece of code, developed
-as an aid to writing tests. A high cyclomatic complexity can indicate a piece of code may have
-too much branching logic.</p>
+<p>Cyclomatic complexity is a measure of the number of “pathways” through a piece of code,
+developed as an aid to writing tests. A high cyclomatic complexity can indicate a piece
+of code may have too much branching logic.</p>
 <p>For implementation details see methods below.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.cyclomatic_complexity.method_cyclomatic_complexity">
@@ -315,7 +315,9 @@ too much branching logic.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">method_cyclomatic_complexity</span><span class="p">(</span><span class="s2">"def div(x, y): return None if y == 0 else x / y"</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">method_cyclomatic_complexity</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">"def div(x, y): return None if y == 0 else x / y"</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="go">2</span>
 </pre></div>
 </div>
@@ -337,7 +339,21 @@ too much branching logic.</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="sourcery_analytics.metrics.cyclomatic_complexity.cyclomatic_complexity">
-<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.cyclomatic_complexity.cyclomatic_complexity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/base_nodes.html#astroid.nodes.NodeNG" title="(in Astroid)"><span class="pre">NodeNG</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#sourcery_analytics.metrics.cyclomatic_complexity.cyclomatic_complexity" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.TryExcept" title="(in Astroid)"><span class="pre">TryExcept</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.BoolOp" title="(in Astroid)"><span class="pre">BoolOp</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.If" title="(in Astroid)"><span class="pre">If</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.IfExp" title="(in Astroid)"><span class="pre">IfExp</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.For" title="(in Astroid)"><span class="pre">For</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.While" title="(in Astroid)"><span class="pre">While</span></a></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">sourcery_analytics.metrics.cyclomatic_complexity.</span></span><span class="sig-name descname"><span class="pre">cyclomatic_complexity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pylint.pycqa.org/projects/astroid/en/latest/api/astroid.nodes.html#astroid.nodes.Comprehension" title="(in Astroid)"><span class="pre">Comprehension</span></a></span></em><span class="sig-paren">)</span></dt>
 <dd><p>The cyclomatic complexity for a single node.</p>
 <p>Cyclomatic complexity is context-free and so doesn’t need a visitor to evaluate.</p>
 <ul class="simple">
