@@ -15,10 +15,10 @@ from sourcery_analytics.metrics.types import MethodMetric
 class MethodMetricChoice(enum.Enum):
     """Method metrics available to the CLI."""
 
-    cognitive_complexity = "cognitive_complexity"
-    cyclomatic_complexity = "cyclomatic_complexity"
-    length = "length"
-    working_memory = "working_memory"
+    COGNITIVE_COMPLEXITY = "cognitive_complexity"
+    CYCLOMATIC_COMPLEXITY = "cyclomatic_complexity"
+    LENGTH = "length"
+    WORKING_MEMORY = "working_memory"
 
     @property
     def method_method_name(self):
@@ -28,32 +28,32 @@ class MethodMetricChoice(enum.Enum):
     def as_method_metric(self) -> MethodMetric:
         """Returns the string choice as a callable method."""
         return {
-            MethodMetricChoice.cognitive_complexity: method_cognitive_complexity,
-            MethodMetricChoice.cyclomatic_complexity: method_cyclomatic_complexity,
-            MethodMetricChoice.length: method_length,
-            MethodMetricChoice.working_memory: method_working_memory,
+            MethodMetricChoice.COGNITIVE_COMPLEXITY: method_cognitive_complexity,
+            MethodMetricChoice.CYCLOMATIC_COMPLEXITY: method_cyclomatic_complexity,
+            MethodMetricChoice.LENGTH: method_length,
+            MethodMetricChoice.WORKING_MEMORY: method_working_memory,
         }[self]
 
 
 class AggregationChoice(enum.Enum):
     """Aggregations available to the CLI."""
 
-    total = "total"
-    average = "average"
-    peak = "peak"
+    TOTAL = "total"
+    AVERAGE = "average"
+    PEAK = "peak"
 
     def as_aggregation(self) -> Aggregation:
         """Returns the string choice as a callable method."""
         return {
-            AggregationChoice.total: total,  # type: ignore
-            AggregationChoice.average: average,
-            AggregationChoice.peak: peak,
+            AggregationChoice.TOTAL: total,
+            AggregationChoice.AVERAGE: average,
+            AggregationChoice.PEAK: peak,
         }[self]
 
 
 class OutputChoice(enum.Enum):
     """Outputs available in the CLI."""
 
-    plain = "plain"
-    rich = "rich"
-    csv = "csv"
+    PLAIN = "plain"
+    RICH = "rich"
+    CSV = "csv"

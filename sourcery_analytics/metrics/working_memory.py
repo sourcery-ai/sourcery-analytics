@@ -1,8 +1,9 @@
 """Working memory calculations.
 
-The working memory is motivated by considering the number of pieces of information it is necessary to keep
-in mind while reading a piece of code. High working memory implies the code may have too many "moving parts"
-and could be simplified. The implementation of the calculation is described in the classes below.
+The working memory is motivated by considering the number of pieces of information it
+is necessary to keep in mind while reading a piece of code. High working memory implies
+the code may have too many "moving parts" and could be simplified. The implementation
+of the calculation is described in the classes below.
 """
 import contextlib
 import typing
@@ -51,7 +52,7 @@ class WorkingMemoryVisitor(Visitor[int]):
         self.scoped_variables: typing.Set[str] = _scoped_variables
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
+    def enter(self, node: astroid.nodes.NodeNG):
         if isinstance(node, astroid.nodes.If):
             condition_penalty = len(get_names(node.test))
             self.condition_penalty += condition_penalty
@@ -63,10 +64,11 @@ class WorkingMemoryVisitor(Visitor[int]):
         else:
             yield
 
-    def _touch(self, node: astroid.nodes.NodeNG) -> int:
+    def touch(self, node: astroid.nodes.NodeNG) -> int:
         unused_variables = self.scoped_variables - get_names(node)
         if isinstance(node, astroid.nodes.If):
-            # this is the same as any pre-existing condition penalties less the penalty for this node
+            # this is the same as any pre-existing condition penalties less the penalty
+            # for this node
             return len(unused_variables) + self.condition_penalty
         if isinstance(node, astroid.nodes.For):
             return (

@@ -1,11 +1,13 @@
 """Cyclomatic complexity calculations.
 
-Cyclomatic complexity is a measure of the number of "pathways" through a piece of code, developed
-as an aid to writing tests. A high cyclomatic complexity can indicate a piece of code may have
-too much branching logic.
+Cyclomatic complexity is a measure of the number of "pathways" through a piece of code,
+developed as an aid to writing tests. A high cyclomatic complexity can indicate a piece
+of code may have too much branching logic.
 
 For implementation details see methods below.
 """
+import functools
+
 import astroid
 
 from sourcery_analytics.conditions import is_elif
@@ -22,7 +24,9 @@ def method_cyclomatic_complexity(method: astroid.nodes.FunctionDef) -> int:
         method: a node for a function definition
 
     Examples:
-        >>> method_cyclomatic_complexity("def div(x, y): return None if y == 0 else x / y")
+        >>> method_cyclomatic_complexity(
+        ...     "def div(x, y): return None if y == 0 else x / y"
+        ... )
         2
     """
     return total_cyclomatic_complexity(method)
@@ -43,7 +47,8 @@ def total_cyclomatic_complexity(node: astroid.nodes.NodeNG) -> int:
     return visitor.visit(node)
 
 
-def cyclomatic_complexity(node: astroid.nodes.NodeNG) -> int:
+@functools.singledispatch
+def cyclomatic_complexity(_node: astroid.nodes.NodeNG, /) -> int:
     """The cyclomatic complexity for a single node.
 
     Cyclomatic complexity is context-free and so doesn't need a visitor to evaluate.
@@ -54,16 +59,39 @@ def cyclomatic_complexity(node: astroid.nodes.NodeNG) -> int:
     * For and while statements return 1, plus 1 for any "else".
     * Comprehensions return 1 plus the number of conditions.
     """
-    if isinstance(node, astroid.nodes.TryExcept):
-        return len(node.handlers) + bool(node.orelse)
-    elif isinstance(node, astroid.nodes.BoolOp):
-        return len(node.values) - 1
-    elif isinstance(node, astroid.nodes.If):
-        return 1 + (bool(node.orelse) and not is_elif(node.orelse[0]))
-    elif isinstance(node, astroid.nodes.IfExp):
-        return 2  # always has two routes
-    elif isinstance(node, (astroid.nodes.For, astroid.nodes.While)):
-        return bool(node.orelse) + 1
-    elif isinstance(node, astroid.nodes.Comprehension):
-        return len(node.ifs) + 1
     return 0
+
+
+@cyclomatic_complexity.register
+def _try_except_cyclomatic_complexity(node: astroid.nodes.TryExcept):
+    return len(node.handlers) + bool(node.orelse)
+
+
+@cyclomatic_complexity.register
+def _boolop_cyclomatic_complexity(node: astroid.nodes.BoolOp):
+    return len(node.values) - 1
+
+
+@cyclomatic_complexity.register
+def _if_cyclomatic_complexity(node: astroid.nodes.If):
+    return 1 + (bool(node.orelse) and not is_elif(node.orelse[0]))
+
+
+@cyclomatic_complexity.register
+def _if_exp_cyclomatic_complexity(_node: astroid.nodes.IfExp):
+    return 2
+
+
+@cyclomatic_complexity.register
+def _for_cyclomatic_complexity(node: astroid.nodes.For):
+    return bool(node.orelse) + 1
+
+
+@cyclomatic_complexity.register
+def _while_cyclomatic_complexity(node: astroid.nodes.While):
+    return bool(node.orelse) + 1
+
+
+@cyclomatic_complexity.register
+def _comprehension_cyclomatic_complexity(node: astroid.nodes.Comprehension):
+    return len(node.ifs) + 1

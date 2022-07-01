@@ -1,35 +1,31 @@
 """Functions for creating compound metrics."""
 import typing
 
-import astroid
+import astroid.nodes
 
-from sourcery_analytics.metrics.types import Metric
-
-N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
-T = typing.TypeVar("T", contravariant=True)
-U = typing.TypeVar("U", covariant=True)
+from sourcery_analytics.metrics.types import Metric, MetricResult
 
 
-class Compounder(typing.Protocol[N, T, U]):
+class Compounder(typing.Protocol):
     """A compounder function produces a compound metric function."""
 
-    def __call__(self, *metrics: Metric[N, T]) -> Metric[N, U]:
+    def __call__(self, *metrics: Metric) -> Metric:
         """Combine multiple metric functions into a single metric function."""
 
 
-def tuple_metrics(*metrics: Metric[N, T]) -> Metric[N, typing.Tuple[T, ...]]:
+def tuple_metrics(*metrics: Metric) -> "TupleMetric":
     """A compounder which joins the results in a tuple."""
 
-    def tupled_metrics(node: N) -> typing.Tuple[T, ...]:
+    def tupled_metrics(node: astroid.nodes.NodeNG) -> "TupleMetricResult":
         return TupleMetricResult(metric(node) for metric in metrics)
 
     return tupled_metrics
 
 
-def name_metrics(*metrics: Metric[N, T]) -> Metric[N, "NamedMetricResult"]:
-    """A compounder which joins the result via a dictionary keyed on the metric names."""
+def name_metrics(*metrics: Metric) -> "NamedMetric":
+    """A compounder which joins the result as a dictionary keyed on the metric names."""
 
-    def name_dict(node: N) -> NamedMetricResult:
+    def name_dict(node: astroid.nodes.NodeNG) -> "NamedMetricResult":
         return NamedMetricResult({metric.__name__: metric(node) for metric in metrics})
 
     return name_dict
@@ -37,51 +33,55 @@ def name_metrics(*metrics: Metric[N, T]) -> Metric[N, "NamedMetricResult"]:
 
 class _CompoundMetricResult:
     @staticmethod
-    def divone(v, u):
+    def _divone(numerator, denominator):
         try:
-            return v / u
+            return numerator / denominator
         except (TypeError, ZeroDivisionError):
             return None
 
     @staticmethod
-    def addone(v, u):
-        if not isinstance(v, (float, int)) or not isinstance(u, (float, int)):
+    def _addone(augend, addend):
+        if not isinstance(augend, (float, int)) or not isinstance(addend, (float, int)):
             return None
-        return v + u
+        return augend + addend
 
     @staticmethod
-    def eqone(v, u):
-        return v == u
+    def _eqone(left, right):
+        return left == right
 
 
-class TupleMetricResult(typing.Tuple[T], _CompoundMetricResult):
+class TupleMetricResult(typing.Tuple[MetricResult, ...], _CompoundMetricResult):
     """A compound metric result comprising a tuple of sub-result values."""
 
     def __add__(self, other):
-        return TupleMetricResult((self.addone(v, u) for v, u in zip(self, other)))
+        return TupleMetricResult((self._addone(v, u) for v, u in zip(self, other)))
 
     def __truediv__(self, other):
-        return TupleMetricResult((self.divone(v, other) for v in self))
+        return TupleMetricResult((self._divone(v, other) for v in self))
 
     def __eq__(self, other):
-        return all(self.eqone(v, u) for v, u in zip(self, other))
+        return all(self._eqone(v, u) for v, u in zip(self, other))
 
 
-class NamedMetricResult(typing.Dict[str, T], _CompoundMetricResult):
+class NamedMetricResult(typing.Dict[str, MetricResult], _CompoundMetricResult):
     """A compound metric result mapping sub-metric name to sub-metric result."""
 
     def __add__(self, other):
         return NamedMetricResult(
-            {k: self.addone(self.get(k), other.get(k)) for k in self.keys()}
+            {k: self._addone(self.get(k), other.get(k)) for k in self.keys()}
         )
 
     def __truediv__(self, other):
         return NamedMetricResult(
-            {k: self.divone(self.get(k), other) for k in self.keys()}
+            {k: self._divone(self.get(k), other) for k in self.keys()}
         )
 
     def __iter__(self):
         return iter(self.items())
 
     def __eq__(self, other):
-        return all(self.eqone(self[k], other[k]) for k in self.keys())
+        return all(self._eqone(u, other[k]) for k, u in self.items())
+
+
+TupleMetric = typing.Callable[[astroid.nodes.NodeNG], TupleMetricResult]
+NamedMetric = typing.Callable[[astroid.nodes.NodeNG], NamedMetricResult]

@@ -23,7 +23,7 @@ class TestIdentityVisitor:
         ],
     )
     def test_identity_visitor(self, visitor, node, expected_name):
-        assert visitor._touch(node).__class__.__name__ == expected_name
+        assert visitor.touch(node).__class__.__name__ == expected_name
 
 
 class TestFunctionVisitor:
@@ -52,7 +52,7 @@ class TestFunctionVisitor:
         ],
     )
     def test_function_visitor(self, visitor, node, expected):
-        assert visitor._touch(node) == expected
+        assert visitor.touch(node) == expected
 
 
 class TestConditionalVisitor:
@@ -98,4 +98,4 @@ class TestConditionalVisitor:
         ],
     )
     def test_conditional_visitor(self, visitor, node, expected):
-        assert visitor._touch(node) == expected
+        assert visitor.touch(node) == expected

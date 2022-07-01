@@ -2,7 +2,6 @@
 import dataclasses
 import functools
 import itertools
-import logging
 import pathlib
 import typing
 import warnings
@@ -21,8 +20,8 @@ from sourcery_analytics.visitors import (
 )
 
 Extractable = typing.Union[str, astroid.nodes.NodeNG, pathlib.Path]
-T = typing.TypeVar("T")
 N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
+E = typing.TypeVar("E")
 
 
 def extract_methods(item: Extractable, /) -> typing.Iterator[astroid.nodes.FunctionDef]:
@@ -46,9 +45,9 @@ def extract(
     /,
     condition: typing.Optional[Condition] = None,
     function: typing.Optional[
-        typing.Callable[[astroid.nodes.NodeNG], typing.Optional[T]]
+        typing.Callable[[astroid.nodes.NodeNG], typing.Optional[E]]
     ] = None,
-) -> typing.Iterator[T]:
+) -> typing.Iterator[E]:
     """Extracts from ``item`` according to ``condition`` OR ``function``.
 
     Args:
@@ -65,18 +64,26 @@ def extract(
 
     Examples:
         >>> from sourcery_analytics.conditions import is_name
-        >>> [name.name for name in extract('''def add(x, y): x + y''', condition=is_name)]
+        >>> [
+        ...     name.name
+        ...     for name in extract('''def add(x, y): x + y''', condition=is_name)
+        ... ]
         ['x', 'y']
-        >>> list(extract('''def add(x, y): x + y''', function=lambda node: node.name if hasattr(node, 'name') else None))
+        >>> list(
+        ...     extract(
+        ...         '''def add(x, y): x + y''',
+        ...         function=lambda node: node.name if hasattr(node, "name") else None,
+        ...     )
+        ... )
         ['add', 'x', 'y', 'x', 'y']
 
     """
     if condition and function:
         raise ValueError("Please provide only one of ``condition`` or ``function``.")
-    elif condition:
-        extractor = Extractor[T].from_condition(condition)
+    if condition:
+        extractor = Extractor[E].from_condition(condition)
     elif function:
-        extractor = Extractor[T].from_function(function)
+        extractor = Extractor[E].from_function(function)
     else:
         # Fall back to just extracting all the nodes.
         extractor = Extractor[N]()
@@ -84,7 +91,7 @@ def extract(
 
 
 @dataclasses.dataclass
-class Extractor(typing.Generic[T]):
+class Extractor(typing.Generic[E]):
     """Extracts results by walking a tree with the provided visitor.
 
     The visitor should return either an object of type ``T`` (for instance a node)
@@ -103,93 +110,96 @@ class Extractor(typing.Generic[T]):
         >>> methods = Extractor.from_condition(is_method).extract(source)
         >>> list(m.name for m in methods)
         ['one', 'two']
-        >>> const_value_extractor = Extractor.from_function(lambda node: node.value if is_const(node) else None)
+        >>> const_value_extractor = Extractor.from_function(
+        ...     lambda node: node.value if is_const(node) else None
+        ... )
         >>> const_values = const_value_extractor.extract(source)
         >>> list(const_values)
         [1, 2]
     """
 
-    visitor: Visitor[typing.Optional[T]] = IdentityVisitor()
+    visitor: Visitor[typing.Optional[E]] = IdentityVisitor()
     manager: astroid.manager.AstroidManager = astroid.manager.AstroidManager()
 
     @classmethod
     def from_condition(
-        cls, condition: Condition, sub_visitor: Visitor[T] = IdentityVisitor()
-    ) -> "Extractor[T]":
+        cls, condition: Condition, sub_visitor: Visitor[E] = IdentityVisitor()
+    ) -> "Extractor[E]":
         """Construct a node extractor from a condition on a node."""
         return cls(ConditionalVisitor(sub_visitor, condition))
 
     @classmethod
     def from_function(
-        cls, function: typing.Callable[[astroid.nodes.NodeNG], typing.Optional[T]]
-    ) -> "Extractor[T]":
+        cls, function: typing.Callable[[astroid.nodes.NodeNG], typing.Optional[E]]
+    ) -> "Extractor[E]":
         """Construct an arbitrary extractor from a function of a node."""
         return cls(FunctionVisitor(function))
 
-    def extract(self, item: Extractable) -> typing.Iterator[T]:
+    def extract(self, item: Extractable) -> typing.Iterator[E]:
         """Extract from source code, a node, a file, or directory."""
         # `singledispatchmethod` confuses mypy, so wrap with a mypy-friendly interface
         return self._extract(item)
 
     @functools.singledispatchmethod
-    def _extract(self, item: Extractable) -> typing.Iterator[T]:
+    def _extract(self, item: Extractable) -> typing.Iterator[E]:
         # Note we use regular dispatch rather than nodedispatch for this function
         # in order to support directories as well as files
         raise NotImplementedError(f"Unable to extract from {item}.")
 
     @_extract.register
-    def _extract_from_node(self, node: astroid.nodes.NodeNG) -> typing.Iterator[T]:
-        visitor = TreeVisitor[typing.Optional[T], typing.Iterator[typing.Optional[T]]](
+    def _extract_from_node(self, node: astroid.nodes.NodeNG) -> typing.Iterator[E]:
+        visitor = TreeVisitor[typing.Optional[E], typing.Iterator[typing.Optional[E]]](
             self.visitor
         )
         yield from filter(None, visitor.visit(node))
 
     @_extract.register
-    def _extract_from_source(self, source: str) -> typing.Iterator[T]:
+    def _extract_from_source(self, source: str) -> typing.Iterator[E]:
         node = self.manager.ast_from_string(clean_source(source))
         yield from self._extract_from_node(node)
 
     @_extract.register
-    def _extract_from_path(self, path: pathlib.Path) -> typing.Iterator[T]:
+    def _extract_from_path(self, path: pathlib.Path) -> typing.Iterator[E]:
         if path.is_file():
             return self._extract_from_file(path)
-        elif path.is_dir():
+        if path.is_dir():
             return self._extract_from_directory(path)
-        else:  # pragma: no cover
-            raise NotImplementedError(
-                f"Unable to extract from {path}: not a file or directory."
-            )
+        raise NotImplementedError(
+            f"Unable to extract from {path}: not a file or directory."
+        )
 
-    def _extract_from_directory(self, directory: pathlib.Path) -> typing.Iterator[T]:
+    def _extract_from_directory(self, directory: pathlib.Path) -> typing.Iterator[E]:
         files = directory.glob("**/*.py")
         yield from itertools.chain.from_iterable(
             self._extract_from_file(file) for file in files
         )
 
-    def _extract_from_file(self, file: pathlib.Path) -> typing.Iterator[T]:
+    def _extract_from_file(self, file: pathlib.Path) -> typing.Iterator[E]:
         try:
             module = self.manager.ast_from_file(file)
             yield from self._extract_from_node(module)
-        except astroid.AstroidSyntaxError as e:
-            if isinstance(e.error, SyntaxError):
+        except astroid.AstroidSyntaxError as error:
+            if sub_error := getattr(error, "error"):
                 error_message = _format_syntax_error_message(
-                    "skipping file", file, e.error
+                    "skipping file", file, sub_error
                 )
             else:
-                error_message = str(e).replace("\n", " ")
-            warning = SyntaxWarning(error_message)
-            warnings.warn(warning)
+                error_message = str(error)
+            warnings.warn(SyntaxWarning(error_message))
             yield from ()
 
 
 def _format_syntax_error_message(
-    main_message: str, file_path: pathlib.Path, syntax_error: SyntaxError
+    main_message: str, file_path: pathlib.Path, error: Exception
 ) -> str:
     """Pretty-prints a syntax error raised by Astroid."""
-    return (
-        f"{main_message}:\n"
-        f"{file_path!s}:{syntax_error.lineno}\n"
-        f"{syntax_error.msg!s}:\n"
-        f"{(syntax_error.text or '').strip()}\n"
-        f"{'^':>{syntax_error.offset}}\n"
-    )
+    if isinstance(error, SyntaxError):
+        return (
+            f"{main_message}:\n"
+            f"{file_path!s}:{error.lineno}\n"
+            f"{error.msg!s}:\n"
+            f"{(error.text or '').strip()}\n"
+            f"{'^':>{error.offset}}\n"
+        )
+    error_text = str(error).replace("\n", " ")
+    return f"{main_message}:\n{file_path!s}:\n{error_text}"

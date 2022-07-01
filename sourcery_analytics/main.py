@@ -1,9 +1,9 @@
 """CLI interface to ``sourcery-analytics``."""
-import dataclasses
 import pathlib
 import typing
 
 import typer
+import rich
 
 from sourcery_analytics.analysis import assess
 from sourcery_analytics.cli.choices import (
@@ -62,11 +62,11 @@ def cli_analyze(
         *(metric.as_method_metric() for metric in method_metric),
     ]
 
-    if output is OutputChoice.rich:
+    if output is OutputChoice.RICH:
         analyze_rich_output(method_metric, methods, metrics, sort)
-    elif output is OutputChoice.plain:
+    elif output is OutputChoice.PLAIN:
         analyze_plain_output(methods, metrics, sort)
-    elif output is OutputChoice.csv:
+    elif output is OutputChoice.CSV:
         analyze_csv_output(method_metric, methods, metrics, sort)
 
 
@@ -97,13 +97,13 @@ def cli_aggregate(
     metrics = [m.as_method_metric() for m in method_metric]
     aggregation_method = aggregation.as_aggregation()
 
-    if output is OutputChoice.rich:
+    if output is OutputChoice.RICH:
         aggregate_rich_output(aggregation, aggregation_method, methods, metrics)
 
-    elif output is OutputChoice.plain:
+    elif output is OutputChoice.PLAIN:
         aggregate_plain_output(aggregation_method, methods, metrics)
 
-    elif output is OutputChoice.csv:
+    elif output is OutputChoice.CSV:
         aggregate_csv_output(aggregation_method, method_metric, methods, metrics)
 
 
@@ -132,10 +132,7 @@ def cli_assess(
     Exits with code 1 if assessment fails i.e. any methods exceed the thresholds.
     Exits with code 2 for runtime errors, such as mis-configured settings.
     """
-    set_up_logging(OutputChoice.rich)
-
-    import rich.progress
-
+    set_up_logging(OutputChoice.RICH)
     console = rich.console.Console()
     metrics = [metric.as_method_metric() for metric in method_metric]
 
@@ -152,11 +149,12 @@ def cli_assess(
             threshold_breach_result, threshold_settings=settings.thresholds
         )
         console.print(
-            "{relative_path}:{lineno}: [bold red]error:[/] "
-            "{metric_name} of [bold]{method_name}[/] is {metric_value} "
-            "exceeding threshold of {threshold_value}".format(
-                **dataclasses.asdict(threshold_breach)
-            )
+            f"{threshold_breach.relative_path}:{threshold_breach.lineno}: "
+            f"[bold red]error:[/] "
+            f"{threshold_breach.metric_name} of "
+            f"[bold]{threshold_breach.method_name}[/] "
+            f"is {threshold_breach.metric_value} "
+            f"exceeding threshold of {threshold_breach.threshold_value}"
         )
 
     if count:

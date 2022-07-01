@@ -8,7 +8,7 @@ from sourcery_analytics.cli.choices import OutputChoice
 
 def set_up_logging(output: OutputChoice):
     """Sets up logging for "rich" or basic output, automatically capturing warnings."""
-    if output is OutputChoice.rich:
+    if output is OutputChoice.RICH:
         logging.basicConfig(format="%(message)s", handlers=[rich.logging.RichHandler()])
     else:
         logging.basicConfig()
