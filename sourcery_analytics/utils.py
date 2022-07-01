@@ -15,7 +15,7 @@ NT = typing.Union[str, astroid.nodes.NodeNG, pathlib.Path]
 
 
 def clean_source(source_str: str) -> str:
-    r"""Remove whitespace surrounding a source code string.
+    r"""Removes whitespace surrounding a source code string.
 
     Examples:
         >>> source = '''
@@ -29,8 +29,11 @@ def clean_source(source_str: str) -> str:
     return textwrap.dedent(source_str).strip()
 
 
-def nodedispatch(fn: typing.Callable[[N], T]) -> typing.Callable[[NT], T]:
-    """Convert a function from one that works only on nodes to one that works on strings, nodes, and file paths.
+def nodedispatch(node_function: typing.Callable[[N], T]) -> typing.Callable[[NT], T]:
+    """Extends compatibility of functions over nodes.
+
+    Converts a function from working only on nodes to working on strings, nodes, and
+    file paths.
 
     Examples:
         >>> @nodedispatch
@@ -41,16 +44,16 @@ def nodedispatch(fn: typing.Callable[[N], T]) -> typing.Callable[[NT], T]:
     """
     manager = astroid.manager.AstroidManager()
 
-    @functools.wraps(fn)
+    @functools.wraps(node_function)
     def wrapped(item: NT) -> T:
         if isinstance(item, astroid.nodes.NodeNG):
-            return fn(item)
+            return node_function(item)
         if isinstance(item, str):
             node = astroid.extract_node(item)
-            return fn(node)
+            return node_function(node)
         if isinstance(item, pathlib.Path):
             node = manager.ast_from_file(item)
-            return fn(node)
+            return node_function(node)
         raise NotImplementedError(
             f"Unable to coerce item of type {type(item)} into a node."
         )
@@ -63,7 +66,7 @@ class InvalidNodeTypeError(ValueError):
 
 
 def validate_node_type(*types: typing.Type[astroid.nodes.NodeNG]):
-    """Wraps any method taking a node as its first argument and validates the node's type.
+    """Wraps any node function and validates the node's type.
 
     Args:
         *types: any subclasses of :py:class:`astroid.nodes.NodeNG`
@@ -80,19 +83,21 @@ def validate_node_type(*types: typing.Type[astroid.nodes.NodeNG]):
         True
         >>> is_int(expr)
         Traceback (most recent call last):
-        sourcery_analytics.utils.InvalidNodeTypeError: is_int is not defined for nodes of type <class 'astroid.nodes.node_classes.BinOp'>. Allowed types are: (<class 'astroid.nodes.node_classes.Const'>,).
+        sourcery_analytics.utils.InvalidNodeTypeError...
     """
 
     def wrap(
-        fn: typing.Callable[[astroid.nodes.NodeNG], T]
+        node_function: typing.Callable[[astroid.nodes.NodeNG], T]
     ) -> typing.Callable[[astroid.nodes.NodeNG], T]:
-        @functools.wraps(fn)
+        @functools.wraps(node_function)
         def wrapped(node: astroid.nodes.NodeNG) -> T:
             if not isinstance(node, types):
                 raise InvalidNodeTypeError(
-                    f"{fn.__name__} is not defined for nodes of type {type(node)}. Allowed types are: {types}."
+                    f"{node_function.__name__} is not defined "
+                    f"for nodes of type {type(node)}. "
+                    f"Allowed types are: {types}."
                 )
-            return fn(node)
+            return node_function(node)
 
         return wrapped
 

@@ -1,7 +1,7 @@
 """Cognitive complexity calculations.
 
-Cognitive complexity is intended to reflect the difficulty in understanding deeply-nested
-code, especially nested conditionals.
+Cognitive complexity is intended to reflect the difficulty in understanding
+deeply-nested code, especially nested conditionals.
 """
 import contextlib
 
@@ -15,7 +15,7 @@ from sourcery_analytics.visitors import TreeVisitor, Visitor
 @nodedispatch
 @validate_node_type(astroid.nodes.FunctionDef)
 def method_cognitive_complexity(method: astroid.nodes.FunctionDef) -> int:
-    """Calculates the total cognitive complexity of the method as the total complexity of its body.
+    """Calculates the total cognitive complexity of the method body.
 
     Args:
         method: a node for a function definition
@@ -56,7 +56,7 @@ class CognitiveComplexityVisitor(Visitor[int]):
         self.nesting = _nesting
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
+    def enter(self, node: astroid.nodes.NodeNG):
         if is_elif(node):
             yield  # the nesting has already been incremented
         elif isinstance(
@@ -75,14 +75,14 @@ class CognitiveComplexityVisitor(Visitor[int]):
         else:
             yield
 
-    def _touch(self, node: astroid.nodes.NodeNG) -> int:
+    def touch(self, node: astroid.nodes.NodeNG) -> int:
         if (
             isinstance(node, astroid.nodes.If)
             and node.orelse
             and not is_elif(node.orelse[0])
         ) or isinstance(node, astroid.nodes.IfExp):
             return self.nesting + 1  # count one extra for else statements
-        elif isinstance(
+        if isinstance(
             node,
             (
                 astroid.nodes.If,

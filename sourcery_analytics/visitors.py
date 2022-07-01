@@ -7,7 +7,6 @@ import astroid
 
 from sourcery_analytics.conditions import always, Condition
 
-N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
 P = typing.TypeVar("P")
 Q = typing.TypeVar("Q")
 
@@ -40,18 +39,18 @@ class Visitor(abc.ABC, typing.Generic[P]):
     """
 
     @abc.abstractmethod
-    def _touch(self, node: N) -> P:
+    def touch(self, node: astroid.nodes.NodeNG) -> P:
         """Returns a "fact" about a node."""
 
     @contextlib.contextmanager
-    def _enter(self, node: N):
+    def enter(self, _node: astroid.nodes.NodeNG):
         """Updates visitor context then yields."""
         yield
 
-    def visit(self, node: N) -> P:
+    def visit(self, node: astroid.nodes.NodeNG) -> P:
         """Enters the node and returns a fact about it."""
-        with self._enter(node):
-            return self._touch(node)
+        with self.enter(node):
+            return self.touch(node)
 
 
 class IdentityVisitor(Visitor[astroid.nodes.NodeNG]):
@@ -60,7 +59,7 @@ class IdentityVisitor(Visitor[astroid.nodes.NodeNG]):
     Useful as a default sub-visitor for other visitors.
     """
 
-    def _touch(self, node: N, enter=True) -> N:
+    def touch(self, node: astroid.nodes.NodeNG) -> astroid.nodes.NodeNG:
         return node
 
 
@@ -75,12 +74,12 @@ class FunctionVisitor(Visitor[P], typing.Generic[P]):
     def __init__(self, function: typing.Callable[[astroid.nodes.NodeNG], P]):
         self.function = function
 
-    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> P:
+    def touch(self, node: astroid.nodes.NodeNG) -> P:
         return self.function(node)
 
 
 class ConditionalVisitor(Visitor[typing.Optional[P]], typing.Generic[P]):
-    """A visitor returning the result of its sub-visitor when its condition is True, and None otherwise.
+    """Returns the result of its sub-visitor when condition is True, and None otherwise.
 
     By default, this visitor will unconditionally return the node itself.
 
@@ -90,7 +89,8 @@ class ConditionalVisitor(Visitor[typing.Optional[P]], typing.Generic[P]):
 
     Examples:
         >>> from sourcery_analytics.conditions import is_type
-        >>> method_visitor = ConditionalVisitor(condition=is_type(astroid.nodes.FunctionDef))
+        >>> from astroid.nodes import FunctionDef
+        >>> method_visitor = ConditionalVisitor(condition=is_type(FunctionDef))
         >>> method = astroid.extract_node("def foo(): pass")
         >>> method_visitor.visit(method).name
         'foo'
@@ -111,16 +111,18 @@ class ConditionalVisitor(Visitor[typing.Optional[P]], typing.Generic[P]):
         self.condition = condition
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
-        with self.sub_visitor._enter(node):
+    def enter(self, node: astroid.nodes.NodeNG):
+        with self.sub_visitor.enter(node):
             yield
 
-    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> typing.Optional[P]:
-        return self.sub_visitor._touch(node) if self.condition(node) else None
+    def touch(self, node: astroid.nodes.NodeNG) -> typing.Optional[P]:
+        return self.sub_visitor.touch(node) if self.condition(node) else None
 
 
 class CompoundVisitor(Visitor[Q], typing.Generic[P, Q]):
-    """Combines a collection of other visitors into a single visitor, handling context and collection of the results.
+    """Combines a collection of other visitors into a single visitor
+
+    Handles context and collection of the results.
 
     This is most useful when you need a single sub-visitor for some other visitor.
 
@@ -138,7 +140,7 @@ class CompoundVisitor(Visitor[Q], typing.Generic[P, Q]):
         >>> from sourcery_analytics.utils import clean_source
         >>> node = astroid.parse(clean_source(source))
         >>> every_node_visitor.visit(node)
-        [('Module', 0), ('FunctionDef', 1), ('Arguments', None), ('Return', 2), ('Const', 2)]
+        [('Module', 0), ('FunctionDef', 1), ('Arguments', None), ('Return', 2)...
     """
 
     def __init__(
@@ -150,18 +152,18 @@ class CompoundVisitor(Visitor[Q], typing.Generic[P, Q]):
         self.collector = collector
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
+    def enter(self, node: astroid.nodes.NodeNG):
         with contextlib.ExitStack() as stack:
             for visitor in self.visitors:
-                stack.enter_context(visitor._enter(node))
+                stack.enter_context(visitor.enter(node))
             yield
 
-    def _touch(self, node: astroid.nodes.NodeNG, enter=True) -> Q:
-        return self.collector((visitor._touch(node) for visitor in self.visitors))
+    def touch(self, node: astroid.nodes.NodeNG) -> Q:
+        return self.collector((visitor.touch(node) for visitor in self.visitors))
 
 
 class TreeVisitor(Visitor, typing.Generic[P, Q]):
-    """Visitor with a sub-visitor which collects the result of that sub-visitor applied to every sub-node of a node.
+    """Collects the result of the sub-visitor applied to every sub-node of a node.
 
     By default, returns an iterable of every sub-node of a node.
     The type parameters indicate the expected output of the sub-visitor and
@@ -185,15 +187,15 @@ class TreeVisitor(Visitor, typing.Generic[P, Q]):
         self.collector = collector
 
     @contextlib.contextmanager
-    def _enter(self, node: astroid.nodes.NodeNG):
-        with self.sub_visitor._enter(node):
+    def enter(self, node: astroid.nodes.NodeNG):
+        with self.sub_visitor.enter(node):
             yield
 
     def _visit(self, node: astroid.nodes.NodeNG):
-        yield self.sub_visitor._touch(node)
+        yield self.sub_visitor.touch(node)
         for child in node.get_children():
-            with self._enter(child):
+            with self.enter(child):
                 yield from self._visit(child)
 
-    def _touch(self, node: astroid.nodes.NodeNG) -> Q:
+    def touch(self, node: astroid.nodes.NodeNG) -> Q:
         return self.collector(self._visit(node))

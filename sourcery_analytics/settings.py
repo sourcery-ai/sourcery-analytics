@@ -32,7 +32,7 @@ class Settings(pydantic.BaseSettings):
             A Settings instance.
 
         """
-        with toml_file_path.open("rb") as f:
-            config = tomli.load(f)
+        with toml_file_path.open("rb") as file:
+            config = tomli.load(file)
         final = cls().dict() | config.get("tool", {}).get("sourcery-analytics", {})
         return cls(**final)

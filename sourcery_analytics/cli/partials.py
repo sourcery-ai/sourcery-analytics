@@ -5,7 +5,9 @@ import typing
 
 import pydantic
 import typer
-from rich.console import Console
+import rich.progress
+import rich.table
+import rich.console
 
 from sourcery_analytics import analyze
 from sourcery_analytics.metrics.compounders import NamedMetricResult
@@ -13,9 +15,7 @@ from sourcery_analytics.settings import Settings
 
 
 def analyze_rich_output(method_metric, methods, metrics, sort):
-    """Perform analysis and display results in a rich-formatted table."""
-    import rich.table
-    import rich.progress
+    """Performs analysis and displays results in a rich-formatted table."""
 
     console = rich.console.Console()
     methods_progress = rich.progress.track(methods, description="Analyzing methods...")
@@ -41,7 +41,7 @@ def analyze_rich_output(method_metric, methods, metrics, sort):
 
 
 def analyze_plain_output(methods, metrics, sort):
-    """Perform analysis and display the python object's representation."""
+    """Performs analysis and displays the python object's representation."""
     analysis = sorted(
         analyze(methods, metrics=metrics),
         key=operator.itemgetter(sort.method_method_name),
@@ -51,7 +51,7 @@ def analyze_plain_output(methods, metrics, sort):
 
 
 def analyze_csv_output(method_metric, methods, metrics, sort):
-    """Perform analysis and display the results in CSV format."""
+    """Performs analysis and displays the results in CSV format."""
     analysis = sorted(
         analyze(methods, metrics=metrics),
         key=operator.itemgetter(sort.method_method_name),
@@ -68,10 +68,11 @@ def analyze_csv_output(method_metric, methods, metrics, sort):
     typer.echo(result)
 
 
-def aggregate_rich_output(aggregation, aggregation_method, methods, metrics):
-    """Perform an aggregated analysis and display the results in a rich-formatted table."""
-    import rich.table
-    import rich.progress
+def aggregate_rich_output(aggregation, aggregation_method, methods, metrics) -> None:
+    """Analyse methods, and aggregates results.
+
+    Displays the results in a rich-formatted table.
+    """
 
     console = rich.console.Console()
     methods_progress = rich.progress.track(methods, description="Analyzing methods...")
@@ -84,21 +85,29 @@ def aggregate_rich_output(aggregation, aggregation_method, methods, metrics):
     console.print(table)
 
 
-def aggregate_plain_output(aggregation_method, methods, metrics):
-    """Perform an aggregated analysis and display the python objects' representation."""
+def aggregate_plain_output(aggregation_method, methods, metrics) -> None:
+    """Analyse methods, and aggregates results.
+
+    Displays the python representation of the results.
+    """
     result = analyze(methods, metrics=metrics, aggregation=aggregation_method)
     typer.echo(result)
 
 
-def aggregate_csv_output(aggregation_method, method_metric, methods, metrics):
-    """Perform an aggregated analysis and display the results in CSV format."""
+def aggregate_csv_output(aggregation_method, method_metric, methods, metrics) -> None:
+    """Analyse methods, and aggregates results.
+
+    Displays the results in CSV format.
+    """
     analysis = analyze(methods, metrics=metrics, aggregation=aggregation_method)
     result = ",".join([m.value for m in method_metric]) + "\n"
     result += ",".join(str(value) for _metric_name, value in analysis)
     typer.echo(result)
 
 
-def read_settings(settings_file: pathlib.Path, console: Console) -> Settings:
+def read_settings(
+    settings_file: pathlib.Path, console: rich.console.Console
+) -> Settings:
     """Loads settings in the CLI.
 
     Wraps the basic settings loader in order to print relevant error messages and
@@ -106,15 +115,17 @@ def read_settings(settings_file: pathlib.Path, console: Console) -> Settings:
     """
     if not settings_file.exists():
         console.print(
-            f"[yellow]Warning:[/] could not find settings file [bold]{settings_file}[/], using defaults."
+            f"[yellow]Warning:[/] could not find settings file "
+            f"[bold]{settings_file}[/], using defaults."
         )
         settings = Settings()
     else:
         try:
             settings = Settings.from_toml_file(settings_file)
-        except pydantic.ValidationError as e:
+        except pydantic.ValidationError as exc:
             console.print(
-                f"[bold red]Error:[/] unable to parse settings file [bold]{settings_file}[/]."
+                f"[bold red]Error:[/] unable to parse settings file "
+                f"[bold]{settings_file}[/]."
             )
-            raise typer.Exit(2) from e
+            raise typer.Exit(2) from exc
     return settings

@@ -4,16 +4,19 @@ import itertools
 import operator
 import typing
 
-import astroid.nodes
-
 from sourcery_analytics.metrics.types import MetricResult
 
-N = typing.TypeVar("N", bound=astroid.nodes.NodeNG)
-R = typing.TypeVar("R", bound=MetricResult)
-Aggregation = typing.Callable[[typing.Iterable[R]], R]
+S_co = typing.TypeVar("S_co", covariant=True)
 
 
-def average(results: typing.Iterable[R]) -> R:
+class Aggregation(typing.Protocol[S_co]):
+    """Aggregates metric results into a single result."""
+
+    def __call__(self, results: typing.Iterable[MetricResult], /) -> S_co:
+        """Aggregates the metric results into a single result."""
+
+
+def average(results: typing.Iterable[MetricResult]) -> MetricResult:
     """Returns the arithmetic average of the results."""
     total_iter, count_iter = itertools.tee(results)
     # sum doesn't use __add__, so use operator here instead
@@ -22,12 +25,12 @@ def average(results: typing.Iterable[R]) -> R:
     return total_ / count
 
 
-def total(results: typing.Iterable[R]) -> R:
+def total(results: typing.Iterable[MetricResult]) -> MetricResult:
     """Returns the arithmetic total of the results."""
     return functools.reduce(operator.add, results)
 
 
-def peak(results: typing.Iterable[R]) -> R:
+def peak(results: typing.Iterable[MetricResult]) -> MetricResult:
     """Returns the highest value out of the results.
 
     Note that for strings, this will return the value highest in alphabetical order.

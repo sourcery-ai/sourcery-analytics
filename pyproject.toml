@@ -53,3 +53,12 @@ addopts = "--doctest-modules --doctest-glob=\"**/*.rst\""
 [tool.sourcery-analytics.thresholds]
 method_cyclomatic_complexity = 10
 method_cognitive_complexity = 10
+
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.pylint.messages_control]
+extension-pkg-whitelist = "pydantic"
+disable = [
+    "too-few-public-methods",
+]
