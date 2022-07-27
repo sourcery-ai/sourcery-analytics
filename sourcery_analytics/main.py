@@ -25,7 +25,7 @@ from sourcery_analytics.extractors import extract_methods
 from sourcery_analytics.logging import set_up_logging
 from sourcery_analytics.metrics import method_qualname
 
-app = typer.Typer()
+app = typer.Typer(rich_markup_mode="rich")
 
 
 @app.command(name="analyze")
