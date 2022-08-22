@@ -94,7 +94,7 @@ def extract(
 class Extractor(typing.Generic[E]):
     """Extracts results by walking a tree with the provided visitor.
 
-    The visitor should return either an object of type ``T`` (for instance a node)
+    The visitor should return either an object of type ``E`` (for instance a node)
     or None. The ``extract`` method will return only the not-None values.
 
     By default, the extractor will return every node in the tree.

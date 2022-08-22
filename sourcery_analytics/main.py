@@ -165,7 +165,7 @@ def cli_assess(
 
 
 @app.callback()
-def callback():
+def _callback():
     """Analyze Python source code quality."""
 
 
