@@ -497,7 +497,7 @@
 <dd class="field-odd"><p>2022-04-19</p>
 </dd>
 <dt class="field-even">Last Updated</dt>
-<dd class="field-even"><p>2022-04-28</p>
+<dd class="field-even"><p>2022-08-22</p>
 </dd>
 </dl>
 <section id="command-line-analysis">
@@ -681,8 +681,8 @@ The values shown here are the defaults.</p>
 <section id="analysis">
 <h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">¶</a></h3>
 <p>In <a class="reference internal" href="api/sourcery_analytics.analysis.html#module-sourcery_analytics.analysis" title="sourcery_analytics.analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
-To perform analysis like the CLI commands described above, use these functions.
-For more details about how</p>
+To perform analysis like the CLI commands described above, use these functions.</p>
+<p>For more details about how these functions work, keep reading below.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.analysis</span> <span class="kn">import</span> <span class="n">analyze_methods</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sourcery_analytics.metrics</span> <span class="kn">import</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method_length</span><span class="p">,</span> <span class="n">method_cognitive_complexity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">'''</span>
@@ -706,9 +706,9 @@ For more details about how</p>
 <section id="conditions">
 <h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permalink to this heading">¶</a></h3>
 <p>Conditions are functions which operate on nodes to return a boolean. For instance, the following function
-is a method.</p>
+is a condition.</p>
 <div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astroid</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">is_method_named_foo</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">is_method_named_foo</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">NodeNG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">astroid</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">FunctionDef</span><span class="p">)</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"foo"</span>
 </pre></div>
 </div>
