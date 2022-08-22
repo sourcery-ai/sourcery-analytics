@@ -3,7 +3,7 @@ User Guide
 ##########
 
 :Created: 2022-04-19
-:Last Updated: 2022-04-28
+:Last Updated: 2022-08-22
 
 
 Command-Line Analysis
@@ -234,7 +234,8 @@ Analysis
 
 In :py:mod:`.analysis` there are several high-level functions for calculating, and optionally aggregating, metric results over a collection of nodes.
 To perform analysis like the CLI commands described above, use these functions.
-For more details about how
+
+For more details about how these functions work, keep reading below.
 
 .. doctest::
 
@@ -262,12 +263,12 @@ Conditions
 ----------
 
 Conditions are functions which operate on nodes to return a boolean. For instance, the following function
-is a method.
+is a condition.
 
 .. doctest::
 
    >>> import astroid
-   >>> def is_method_named_foo(node: astroid.nodes.NodeNG):
+   >>> def is_method_named_foo(node: astroid.nodes.NodeNG) -> bool:
    ...     return isinstance(node, astroid.nodes.FunctionDef) and node.name == "foo"
 
 Checking the type of node is very common, so there's a higher-order function available to construct
