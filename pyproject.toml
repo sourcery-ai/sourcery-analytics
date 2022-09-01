@@ -23,7 +23,7 @@ typer = "0.6.1"
 rich = "12.5.1"
 more-itertools = "8.14.0"
 tomli = "2.0.1"
-pydantic = "1.9.2"
+pydantic = "1.10.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.971"
