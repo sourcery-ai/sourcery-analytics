@@ -8,7 +8,7 @@ python-versions = "*"
 
 [[package]]
 name = "astroid"
-version = "2.12.6"
+version = "2.12.7"
 description = "An abstract syntax tree for Python with inference support."
 category = "main"
 optional = false
@@ -767,7 +767,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a825c807cf0db42edb44bdcfb8c40cfd0c297b8ba48023b1afa1d70635c63730"
+content-hash = "0927d7c3fa4f507bf2cc10dbd0cc2591f1521d50751d77fea02cbaead81fd0d7"
 
 [metadata.files]
 alabaster = [
@@ -775,8 +775,8 @@ alabaster = [
     {file = "alabaster-0.7.12.tar.gz", hash = "sha256:a661d72d58e6ea8a57f7a86e37d86716863ee5e92788398526d58b26a4e4dc02"},
 ]
 astroid = [
-    {file = "astroid-2.12.6-py3-none-any.whl", hash = "sha256:bf0fe7ff5d28f697f5eddc9f33140ad6086941c472f53e9dbbb9aaa6bc8952cb"},
-    {file = "astroid-2.12.6.tar.gz", hash = "sha256:cfef6fa5aeba225d01f217e435472da458711bceb949c6eccb07dc93701edd29"},
+    {file = "astroid-2.12.7-py3-none-any.whl", hash = "sha256:9b408d5d540387a74ca5405a5197aa24fbf9178b4019b16b3e532fbdf0e467cc"},
+    {file = "astroid-2.12.7.tar.gz", hash = "sha256:cd468be9d9d03d086d4d7e6643a59bfc025762d2c895e1e22cf21feced7bb148"},
 ]
 atomicwrites = [
     {file = "atomicwrites-1.4.0-py2.py3-none-any.whl", hash = "sha256:6d1784dea7c0c8d4a5172b6c620f40b6e4cbfdf96d783691f2e1302a7b88e197"},
