@@ -31,7 +31,7 @@ T = typing.TypeVar("T")
 def analyze_methods(
     item: Extractable,
     /,
-    metrics: typing.Union[MethodMetric, typing.Iterable[MethodMetric]] = None,
+    metrics: typing.Union[None, MethodMetric, typing.Iterable[MethodMetric]] = None,
     compounder: Compounder = name_metrics,
     aggregation: Aggregation[T] = list,
 ) -> T:
@@ -82,7 +82,7 @@ def analyze_methods(
 def analyze(
     nodes: typing.Union[astroid.nodes.NodeNG, typing.Iterable[astroid.nodes.NodeNG]],
     /,
-    metrics: typing.Union[Metric, typing.Iterable[Metric]] = None,
+    metrics: typing.Union[None, Metric, typing.Iterable[Metric]] = None,
     compounder: Compounder = name_metrics,  # type: ignore
     aggregation: Aggregation[T] = list,
 ) -> T:
@@ -130,7 +130,7 @@ def analyze(
 def assess(
     nodes: typing.Union[astroid.nodes.NodeNG, typing.Iterable[astroid.nodes.NodeNG]],
     /,
-    metrics: typing.Union[Metric, typing.Iterable[Metric]] = None,
+    metrics: typing.Union[None, Metric, typing.Iterable[Metric]] = None,
     threshold_settings: ThresholdSettings = ThresholdSettings(),
 ) -> typing.Iterator[ThresholdBreachDict]:
     """Yields the nodes which breach the thresholds according to the metrics.
