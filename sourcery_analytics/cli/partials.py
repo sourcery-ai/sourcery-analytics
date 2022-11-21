@@ -14,7 +14,7 @@ from sourcery_analytics.metrics.compounders import NamedMetricResult
 from sourcery_analytics.settings import Settings
 
 
-def analyze_rich_output(method_metric, methods, metrics, sort):
+def analyze_rich_output(method_metric, methods, metrics, sort) -> None:
     """Performs analysis and displays results in a rich-formatted table."""
 
     console = rich.console.Console()
@@ -40,7 +40,7 @@ def analyze_rich_output(method_metric, methods, metrics, sort):
     raise typer.Exit()
 
 
-def analyze_plain_output(methods, metrics, sort):
+def analyze_plain_output(methods, metrics, sort) -> None:
     """Performs analysis and displays the python object's representation."""
     analysis = sorted(
         analyze(methods, metrics=metrics),
@@ -50,7 +50,7 @@ def analyze_plain_output(methods, metrics, sort):
     typer.echo(analysis)
 
 
-def analyze_csv_output(method_metric, methods, metrics, sort):
+def analyze_csv_output(method_metric, methods, metrics, sort) -> None:
     """Performs analysis and displays the results in CSV format."""
     analysis = sorted(
         analyze(methods, metrics=metrics),

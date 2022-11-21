@@ -44,7 +44,9 @@ class WorkingMemoryVisitor(Visitor[int]):
     """
 
     def __init__(
-        self, _condition_penalty: int = 0, _scoped_variables: typing.Set[str] = None
+        self,
+        _condition_penalty: int = 0,
+        _scoped_variables: typing.Optional[typing.Set[str]] = None,
     ):
         if _scoped_variables is None:
             _scoped_variables = set()
