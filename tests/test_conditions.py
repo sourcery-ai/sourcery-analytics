@@ -51,10 +51,10 @@ class TestIsElif:
                 print("medium")
             elif x < 7:
                 print("large")
-            elif x < 9:
+            elif x < 9:  #@
                 print("x-large")
-            else:  #@
-                print("colossal")  
+            else:
+                print("colossal")  #@
         """
 
     def test_ok_if(self, nodes):
@@ -62,9 +62,10 @@ class TestIsElif:
 
     def test_ok_elif(self, nodes):
         assert is_elif(nodes[1])
+        assert is_elif(nodes[2])
 
     def test_ok_else(self, nodes):
-        assert not is_elif(nodes[2])
+        assert not is_elif(nodes[3].parent)
 
 
 class TestIsMethod:
