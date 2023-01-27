@@ -18,7 +18,7 @@ sourcery-analytics = "sourcery_analytics.main:app"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-astroid = "2.12.14"
+astroid = "2.13.3"
 typer = "0.7.0"
 rich = "13.1.0"
 more-itertools = "9.0.0"
@@ -34,6 +34,7 @@ black = "^22.3.0"
 pytest-cov = "^4.0.0"
 sphinx-copybutton = "^0.5.0"
 pylint = "^2.14.3"
+poetry = "^1.3.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
