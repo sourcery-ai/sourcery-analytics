@@ -18,7 +18,7 @@ sourcery-analytics = "sourcery_analytics.main:app"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-astroid = "2.13.3"
+astroid = "2.15.0"
 typer = "0.7.0"
 rich = "13.3.2"
 more-itertools = "9.0.0"
