@@ -21,7 +21,7 @@ python = "^3.9"
 astroid = "2.15.0"
 typer = "0.7.0"
 rich = "13.3.2"
-more-itertools = "9.0.0"
+more-itertools = "9.1.0"
 tomli = "2.0.1"
 pydantic = "1.10.6"
 
