@@ -28,7 +28,7 @@ pydantic = "1.10.13"
 [tool.poetry.dev-dependencies]
 mypy = "^0.991"
 pytest = "^7.1.1"
-Sphinx = "^6.0.0"
+Sphinx = "^7.0.0"
 sphinx-material = "^0.0.35"
 black = "^23.0.0"
 pytest-cov = "^4.0.0"
